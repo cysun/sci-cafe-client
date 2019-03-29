@@ -1,0 +1,195 @@
+    <!--====== PRELOADER PART START ======-->
+    
+    <!-- <div class="preloader">
+        <div class="loader rubix-cube">
+            <div class="layer layer-1"></div>
+            <div class="layer layer-2"></div>
+            <div class="layer layer-3 color-1"></div>
+            <div class="layer layer-4"></div>
+            <div class="layer layer-5"></div>
+            <div class="layer layer-6"></div>
+            <div class="layer layer-7"></div>
+            <div class="layer layer-8"></div>
+        </div>
+    </div> -->
+    
+    <!--====== PRELOADER PART START ======-->
+    
+    <!--====== HEADER PART START ======-->
+    
+    <header id="header-part">
+        
+        
+        <div class="navigation fixed-top" style="background-color:  #07294d;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-md-10 col-sm-9 col-8">
+                        <nav class="navbar navbar-expand-lg">
+
+                            <div class="collapse navbar-collapse sub-menu-bar white-text"  id="navbarSupportedContent">
+                                <ul class="navbar-nav mr-auto">
+                                    <li class="nav-item">
+                                        <a [routerLink]="['/home']" style="color:white">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a [routerLink]="['/about']" style="color:white">About us</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a [routerLink]="['/home/programs']" style="color:white">Programs</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a [routerLink]="['/home/events']" style="color:white">Events</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a [routerLink]="['/home/rewards']" style="color:white">Rewards</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a [routerLink]="['/home/news']" style="color:white">News</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="shop.html" style="color:white">Link</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="shop.html">Link 1</a></li>
+                                            <li><a href="shop-singel.html">Link 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="contact.html" style="color:white">Link</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="contact.html">Link 1</a></li>
+                                            <li><a href="contact-2.html">Link 2</a></li>
+                                        </ul>
+                                    </li>
+                                   
+                                </ul>
+                            </div>
+                        </nav> <!-- nav -->
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-3 col-4">
+                        <nav class="navbar navbar-expand-lg">
+                            <div class="collapse navbar-collapse sub-menu-bar white-text"  id="navbarSupportedContent">
+                                <ul class="navbar-nav ml-auto" *ngIf="!name">
+                                        <li class="nav-item">
+                                            <a class="nav-link" [routerLink]="['/authentication/login/with-bg-image']" style="color:white">Sign In</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" [routerLink]="['/authentication/registration/with-bg-image']" style="color:white">Sign Up</a>
+                                        </li>
+                                </ul>
+                                <ul class="navbar-nav ml-auto" *ngIf="name">
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link" [routerLink]="['/authentication/login/with-bg-image']" style="color:white">{{name}}</a>
+                                    </li>
+                                    <ul class="sub-menu"><li><a href="shop.html">Log Out</a></li></ul> -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" [routerLink]="['/home/user/dashboard/default']" style="color:white">{{name}}</a>
+                                        <ul class="sub-menu">
+                                            <li><a [routerLink]="['/home']" style="color:white" (click)="logOut()">Log Out</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>        
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div>
+        
+    </header>
+    
+    <!--====== HEADER PART ENDS ======-->
+   
+    <!--====== SEARCH BOX PART START ======-->
+    
+
+    <!--====== SEARCH BOX PART ENDS ======-->
+   
+    <!--====== SLIDER PART START ======-->
+
+   
+   <div class="page-body">
+    <router-outlet>
+        <app-spinner></app-spinner>
+    </router-outlet>
+   </div>
+
+   
+    <!--====== FOOTER PART START ======-->
+    
+    <footer id="footer-part">
+        
+        <div class="footer-copyright pt-10 pb-25">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="copyright text-md-left text-center pt-15">
+                            <p>&copy; Copyrights 2019 Sci-Cafe All rights reserved. </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="copyright text-md-right text-center pt-15">
+                            <p>Designed by <span>Yi Chen</span> </p>
+                        </div>
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!-- footer copyright -->
+    </footer>
+    
+    <!--====== FOOTER PART ENDS ======-->
+   
+    <!--====== BACK TO TP PART START ======-->
+    
+    <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+    
+    <!--====== BACK TO TP PART ENDS ======-->
+
+    <!--====== jquery js ======-->
+    <script src="js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+
+    <!--====== Bootstrap js ======-->
+    <script src="js/bootstrap.min.js"></script>
+    
+    <!--====== Slick js ======-->
+    <script src="assets/js/slick.min.js"></script>
+    
+    <!--====== Magnific Popup js ======-->
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    
+    <!--====== Counter Up js ======-->
+    <script src="assets/js/waypoints.min.js"></script>
+    <script src="assets/js/jquery.counterup.min.js"></script>
+    
+    <!--====== Nice Select js ======-->
+    <script src="assets/js/jquery.nice-select.min.js"></script>
+    
+    <!--====== Nice Number js ======-->
+    <script src="assets/js/jquery.nice-number.min.js"></script>
+    
+    <!--====== Count Down js ======-->
+    <script src="assets/js/jquery.countdown.min.js"></script>
+    
+    <!--====== Validator js ======-->
+    <script src="js/validator.min.js"></script>
+    
+    <!--====== Ajax Contact js ======-->
+    <script src="js/ajax-contact.js"></script>
+    
+    <!--====== Main js ======-->
+    <script src="js/main.js"></script>
+    
+    <!--====== Map js ======-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC3Ip9iVC0nIxC6V14CKLQ1HZNF_65qEQ"></script>
+    <script src="assets/js/map-script.js"></script>
+   
+    
+    
+    
+    
+    
+    
+  
+
+
+

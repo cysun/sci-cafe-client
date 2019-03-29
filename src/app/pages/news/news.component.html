@@ -1,0 +1,119 @@
+<div class="card">
+    <div class="card-header">
+      <h5>News</h5>
+      <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> <i class="icofont icofont-plus m-r-5"></i> Add Event
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="table-content crm-table">
+        <div class="project-table">
+          <div id="crm-contact" class="dt-responsive">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+                <div>
+                  <label class="label-control">Show
+                    <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+                      <option [ngValue]="10">10</option>
+                      <option [ngValue]="25">25</option>
+                      <option [ngValue]="50">50</option>
+                      <option [ngValue]="100">100</option>
+                    </select>
+                    entries
+                  </label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6">
+                <div style="text-align: right;">
+                  <label>Search:
+                    <input type="search" [(ngModel)]="filterQuery" class="form-control input-sm full-data-search" placeholder="Search">
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="panel-heading">User information</div>-->
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered full-data-table" [mfData]="data | Filter :['title']: filterQuery" #mf="mfDataTable"
+                     [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                <thead>
+                <tr>
+                  <th>
+                    <mfDefaultSorter  by="title">Title</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter  by="author">Author</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter  by="postedDate">PostedDate</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter  by="isTop">Is Top</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter>Action</mfDefaultSorter>
+                  </th>
+                </tr>
+                <tr>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of mf.data">
+                  <td>{{item?.title}}   </td>
+                  <td>{{item?.author}}   </td>
+                  <td>{{item?.postedDate | date:'yyyy-MM-dd'}}</td>
+                  <td>{{item?.isTop}}        </td>
+                  <td class="action-icon">
+                    <a class="m-r-15 crm-action-edit text-muted text-primary"><i class="icofont icofont-ui-edit"></i></a>
+                    <a role="button" (click)="onDelete(item.id)" class="crm-action-delete text-muted text-danger"><i class="icofont icofont-delete-alt"></i></a>
+                  </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <td colspan="10">
+                    <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add Contact Start Model -->
+  <app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
+    <h3 class="f-26">Add News</h3>
+    <div class="text-center">
+      <form class="md-float-material" [formGroup]="addNewsForm" (ngSubmit)="onSubmit()">
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+        <input type="text" formControlName="title" class="form-control" placeholder="Title" [ngClass]="{ 'is-invalid': submitted && f.title.errors }" />
+        <div class="messages text-danger error" *ngIf="submitted && addNewsForm.controls.title.errors?.required">Title can't be blank</div>         
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+        <input type="text" formControlName="author" class="form-control" placeholder="Author" [ngClass]="{ 'is-invalid': submitted && f.author.errors }" />
+        <div class="messages text-danger error" *ngIf="submitted && addNewsForm.controls.author.errors?.required">Author can't be blank</div>    
+      </div>
+      <div class="input-group">
+          <textarea rows="15" cols="200" formControlName="content" class="form-control" placeholder="Content" [ngClass]="{ 'is-invalid': submitted && f.Content.errors }"></textarea>
+          <div class="messages text-danger error" *ngIf="submitted && addNewsForm.controls.content.errors?.required">Content can't be blank</div>    
+      </div>
+      <div class="input-group">  
+        <span class="input-group-addon"  id="basic-addon6"><i class="icofont icofont-user"></i></span>
+        <select name="isTop" formControlName="isTop">
+            <option value="" disabled selected>--- News Type ---</option>
+            <option value="Yes">Top</option>
+            <option value="No">Regular</option>
+        </select>
+        <span class="md-line"></span>
+      </div>
+      <button type="submit" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
+      </form>
+    </div>
+    <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+  </app-modal-animation>
+  <!-- Add Contact Ends Model-->
+  <!-- ends -->
+  

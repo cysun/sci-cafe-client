@@ -1,0 +1,158 @@
+<div class="card">
+  <div class="card-header">
+    <h5>Events</h5>
+    <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> <i class="icofont icofont-plus m-r-5"></i> Add Event
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="table-content crm-table">
+      <div class="project-table">
+        <div id="crm-contact" class="dt-responsive">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+              <div>
+                <label class="label-control">Show
+                  <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select>
+                  entries
+                </label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6">
+              <div style="text-align: right;">
+                <label>Search:
+                  <input type="search" [(ngModel)]="filterQuery" class="form-control input-sm full-data-search" placeholder="Search">
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="panel-heading">User information</div>-->
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered full-data-table" [mfData]="data | Filter :['name']: filterQuery" #mf="mfDataTable"
+                   [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+              <thead>
+              <tr>
+                <th>
+                  <mfDefaultSorter  by="name">Name</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter  by="location">Location</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter  by="date">Date</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter  by="startTime">Start Time</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter  by="endTime">End Time</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter by="organizer">Organizer</mfDefaultSorter>
+                </th>
+                <!-- <th>
+                    <mfDefaultSorter by="status">Status</mfDefaultSorter>
+                </th> -->
+                <th>
+                  <mfDefaultSorter>Action</mfDefaultSorter>
+                </th>
+              </tr>
+              <tr>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of mf.data">
+                <td>{{item?.name}}   </td>
+                <td>{{item?.location}}   </td>
+                <td>{{item?.eventDate | date:'yyyy-MM-dd'}}</td>
+                <td>{{item?.startTime}}        </td>
+                <td>{{item?.endTime}}         </td>
+                <td>{{item?.organizer.firstName}} {{item?.organizer.lastName}}</td>
+                <!-- <td>{{item?.status}}      </td> -->
+                <td class="action-icon">
+                  <a class="m-r-15 crm-action-edit text-muted text-primary"><i class="icofont icofont-ui-edit"></i></a>
+                  <a role="button" (click)="onDelete(item.id)" class="crm-action-delete text-muted text-danger"><i class="icofont icofont-delete-alt"></i></a>
+                </td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <!-- <tr>
+                <th>Profile</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Favourite</th>
+                <th>Phone No.</th>
+                <th>Start date</th>
+                <th>Action</th>
+              </tr> -->
+              <tr>
+                <td colspan="10">
+                  <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+                </td>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Contact Start Model -->
+<app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
+  <h3 class="f-26">Add Event</h3>
+  <div class="text-center">
+    <form class="md-float-material" [formGroup]="addEventForm" (ngSubmit)="onSubmit()">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+      <input type="text" formControlName="name" class="form-control" placeholder="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+      <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.name.errors?.required">Name can't be blank</div>         
+    </div>
+    <div class="input-group">
+      <textarea rows="8" cols="200" formControlName="description" class="form-control" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+      <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.description.errors?.required">Description can't be blank</div>    
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+        <input type="text" formControlName="location" class="form-control" placeholder="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors }" />
+        <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.location.errors?.required">Location can't be blank</div>    
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+        <input type="date" formControlName="eventDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.eventDate.errors }" />
+        <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.eventDate.errors?.required">EventDate can't be blank</div>    
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+        <input type="time" formControlName="startTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.StartTime.errors }" />
+        <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.startTime.errors?.required">StartTime can't be blank</div>    
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+        <input type="time" formControlName="endTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.endTime.errors }" />
+        <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.endTime.errors?.required">EndTime can't be blank</div>    
+    </div>
+    <div class="input-group">  
+      <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
+      <select name="status" formControlName="status">
+          <option value="" disabled selected>--- Status Type ---</option>
+          <option value=0>Submitted</option>
+          <option value=1>Approved</option>
+          <option value=2>Rejected</option>
+      </select>
+      <span class="md-line"></span>
+    </div>
+    <button type="submit" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
+    </form>
+  </div>
+  <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+</app-modal-animation>
+<!-- Add Contact Ends Model-->
+<!-- ends -->

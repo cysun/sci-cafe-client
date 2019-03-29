@@ -1,0 +1,92 @@
+<div class="row">
+  <!-- card1 start -->
+  <div class="col-md-6 col-xl-3">
+    <div class="card widget-card-1">
+    </div>
+  </div>
+
+  <div class="col-md-12 ">
+      <app-card [title]="'Statistics of events'" [cardClass]="'card-statistics'">
+        <div class="row ">
+          <div class="col-sm-4 ">
+            <div class="row stats-block">
+              <div class="col-lg-6 ">
+                <div class="progressbar-v-1 text-center">
+                  <div data-label="90%" class="radial-bar radial-bar-90 radial-bar-lg"></div>
+                </div>
+              </div>
+              <div class="col-lg-6 ">
+                <h2 class="f-w-600 ">9/10</h2>
+                <p class="text-muted">6 Credits</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 ">
+            <div class="row stats-block">
+              <div class="col-lg-6 ">
+                <div class="progressbar-v-1 text-center">
+                  <div data-label="50%" class="radial-bar radial-bar-50 radial-bar-lg radial-bar-danger"></div>
+                </div>
+              </div>
+              <div class="col-lg-6 ">
+                <h2 class="f-w-600 ">2/4</h2>
+                <p class="text-muted ">Small Gift</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 ">
+            <div class="row stats-block">
+              <div class="col-lg-6 ">
+                <div class="progressbar-v-1 text-center">
+                  <div data-label="75%" class="radial-bar radial-bar-75 radial-bar-lg radial-bar-warning"></div>
+                </div>
+              </div>
+              <div class="col-lg-6 ">
+                <h2 class="f-w-600 ">3/4</h2>
+                <p class="text-muted ">A Note Book</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="b-t-default p-t-20 m-t-30">
+          <div class="row ">
+            <div class="col-sm-4 ">
+              <h6 class="d-inline-block m-r-10 ">Event Attended</h6>
+              <span class="label bg-c-blue ">15</span>
+            </div>
+            <div class="col-sm-4 ">
+              <h6 class="d-inline-block m-r-10 ">Rewards</h6>
+              <span class="label bg-c-pink ">12</span>
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </div>
+
+  <!-- project overview Start -->
+  <div class="col-md-12">
+    <app-card [title]="'Events'" [blockClass]="'p-0'">
+      <div class="card-comment " *ngFor="let event of events">
+        <div class="card-block-small">
+          <img class="img-radius img-50" src="assets/images/event.png" alt="user-4">
+          <div class="comment-desc">
+              <div class="label-main">
+                  <label *ngFor="let tag of event.tags" class="label label-primary">{{tag?.name}}</label>
+              </div>
+            <h6>{{event.name}}</h6>
+            <p class="text-muted ">{{event.description}}</p>
+            <div class="comment-btn">
+              <button *ngIf = "event.status == 'submitted'" class="btn bg-c-blue btn-round btn-comment ">Submitted</button>
+              <button *ngIf = "event.status == 'approved'" class="btn bg-c-green btn-round btn-comment ">Approved</button>
+              <button *ngIf = "event.status == 'rejected'" class="btn bg-c-pink btn-round btn-comment ">Rejected</button>
+            </div>
+            <div class="date">
+              <i>{{event.eventDate | date:'yyyy-MM-dd'}}  {{event.startTime}} ~~ {{event.endTime}}</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-card>
+  </div>
+  <!-- project overview End -->
+</div>

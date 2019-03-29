@@ -1,0 +1,85 @@
+<section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" style="background-image: url(images/page-banner-3.jpg)">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-banner-cont">
+                    <h2>Campus clean workshop</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+                            <li class="breadcrumb-item"><a [routerLink]="['/home/events']">Events</a></li>
+                            <li class="breadcrumb-item"><a [routerLink]="['/home/events/detail']" [queryParams]="{id:event?.id}">{{event?.name}}</a></li>
+                        </ol>
+                    </nav>
+                </div> <!-- page banner cont -->
+            </div>
+        </div> <!-- row -->
+    </div> <!-- container -->
+</section>
+
+<!--====== PAGE BANNER PART ENDS ======-->
+
+<!--====== EVENTS PART START ======-->
+
+<section id="event-singel" class="pt-120 pb-120 gray-bg">
+    <div class="container">
+        <div class="events-area">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="events-left">
+                        <h3>{{event?.name}}</h3>
+                        <div class="label-main">
+                            Tag: <label *ngFor="let tag of event?.tags" class="label label-primary">{{tag?.name}}</label>
+                        </div>
+                        <img src="assets/images/event/singel-event/se-1.jpg" alt="Event">
+                        <p>{{event?.description}}</p>
+                    </div> <!-- events left -->
+                </div>
+                <div class="col-lg-4">
+                    <div class="events-right">
+                        <div class="events-coundwon bg_cover" data-overlay="8" style="background-image: url(images/event/singel-event/coundown.jpg)">
+                            <h5>Event Infomation</h5>
+                        </div> <!-- events coundwon -->
+                        <div class="events-address mt-30">
+                            <ul>
+                                <li>
+                                    <div class="singel-address">
+                                        <div class="icon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                        <div class="cont">
+                                            <h6>Start Time</h6>
+                                            <span>{{event?.startTime}}</span>
+                                        </div>
+                                    </div> <!-- singel address -->
+                                </li>
+                                <li>
+                                    <div class="singel-address">
+                                        <div class="icon">
+                                            <i class="fa fa-bell-slash"></i>
+                                        </div>
+                                        <div class="cont">
+                                            <h6>Finish Time</h6>
+                                            <span>{{event?.endTime}}</span>
+                                        </div>
+                                    </div> <!-- singel address -->
+                                </li>
+                                <li>
+                                    <div class="singel-address">
+                                        <div class="icon">
+                                            <i class="fa fa-map"></i>
+                                        </div>
+                                        <div class="cont">
+                                            <h6>Loction</h6>
+                                            <span>{{event?.location}}</span>
+                                        </div>
+                                    </div> <!-- singel address -->
+                                </li>
+                            </ul>
+                        </div> <!-- events address -->
+                    </div> <!-- events right -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- events-area -->
+    </div> <!-- container -->
+</section>

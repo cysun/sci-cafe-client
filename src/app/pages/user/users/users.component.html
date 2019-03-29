@@ -1,0 +1,182 @@
+<div class="card">
+  <div class="card-header">
+    <h5>Users</h5>
+    <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> <i class="icofont icofont-plus m-r-5"></i> Add User
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="table-content crm-table">
+      <div class="project-table">
+        <div id="crm-contact" class="dt-responsive">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+              <div>
+                <label class="label-control">Show
+                  <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select>
+                  entries
+                </label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6">
+              <div style="text-align: right;">
+                <label>Search:
+                  <input type="search" [(ngModel)]="filterQuery" class="form-control input-sm full-data-search" placeholder="Search">
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="panel-heading">User information</div>-->
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered full-data-table" [mfData]="data | Filter :['firstName','lastName','username','email']: filterQuery" #mf="mfDataTable"
+                   [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+              <thead>
+              <tr>
+                <th>
+                  <mfDefaultSorter  by="name">First Name</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter  by="lastname">Last Name</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter  by="username">username</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter  by="email">Email</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter  by="unit">Unit</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter by="title">Title</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter  by="position">Position</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter>Action</mfDefaultSorter>
+                </th>
+              </tr>
+              <tr>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of mf.data">
+                <td>{{item?.firstName}}   </td>
+                <td>{{item?.lastName}}   </td>
+                <td>{{item?.username}}     </td>
+                <td>{{item?.email}}        </td>
+                <td>{{item?.unit}}         </td>
+                <td>{{item?.title}}         </td>
+                <td>{{item?.position}}      </td>
+                <td class="action-icon">
+                  <a [routerLink]="['/user/userDetail',{id:item.id}]" class="m-r-15 crm-action-edit text-muted text-primary"><i class="icofont icofont-ui-edit"></i></a>
+                  <a role="button" (click)="onDelete(item.id)" class="crm-action-delete text-muted text-danger"><i class="icofont icofont-delete-alt"></i></a>
+                </td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <!-- <tr>
+                <th>Profile</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Favourite</th>
+                <th>Phone No.</th>
+                <th>Start date</th>
+                <th>Action</th>
+              </tr> -->
+              <tr>
+                <td colspan="10">
+                  <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+                </td>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Contact Start Model -->
+<app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
+  <h3 class="f-26">Add User</h3>
+  <div class="text-center">
+    <form class="md-float-material" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+      <input type="input" class="form-control" formControlName="firstName" placeholder="First Name" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+      <span class="md-line"></span>
+      <div class="messages text-danger error" *ngIf="submitted && registerForm.controls.lastName.errors?.required">First Name can't be blank</div>              
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+      <input type="input" class="form-control" formControlName="lastName" placeholder="Last Name" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+      <span class="md-line"></span>
+      <div class="messages text-danger error" *ngIf="submitted && registerForm.controls.firstName.errors?.required">Last Name can't be blank</div>              
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon4"><i class="icofont icofont-user"></i></span>
+      <input type="input" class="form-control" formControlName="email" placeholder="Email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+      <span class="md-line"></span>
+      <div class="messages text-danger error" *ngIf="submitted && (registerForm.controls.email.errors?.required || registerForm.controls.email.errors?.email)">Please enter correct email</div>            
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon5"><i class="icofont icofont-user"></i></span>
+      <select name="unit" formControlName="unit" class="form-control form-control-default" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.unit.errors }">
+        <option value="" disabled selected>Unit</option>
+        <option value="Computer Science Department">Computer Science Department</option>
+        <option value="College of Education">College of Education</option>
+        <option value="College of Art">College of Art</option>
+      </select>
+      <span class="md-line"></span>
+      <div class="messages text-danger error" *ngIf="submitted && registerForm.controls.unit.errors?.required">Unit can't be blank</div>              
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
+      <input type="input" class="form-control" formControlName="title" placeholder="Title" [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
+      <span class="md-line"></span>
+      <div class="messages text-danger error" *ngIf="submitted && registerForm.controls.title.errors?.required">Last Name can't be blank</div>              
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
+        <select name="position" formControlName="position" class="form-control form-control-default" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.position.errors }">
+          <option value="" disabled selected>Position</option>
+          <option value="Student">Student</option>
+          <option value="Faculty">Faculty</option>
+          <option value="Staff">Staff</option>
+        </select>
+        <span class="md-line"></span>
+        <div class="messages text-danger error" *ngIf="submitted && registerForm.controls.position.errors?.required">Unit can't be blank</div>              
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
+        <input type="input" class="form-control" formControlName="username" placeholder="Username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+        <span class="md-line"></span>
+        <div class="messages text-danger error" *ngIf="submitted && registerForm.controls.username.errors?.required">Username can't be blank</div>              
+    </div>
+    <div class="input-group">  
+      <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
+      <select name="role">
+          <option value="" disabled selected>--- Role Type ---</option>
+          <option value="0">Regular</option>
+          <option value="1">Admin</option>
+          <option value="2">Event Organizer</option>
+          <option value="3">Reward Provider</option>
+      </select>
+      <span class="md-line"></span>
+    </div>
+    <button type="submit" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
+    </form>
+  </div>
+  <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+</app-modal-animation>
+<!-- Add Contact Ends Model-->
+<!-- ends -->
