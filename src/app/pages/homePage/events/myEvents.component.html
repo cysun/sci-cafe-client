@@ -1,0 +1,119 @@
+<div class="row">
+        <div class="col-md-12">
+          <div class="md-tabs">
+            <ngb-tabset justify="fill">
+              <ngb-tab title="Approved Events">
+                <ng-template ngbTabContent>
+                  <div [@fadeInOutTranslate] class="m-t-15">
+                    <!-- personal card start -->
+                    <div class="card">
+                      <div class="card-header">
+                        <h5 class="card-header-text">Approved Events</h5>
+                      </div>
+                      <div class="card-body" >
+                          <div class="card-comment " *ngFor="let event of events">
+                              <div class="card-block-small" *ngIf="event.status==1">
+                                <img class="img-radius img-50" src="assets/images/event.png" alt="user-4">
+                                <div class="comment-desc">
+                                    <div class="label-main">
+                                        <label *ngFor="let tag of event.tags" class="label label-primary">{{tag?.name}}</label>
+                                    </div>
+                                    <a [routerLink]="['/home/event/checkIn']" [queryParams]="{id:event.id}"><h6>{{event?.name}}</h6></a>
+                                  <p class="text-muted ">{{event.description}}</p>
+                                  <div class="comment-btn">
+                                    <button *ngIf = "event.status == 'submitted'" class="btn bg-c-blue btn-round btn-comment ">Submitted</button>
+                                    <button *ngIf = "event.status == 'approved'" class="btn bg-c-green btn-round btn-comment ">Approved</button>
+                                    <button *ngIf = "event.status == 'rejected'" class="btn bg-c-pink btn-round btn-comment ">Rejected</button>
+                                  </div>
+                                  <div class="date">
+                                    <i>{{event.eventDate | date:'yyyy-MM-dd'}}  {{event.startTime}} ~~ {{event.endTime}}</i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                      </div>
+                      <!-- end of card-body -->
+                    </div>
+                    <!-- personal card end-->
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Submitted Events">
+                <ng-template ngbTabContent>
+                  <div [@fadeInOutTranslate] class="m-t-15">
+                    <!-- info card start -->
+                    <div class="">
+    
+                    </div>
+                    <div class="card">
+                      <div class="card-header">
+                        <h5 class="card-header-text">Submitted Events</h5>
+                      </div>
+                      <div class="card-body" >
+                          <div class="card-comment " *ngFor="let event of events">
+                              <div class="card-block-small" *ngIf="event.status==0">
+                                <img class="img-radius img-50" src="assets/images/event.png" alt="user-4">
+                                <div class="comment-desc">
+                                    <div class="label-main">
+                                        <label *ngFor="let tag of event.tags" class="label label-primary">{{tag?.name}}</label>
+                                    </div>
+                                  <h6>{{event.name}}</h6>
+                                  <p class="text-muted ">{{event.description}}</p>
+                                  <div class="comment-btn">
+                                    <button *ngIf = "event.status == 'submitted'" class="btn bg-c-blue btn-round btn-comment ">Submitted</button>
+                                    <button *ngIf = "event.status == 'approved'" class="btn bg-c-green btn-round btn-comment ">Approved</button>
+                                    <button *ngIf = "event.status == 'rejected'" class="btn bg-c-pink btn-round btn-comment ">Rejected</button>
+                                  </div>
+                                  <div class="date">
+                                    <i>{{event.eventDate | date:'yyyy-MM-dd'}}  {{event.startTime}} ~~ {{event.endTime}}</i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                      </div>
+                    </div>
+                    <!-- info card end -->
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Rejected Events">
+                  <ng-template ngbTabContent>
+                    <div [@fadeInOutTranslate] class="m-t-15">
+                      <!-- info card start -->
+                      <div class="">
+      
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <h5 class="card-header-text">Rejected Events</h5>
+                        </div>
+                        <div class="card-body" >
+                            <div class="card-comment " *ngFor="let event of events">
+                                <div class="card-block-small" *ngIf="event.status==2">
+                                  <img class="img-radius img-50" src="assets/images/event.png" alt="user-4">
+                                  <div class="comment-desc">
+                                      <div class="label-main">
+                                          <label *ngFor="let tag of event.tags" class="label label-primary">{{tag?.name}}</label>
+                                      </div>
+                                    <h6>{{event.name}}</h6>
+                                    <div class="comment-btn">
+                                      <button *ngIf = "event.status == 0" class="btn bg-c-blue btn-round btn-comment ">Submitted</button>
+                                      <button *ngIf = "event.status == 1" class="btn bg-c-green btn-round btn-comment ">Approved</button>
+                                      <button *ngIf = "event.status == 2" class="btn bg-c-pink btn-round btn-comment ">Rejected</button>
+                                    </div>
+                                    <div class="date">
+                                      <i>{{event.eventDate | date:'yyyy-MM-dd'}}  {{event.startTime}} ~~ {{event.endTime}}</i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                      </div>
+                      <!-- info card end -->
+                    </div>
+                  </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+          </div>
+        </div>
+      </div>

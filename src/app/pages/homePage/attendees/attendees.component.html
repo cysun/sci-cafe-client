@@ -33,6 +33,28 @@
                         </div>
                         <img src={{event?.imageUrl}} height="404" width="722" alt={{event?.name}}>
                         <p>{{event?.description}}</p>
+                        <br>
+                        <br>
+                        <button type="button" class="btn btn-primary waves-effect waves-light d-inline-block md-trigger" (click)="scan()"> <i class="icofont icofont-plus m-r-5"></i> Scan
+                        </button>
+                        <br>
+                        <br>
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Attendee</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Username</th>
+                              </tr>
+                            </thead>
+                            <tbody *ngFor="let attendee of event?.attendees;index as i">
+                              <tr>
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{attendee?.firstName}} {{attendee?.lastName}}</td>
+                                <td>{{attendee?.username}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
                     </div> <!-- events left -->
                 </div>
                 <div class="col-lg-4">

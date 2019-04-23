@@ -9,6 +9,10 @@ export class EventService {
     apiUrl = "http://localhost:8080/springrest/api"
     constructor(private http: HttpClient) { }
 
+    getOwnEvents() {
+        return this.http.get<Event[]>(this.apiUrl+'/ownevents');
+    }
+
     getAllEvents() {
         return this.http.get<Event[]>(this.apiUrl+'/events');
     }
@@ -42,8 +46,19 @@ export class EventService {
         return this.http.delete(`${this.apiUrl}/event/${id}`);
     }
 
-    addEvent(event: Event) {
-        return this.http.post(this.apiUrl+'/events',event);
+    addEvent(event: Event,file:File) {
+        const formdata: FormData = new FormData();
+ 
+        formdata.append('image', file);
+        formdata.append('name',event.name);
+        formdata.append('location',event.location);
+        formdata.append('description',event.description);
+        formdata.append('eventDate',event.eventDate.toString());
+        formdata.append('startTime',event.startTime.toString());
+        formdata.append('endTime',event.endTime.toString());
+        formdata.append('status',event.status.toString())
+
+        return this.http.post(this.apiUrl+'/events',formdata);
     }
 
     editEvent(event: Event,id: Number) {
@@ -52,6 +67,10 @@ export class EventService {
 
     addAttendeeByUsername(id:Number,username:String) {
         return this.http.post(`${this.apiUrl}/event/${id}/attendee/username`,username);
+    }
+
+    addAttendeeById(id:Number,userId:Number) {
+        return this.http.post(`${this.apiUrl}/event/${id}/addAttendee/${userId}`,"");
     }
 
     enrollEvent(id:Number) {

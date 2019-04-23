@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 
-import { AlertService, AuthenticationService,UserService,EventService } from '../../services';
+import { AlertService, AuthenticationService,ProgramService } from '../../services';
 import { first } from 'rxjs/operators';
-import { User,Event } from '../../models';
+import { User,Program } from '../../models';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from 'ng2-validation';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,34 +11,31 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-event',
-  templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css']
+  templateUrl: './program.component.html',
+  styleUrls: ['./program.component.css']
 })
-export class EventComponent implements OnInit {
+export class ProgramComponent implements OnInit {
   public rowsOnPage = 10;
   public filterQuery = '';
   public sortBy = '';
   public sortOrder = 'desc';
-  data: Event[] = [];
+  data: Program[] = [];
+
   selectedFiles: FileList;
   currentFileUpload: File;
 
-  addEventForm: FormGroup;
+  addProgramForm: FormGroup;
   submitted = false; 
   returnUrl: string;
   name = new FormControl('', Validators.required);
-  location = new FormControl('', Validators.required);
+  fullName = new FormControl('', Validators.required);
   description = new FormControl('', Validators.required);
-  eventDate = new FormControl ('', Validators.required);
-  startTime = new FormControl ('', Validators.required);
-  endTime = new FormControl ('', Validators.required);
-  status = new FormControl (0, []);
-  image = new FormControl ('', []);
+  image = new FormControl('', []);
+
 
   constructor(
     public http: Http,
-    private userService: UserService,
-    private eventService: EventService,
+    private programService:ProgramService,
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
@@ -48,30 +45,21 @@ export class EventComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadAllEvents();
-    this.addEventForm = new FormGroup({
+    this.loadAllProgram();
+    this.addProgramForm = new FormGroup({
       name:this.name,
-      location:this.location,
+      fullName:this.fullName,
       description:this.description,
-      eventDate:this.eventDate,
-      startTime:this.startTime,
-      endTime:this.endTime,
-      status:this.status,
       image:this.image
     });
   }
 
-  private loadAllEvents() {
-    this.eventService.getAllEvents().subscribe(events => {
-        this.data = events;
+  private loadAllProgram() {
+    this.programService.getAllPrograms().subscribe(program => {
+        this.data = program;
     });
   }
 
-  selectFile(event) {
-    this.selectedFiles = event.target.files;
-    this.currentFileUpload = this.selectedFiles.item(0);
-  }  
-  
   openMyModal(event) {
     document.querySelector('#' + event).classList.add('md-show');
   }
@@ -80,23 +68,22 @@ export class EventComponent implements OnInit {
     ((event.target.parentElement.parentElement).parentElement).classList.remove('md-show');
   }
 
-  get f() { return this.addEventForm.controls; }
+  get f() { return this.addProgramForm.controls; }
 
   onSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.addEventForm.invalid) {
+    if (this.addProgramForm.invalid) {
         return;
     }
+    console.log(this.addProgramForm.value);
 
-    console.log(this.addEventForm.value);
-
-    this.eventService.addEvent(this.addEventForm.value,this.currentFileUpload)
+    this.programService.addProgram(this.addProgramForm.value,this.currentFileUpload)
         .pipe(first())
         .subscribe(
             data => {
-                this.alertService.success('Add an event successful', true);
+                this.alertService.success('Add an program successful', true);
                 location.reload();
             },
             error => {
@@ -106,8 +93,13 @@ export class EventComponent implements OnInit {
 }
   
 
+selectFile(event) {
+  this.selectedFiles = event.target.files;
+  this.currentFileUpload = this.selectedFiles.item(0);
+}
+
   onDelete(id:number) {
-    this.eventService.delete(id).pipe(first()).subscribe(data=>{
+    this.programService.delete(id).pipe(first()).subscribe(data=>{
       location.reload();
     });
   }

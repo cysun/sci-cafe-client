@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-banner-cont">
-                    <h2>Campus clean workshop</h2>
+                    <h2>{{program?.name}}</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
@@ -29,7 +29,7 @@
                     <div class="events-left">
                         <h3>{{program?.name}}</h3>
                         <h5>{{program?.fullName}}</h5>
-                        <img src="assets/images/event/singel-event/se-1.jpg" alt="Program">
+                        <img src={{program?.imageUrl}} alt="Program">
                         <p>{{program?.description}}</p>
                     </div> <!-- events left -->
                 </div>

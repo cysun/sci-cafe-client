@@ -35,7 +35,7 @@ declare const $: any;
 export class DashboardDefaultComponent implements OnInit {
 
   events: Event[] = [];
-  isAdmin:boolean = false;
+  isAdmin:string;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -54,8 +54,22 @@ export class DashboardDefaultComponent implements OnInit {
     });
   }
 
+  private rejectById(id:Number) {
+    this.eventService.rejectEventById(id).subscribe();
+    window.location.reload();
+  }
+
+  private approveById(id:Number) {
+    this.eventService.approveEventById(id).subscribe();
+    window.location.reload();
+  }
+
   ngOnInit() {
-    this.loadAllEvent();
+    this.isAdmin = localStorage.getItem("isAdmin");
+    if (this.isAdmin) {
+      this.loadAllEvent();
+    }
+
     AmCharts.makeChart('email-sent', {
       'type': 'serial',
       'theme': 'light',
@@ -423,9 +437,5 @@ export class DashboardDefaultComponent implements OnInit {
     });
   }
 
-  onTaskStatusChange(event) {
-    const parentNode = (event.target.parentNode.parentNode);
-    parentNode.classList.toggle('done-task');
-  }
 
 }

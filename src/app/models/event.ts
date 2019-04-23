@@ -14,6 +14,7 @@ export class Event implements Deserializable{
     tags : Set<Tag>;
     organizer: User;
     attendees:Set<User>;
+    imageUrl:string;
     deserialize(input: any): this {
         Object.assign(this, input);
         this.tags = this.tags.add(new Tag().deserialize(input.tags));

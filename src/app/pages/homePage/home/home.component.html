@@ -21,7 +21,7 @@
       <section id="slider-part" class="slider-active">
         <ngb-carousel >
             <ng-template ngbSlide *ngFor="let news of topNews" class="class_outer">
-              <img src={{news?.imageUrl}} alt="Random first slide" style="width:100%;">
+              <img src={{news?.imageUrl}} height="750" width="1800" alt={{news?.title}} style="width:100%;">
               <div class="carousel-caption class_cover">
                 <a class="nav-link" [routerLink]="['/home/news/detail']" style="color:white" [queryParams]="{id:news?.id}">
                     <h1 style="color:white;">{{news?.title}}</h1>
@@ -49,7 +49,7 @@
                     </div> <!-- section title -->
                     <div class="about-cont">
                         <p>Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet . Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt  mauris. <br> <br> auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet . Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt  mauris</p>
-                        <a href="#" class="main-btn mt-55">Learn More</a>
+                        <a [routerLink]="['/about']" class="main-btn mt-55">Learn More</a>
                     </div>
                 </div> <!-- about cont -->
                 <div class="col-md-8">
@@ -140,7 +140,7 @@
                     <div class="singel-course">
                         <div class="thum">
                             <div class="image">
-                                <img src="assets/images/events/default.jpg" alt="Course">
+                                <img src={{program?.imageUrl}} alt="Program">
                             </div>
                         </div>
                         <div class="cont">

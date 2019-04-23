@@ -21,14 +21,18 @@ export class NewsComponent implements OnInit {
   public sortOrder = 'desc';
   data: News[] = [];
 
+  selectedFiles: FileList;
+  currentFileUpload: File;
+
   addNewsForm: FormGroup;
   submitted = false; 
   returnUrl: string;
   title = new FormControl('', Validators.required);
   author = new FormControl('', Validators.required);
   content = new FormControl('', Validators.required);
-  isTop = new FormControl ('', []);
-  imageUrl = new FormControl ('../../../assets/images/news/default.jpg', []);
+  isTop = new FormControl('', []);
+  image = new FormControl('', []);
+
 
   constructor(
     public http: Http,
@@ -47,8 +51,8 @@ export class NewsComponent implements OnInit {
       title:this.title,
       author:this.author,
       content:this.content,
-      imageUrl:this.imageUrl,
       isTop:this.isTop,
+      image:this.image
     });
   }
 
@@ -75,14 +79,13 @@ export class NewsComponent implements OnInit {
     if (this.addNewsForm.invalid) {
         return;
     }
-
     console.log(this.addNewsForm.value);
 
-    this.newsService.addNews(this.addNewsForm.value)
+    this.newsService.addNews(this.addNewsForm.value,this.currentFileUpload)
         .pipe(first())
         .subscribe(
             data => {
-                this.alertService.success('Ad an news successful', true);
+                this.alertService.success('Add an news successful', true);
                 location.reload();
             },
             error => {
@@ -91,6 +94,11 @@ export class NewsComponent implements OnInit {
             });
 }
   
+
+selectFile(event) {
+  this.selectedFiles = event.target.files;
+  this.currentFileUpload = this.selectedFiles.item(0);
+}
 
   onDelete(id:number) {
     this.newsService.delete(id).pipe(first()).subscribe(data=>{

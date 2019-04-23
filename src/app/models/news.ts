@@ -4,9 +4,9 @@ export class News implements Deserializable{
     id: number;
     title: string;
     content: string;
-    imageUrl: string;
     isTop:string;
     postedDate:Date;
+    author:string;
 
     deserialize(input: any): this {
         Object.assign(this, input);

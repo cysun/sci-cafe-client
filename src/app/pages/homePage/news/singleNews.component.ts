@@ -26,6 +26,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SingleNewsComponent implements OnInit {
   news: News;
+  popularNews:News[];
 
   constructor(
     public http: Http,
@@ -39,11 +40,19 @@ export class SingleNewsComponent implements OnInit {
 
   ngOnInit() {
     this.getNewsById(this.routerInfo.snapshot.queryParams["id"]);
+    this.getPopularNews();
   }
 
   private getNewsById(id:number) {
     this.newsService.getNewsById(id).subscribe(news => {
         this.news = news;
+    });
+  }
+
+  private getPopularNews() {
+    this.newsService.getAllTopNews().subscribe(news => {
+      this.popularNews = news;
+      console.log(news);
     });
   }
 

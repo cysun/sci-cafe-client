@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EventComponent } from './event.component';
+import { ProgramComponent } from '../program/Program.component';
 import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '../../shared/shared.module';
 import {HttpModule} from '@angular/http';
@@ -8,11 +8,11 @@ import {DataTableModule} from 'angular2-datatable';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Ng2FileSizeModule } from 'ng2-file-size';
 
-export const EventRoutes: Routes = [{
+export const ProgramRoutes: Routes = [{
   path: '',
-  component: EventComponent,
+  component: ProgramComponent,
   data: {
-    breadcrumb: 'Event',
+    breadcrumb: 'Program',
     icon: 'icofont-contacts bg-c-pink'
   }
 }];
@@ -20,7 +20,7 @@ export const EventRoutes: Routes = [{
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(EventRoutes),
+    RouterModule.forChild(ProgramRoutes),
     SharedModule,
     FormsModule,
     HttpModule,
@@ -28,6 +28,6 @@ export const EventRoutes: Routes = [{
     ReactiveFormsModule,
     Ng2FileSizeModule
   ],
-  declarations: [EventComponent]
+  declarations: [ProgramComponent]
 })
-export class EventModule { }
+export class ProgramModule { }

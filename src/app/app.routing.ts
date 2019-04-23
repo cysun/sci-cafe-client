@@ -54,7 +54,13 @@ export const AppRoutes: Routes = [
       },{
         path: 'home/user/dashboard',
         loadChildren: './pages/homePage/dashBoard/dashBoard.module#DashBoardModule'
-      },
+      },{
+        path: 'home/event/checkIn',
+        loadChildren: './pages/homePage/attendees/attendees.module#AttendeesModule'
+      },{
+        path: 'home/event/scan',
+        loadChildren: './pages/homePage/qrcode/scanner.module#ScannerModule'
+      }
     ]
   },
   { path: '**', redirectTo: 'home' },

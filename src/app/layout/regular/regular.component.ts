@@ -24,7 +24,7 @@ export class RegularComponent implements OnInit {
   submitted = false; 
   returnUrl: string;
   name:string;
-
+  public navbarCollapsed = true;
   constructor(
     private authenticationService:AuthenticationService
   ) { 

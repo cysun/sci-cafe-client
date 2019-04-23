@@ -1,5 +1,5 @@
 <!--profile cover start-->
-  <div class="row">
+  <!-- <div class="row">
       <div class="col-lg-12">
           <div class="cover-profile">
               <div class="profile-bg-img">
@@ -15,7 +15,7 @@
                               <div class="col-lg-12">
                                   <div class="user-title">
                                       <h2>{{name}}</h2>
-                                      <!-- <span class="text-white">Web designer</span> -->
+                                      
                                   </div>
                               </div>
                           </div>
@@ -24,7 +24,7 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> -->
   <!--profile cover end-->
   <div class="row">
     <div class="col-lg-12">
@@ -38,7 +38,7 @@
                   <div class="card-header">
                     <h5 class="card-header-text">About Me</h5>
                     <button id="edit-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right" (click)="toggleEditProfile()">
-                      <i class="icofont {{ editProfileIcon }}"></i>
+                      Edit
                     </button>
                   </div>
                   <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
@@ -273,7 +273,8 @@
                         <div class="card b-l-danger business-info services">
                           <div ngbDropdown class="card-header">
                             <div class="service-header">
-                              <h3 class="card-header-text">{{program.name}}</h3>
+                                <a [routerLink]="['/home/programs/detail']" [queryParams]="{id:program?.id}"><h3 class="card-header-text">{{program.name}}</h3></a>
+                              
                             </div>
                             <span ngbDropdownToggle class="dropdown-toggle addon-btn text-muted f-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
                                            </span>

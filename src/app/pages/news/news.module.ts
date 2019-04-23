@@ -6,6 +6,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {HttpModule} from '@angular/http';
 import {DataTableModule} from 'angular2-datatable';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { Ng2FileSizeModule } from 'ng2-file-size';
 
 export const NewsRoutes: Routes = [{
   path: '',
@@ -25,6 +26,7 @@ export const NewsRoutes: Routes = [{
     HttpModule,
     DataTableModule,
     ReactiveFormsModule,
+    Ng2FileSizeModule
   ],
   declarations: [NewsComponent]
 })

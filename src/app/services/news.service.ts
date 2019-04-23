@@ -16,8 +16,15 @@ export class NewsService {
         return this.http.get<News[]>(this.apiUrl+'/topNews');
     }
 
-    addNews(news:News) {
-        return this.http.post(this.apiUrl+'/news',news);
+    addNews(news:News,file: File) {
+        const formdata: FormData = new FormData();
+ 
+        formdata.append('image', file);
+        formdata.append('author',news.author);
+        formdata.append('title',news.title);
+        formdata.append('content',news.content);
+        formdata.append('isTop',news.isTop);
+        return this.http.post(this.apiUrl+'/news',formdata);
     }
 
     getNewsById (id:Number) {

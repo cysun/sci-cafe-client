@@ -20,41 +20,45 @@
     <header id="header-part">
         
         
-        <div class="navigation fixed-top" style="background-color:  #07294d;">
+        <div class="navigation fixed-top" style="background-color:white">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 col-md-10 col-sm-9 col-8">
+                        <!-- <button class="navbar-toggler" type="button" (click)="navbarCollapsed = !navbarCollapsed" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button> -->
                         <nav class="navbar navbar-expand-lg">
-
-                            <div class="collapse navbar-collapse sub-menu-bar white-text"  id="navbarSupportedContent">
+                            <div class="collapse navbar-collapse sub-menu-bar white-text" [ngbCollapse]="navbarCollapsed"  id="navbarSupportedContent">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item">
-                                        <a [routerLink]="['/home']" style="color:white">Home</a>
+                                        <a [routerLink]="['/home']">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a [routerLink]="['/about']" style="color:white">About us</a>
+                                        <a [routerLink]="['/about']">About us</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a [routerLink]="['/home/programs']" style="color:white">Programs</a>
+                                        <a [routerLink]="['/home/programs']">Programs</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a [routerLink]="['/home/events']" style="color:white">Events</a>
+                                        <a [routerLink]="['/home/events']">Events</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a [routerLink]="['/home/rewards']" style="color:white">Rewards</a>
+                                        <a [routerLink]="['/home/rewards']"  >Rewards</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a [routerLink]="['/home/news']" style="color:white">News</a>
+                                        <a [routerLink]="['/home/news']"  >News</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="shop.html" style="color:white">Link</a>
+                                        <a href="shop.html"  >Link</a>
                                         <ul class="sub-menu">
                                             <li><a href="shop.html">Link 1</a></li>
                                             <li><a href="shop-singel.html">Link 2</a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="contact.html" style="color:white">Link</a>
+                                        <a href="contact.html"  >Link</a>
                                         <ul class="sub-menu">
                                             <li><a href="contact.html">Link 1</a></li>
                                             <li><a href="contact-2.html">Link 2</a></li>
@@ -70,21 +74,21 @@
                             <div class="collapse navbar-collapse sub-menu-bar white-text"  id="navbarSupportedContent">
                                 <ul class="navbar-nav ml-auto" *ngIf="!name">
                                         <li class="nav-item">
-                                            <a class="nav-link" [routerLink]="['/authentication/login/with-bg-image']" style="color:white">Sign In</a>
+                                            <a class="nav-link" [routerLink]="['/authentication/login/with-bg-image']"  >Sign In</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" [routerLink]="['/authentication/registration/with-bg-image']" style="color:white">Sign Up</a>
+                                            <a class="nav-link" [routerLink]="['/authentication/registration/with-bg-image']"  >Sign Up</a>
                                         </li>
                                 </ul>
                                 <ul class="navbar-nav ml-auto" *ngIf="name">
                                     <!-- <li class="nav-item">
-                                        <a class="nav-link" [routerLink]="['/authentication/login/with-bg-image']" style="color:white">{{name}}</a>
+                                        <a class="nav-link" [routerLink]="['/authentication/login/with-bg-image']"  >{{name}}</a>
                                     </li>
                                     <ul class="sub-menu"><li><a href="shop.html">Log Out</a></li></ul> -->
                                     <li class="nav-item">
-                                        <a class="nav-link" [routerLink]="['/home/user/dashboard/default']" style="color:white">{{name}}</a>
+                                        <a class="nav-link" [routerLink]="['/home/user/dashboard/default']"  >{{name}}</a>
                                         <ul class="sub-menu">
-                                            <li><a [routerLink]="['/home']" style="color:white" (click)="logOut()">Log Out</a></li>
+                                            <li><a [routerLink]="['/home']"   (click)="logOut()">Log Out</a></li>
                                         </ul>
                                     </li>
                                 </ul>

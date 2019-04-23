@@ -54,9 +54,9 @@
                 <th>
                   <mfDefaultSorter by="organizer">Organizer</mfDefaultSorter>
                 </th>
-                <!-- <th>
+                <th>
                     <mfDefaultSorter by="status">Status</mfDefaultSorter>
-                </th> -->
+                </th>
                 <th>
                   <mfDefaultSorter>Action</mfDefaultSorter>
                 </th>
@@ -72,10 +72,12 @@
                 <td>{{item?.startTime}}        </td>
                 <td>{{item?.endTime}}         </td>
                 <td>{{item?.organizer.firstName}} {{item?.organizer.lastName}}</td>
-                <!-- <td>{{item?.status}}      </td> -->
+                <td *ngIf = "item.status === 0">Submitted</td>
+                <td *ngIf = "item.status === 1">Approved</td>
+                <td *ngIf = "item.status === 2">Rejected</td>
                 <td class="action-icon">
                   <a class="m-r-15 crm-action-edit text-muted text-primary"><i class="icofont icofont-ui-edit"></i></a>
-                  <a role="button" (click)="onDelete(item.id)" class="crm-action-delete text-muted text-danger"><i class="icofont icofont-delete-alt"></i></a>
+                  <a role="button" (click)="onDelete(item?.id)" class="crm-action-delete text-muted text-danger"><i class="icofont icofont-delete-alt"></i></a>
                 </td>
               </tr>
               </tbody>
@@ -113,31 +115,32 @@
     <div class="input-group">
       <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
       <input type="text" formControlName="name" class="form-control" placeholder="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-      <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.name.errors?.required">Name can't be blank</div>         
+      <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.name?.errors?.required">Name can't be blank</div>         
     </div>
     <div class="input-group">
-      <textarea rows="8" cols="200" formControlName="description" class="form-control" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
-      <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.description.errors?.required">Description can't be blank</div>    
+      Upload Image<input type="file" class="form-control" accept="image/*" [ng2FileSize]="{ min: 1024, max: 1024 * 1024 }"
+      [fileSizeErrorMsg]="'Image size must be less than 1mb and more than 50kb!'"
+      formControlName="image" (change)="selectFile($event)">
     </div>
     <div class="input-group">
         <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
         <input type="text" formControlName="location" class="form-control" placeholder="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors }" />
-        <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.location.errors?.required">Location can't be blank</div>    
+        <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.location?.errors?.required">Location can't be blank</div>    
     </div>
     <div class="input-group">
         <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
         <input type="date" formControlName="eventDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.eventDate.errors }" />
-        <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.eventDate.errors?.required">EventDate can't be blank</div>    
+        <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.eventDate?.errors?.required">EventDate can't be blank</div>    
     </div>
     <div class="input-group">
         <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
         <input type="time" formControlName="startTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.StartTime.errors }" />
-        <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.startTime.errors?.required">StartTime can't be blank</div>    
+        <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.startTime?.errors?.required">StartTime can't be blank</div>    
     </div>
     <div class="input-group">
         <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
         <input type="time" formControlName="endTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.endTime.errors }" />
-        <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.endTime.errors?.required">EndTime can't be blank</div>    
+        <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.endTime?.errors?.required">EndTime can't be blank</div>    
     </div>
     <div class="input-group">  
       <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
@@ -148,6 +151,10 @@
           <option value=2>Rejected</option>
       </select>
       <span class="md-line"></span>
+    </div>
+    <div class="input-group">
+      <textarea rows="8" cols="200" formControlName="description" class="form-control" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+      <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.description.errors?.required">Description can't be blank</div>    
     </div>
     <button type="submit" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
     </form>

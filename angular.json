@@ -89,6 +89,8 @@
             "scripts": [ 
               "../node_modules/jquery/dist/jquery.min.js",
               "../node_modules/froala-editor/js/froala_editor.pkgd.min.js",
+              "node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js",
+              "node_modules/ng-file-upload/dist/ng-file-upload.min.js",
               "assets/charts/flot/jquery.flot.js",
               "assets/charts/flot/jquery.flot.categories.js",
               "assets/charts/flot/jquery.flot.pie.js",

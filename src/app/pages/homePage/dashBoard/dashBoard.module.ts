@@ -26,11 +26,23 @@ export const DashBoardRoutes: Routes = [
         path: 'events',
         loadChildren: '../../event/event.module#EventModule'
       }, {
+        path: 'programs',
+        loadChildren: '../../program/program.module#ProgramModule'
+      },{
         path: 'news',
         loadChildren: '../../news/news.module#NewsModule'
       }, {
         path: 'rewards',
         loadChildren: '../../reward/reward.module#RewardModule'
+      }, {
+        path: 'qrcode',
+        loadChildren: '../qrcode/qrcode.module#QrcodeModule'
+      }, {
+        path: 'checkIn',
+        loadChildren: '../attendees/attendees.module#AttendeesModule'
+      },{
+        path: 'myEvents',
+        loadChildren: '../events/myEvents.module#MyEventsModule'
       }
     ]
   }
