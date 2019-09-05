@@ -43,9 +43,6 @@
                     <mfDefaultSorter  by="fullName">Full Name</mfDefaultSorter>
                   </th>
                   <th>
-                    <mfDefaultSorter  by="description">Description</mfDefaultSorter>
-                  </th>
-                  <th>
                     <mfDefaultSorter>Action</mfDefaultSorter>
                   </th>
                 </tr>
@@ -54,12 +51,10 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let item of mf.data">
-                  <td>{{item?.name}}   </td>
+                  <td><a [routerLink]="['/home/programs/detail']" [queryParams]="{id:item?.id}">{{item?.name}}</a> </td>
                   <td>{{item?.fullName}}   </td>
-                  <td>{{item?.description}}</td>
                   <td class="action-icon">
-                    <a class="m-r-15 crm-action-edit text-muted text-primary"><i class="icofont icofont-ui-edit"></i></a>
-                    <a role="button" (click)="onDelete(item.id)" class="crm-action-delete text-muted text-danger"><i class="icofont icofont-delete-alt"></i></a>
+                      <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(item?.id)">Delete</button>
                   </td>
                 </tr>
                 </tbody>
@@ -93,7 +88,7 @@
         <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.fullName?.errors?.required">FullName can't be blank</div>    
       </div>
       <div class="input-group">
-          <textarea rows="15" cols="200" formControlName="description" class="form-control" placeholder="Description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+          <quill-editor [styles]="{height: '150px'}" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)" [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description" placeholder="Description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
           <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.description?.errors?.required">Description can't be blank</div>    
       </div>
       <div class="input-group">

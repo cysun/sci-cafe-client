@@ -4,6 +4,7 @@ import { DashboardDefaultComponent } from './dashboard-default.component';
 import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '../../../shared/shared.module';
 import {ChartModule} from 'angular2-chartjs';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 export const DashboardDefaultRoutes: Routes = [
   {
@@ -22,7 +23,9 @@ export const DashboardDefaultRoutes: Routes = [
     CommonModule,
     RouterModule.forChild(DashboardDefaultRoutes),
     SharedModule,
-    ChartModule
+    ChartModule,
+    FroalaEditorModule.forRoot(), 
+    FroalaViewModule.forRoot()
   ],
   declarations: [DashboardDefaultComponent]
 })

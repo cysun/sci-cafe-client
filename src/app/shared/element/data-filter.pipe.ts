@@ -6,12 +6,34 @@ import {Pipe, PipeTransform} from "@angular/core";
 })
 
 export class DataFilterPipe implements PipeTransform {
-
-    transform(array: any[], query: string): any {
-        if (query) {
-            return _.filter(array, row=>row.name.indexOf(query) > -1);
+    transform(items: any[], field : any, value : string): any[] {
+        if (value == null||value =="") {
+            value = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
         }
-        return array;
+        if (!items) return [];   
+        if(typeof field == 'string'){ 
+            let rtItems:any = items;
+            try{
+                rtItems = items.filter(it => it[field].toLowerCase().indexOf(value.toLowerCase()) > -1 );
+            }finally{
+                return rtItems;
+            }
+        }else{ 
+            let rtItems:any = items;
+            try{
+                rtItems = items.filter(it => {
+                    for(let f of field){
+                        if(it[f].toLowerCase().indexOf(value.toLowerCase()) > -1){
+                            return true;
+                        }
+                    }
+                });
+            }finally{
+                return rtItems;
+            }
+        }
+
+
     }
 }
 

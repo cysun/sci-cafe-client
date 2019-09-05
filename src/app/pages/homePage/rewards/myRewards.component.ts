@@ -1,26 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import {Http} from '@angular/http';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 
-import { AlertService, AuthenticationService,RewardService } from '../../services';
-import { first } from 'rxjs/operators';
-import { User,Reward } from '../../models';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from 'ng2-validation';
+
 import { Router, ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
 
+import { Reward } from '../../../models';
+import { AlertService,RewardService,UserService, AuthenticationService } from '../../../services';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import {Http} from '@angular/http';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
-  selector: 'app-reward',
-  templateUrl: './reward.component.html',
-  styleUrls: ['./reward.component.css']
+  selector: 'app-myRewards',
+  templateUrl: './myRewards.component.html',
+  styleUrls: [
+  ]
 })
-export class RewardComponent implements OnInit {
-  public rowsOnPage = 10;
-  public filterQuery = '';
-  public sortBy = '';
-  public sortOrder = 'desc';
-  data: Reward[] = [];
+export class MyRewardsComponent implements OnInit {
+
+  rewards: Reward[] = [];
+  isAdmin:boolean = false;
+
+  selectedFiles: FileList;
+  currentFileUpload: File;
 
   addRewardForm: FormGroup;
   submitted = false; 
@@ -29,21 +32,27 @@ export class RewardComponent implements OnInit {
   description = new FormControl('', Validators.required);
   criteria = new FormControl('', Validators.required);
   status = new FormControl (0, []);
-  imageUrl = new FormControl ('../../../assets/images/news/default.jpg', []);
 
   constructor(
-    public http: Http,
-    private rewardService:RewardService,
-    private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
-    private alertService: AlertService,
+    private userService: UserService,
+    private route: ActivatedRoute,
     private router: Router,
-  ) { 
+    private rewardService:RewardService,
+    public http: Http,
+    private alertService: AlertService,
+  ) {
 
   }
 
+  private loadAllReward() {
+    this.rewardService.getOwnRewards().subscribe(rewards => {
+        this.rewards = rewards;
+    });
+  }
+
   ngOnInit() {
-    this.loadAllRewards();
+    this.loadAllReward();
     this.addRewardForm = new FormGroup({
       name:this.name,
       description:this.description,
@@ -51,25 +60,13 @@ export class RewardComponent implements OnInit {
       status:this.status,
     });
   }
-
-  public options: Object = {
-    placeholderText: 'Description',
-    heightMin: 100,
-    heightMax: 200
+  
+  openMyModal(reward) {
+    document.querySelector('#' + reward).classList.add('md-show');
   }
 
-  private loadAllRewards() {
-    this.rewardService.getAllRewards().subscribe(rewards => {
-        this.data = rewards;
-    });
-  }
-
-  openMyModal(event) {
-    document.querySelector('#' + event).classList.add('md-show');
-  }
-
-  closeMyModal(event) {
-    ((event.target.parentElement.parentElement).parentElement).classList.remove('md-show');
+  closeMyModal(reward) {
+    ((reward.target.parentElement.parentElement).parentElement).classList.remove('md-show');
   }
 
   get f() { return this.addRewardForm.controls; }
@@ -88,7 +85,7 @@ export class RewardComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
-                this.alertService.success('Ad a reward successful', true);
+                this.alertService.success('Add an reward successful', true);
                 location.reload();
             },
             error => {
@@ -102,10 +99,6 @@ export class RewardComponent implements OnInit {
     this.rewardService.delete(id).pipe(first()).subscribe(data=>{
       location.reload();
     });
-  }
-
-  onClick(id:number) {
-    
   }
 
   blured = false
@@ -135,5 +128,5 @@ export class RewardComponent implements OnInit {
     this.blured = true
   }
 
-}
 
+}

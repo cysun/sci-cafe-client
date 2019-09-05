@@ -5,3 +5,4 @@ export * from './event.service';
 export * from './program.service';
 export * from './news.service';
 export * from './reward.service';
+export * from './tag.service';

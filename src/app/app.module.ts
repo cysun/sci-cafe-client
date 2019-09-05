@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule} from '@angular/router';
@@ -10,7 +9,7 @@ import {SharedModule} from './shared/shared.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthComponent} from './layout/auth/auth.component';
 import {RegularComponent} from './layout/regular/regular.component';
-import {AuthenticationService,AlertService,UserService,ProgramService,EventService,NewsService, RewardService} from './services'
+import {AuthenticationService,AlertService,UserService,ProgramService,EventService,NewsService, RewardService,TagService} from './services'
 import {AuthGuard} from './guards'
 import { HttpModule } from '@angular/http'
 import {HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -20,7 +19,8 @@ import { PipesModule } from 'w-ng5';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CalendarModule} from 'angular-calendar';
 import { QRCodeModule } from 'angularx-qrcode';
-
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,6 @@ import { QRCodeModule } from 'angularx-qrcode';
     RegularComponent,
   ],
   imports: [
-    BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes),
     ClickOutsideModule,
@@ -41,7 +40,10 @@ import { QRCodeModule } from 'angularx-qrcode';
     PipesModule,
     NgxPaginationModule,
     NgbModule,
-    QRCodeModule
+    QRCodeModule,
+    QuillModule.forRoot(),
+    FroalaEditorModule.forRoot(), 
+    FroalaViewModule.forRoot()
   ],
   providers: [
     AuthenticationService,
@@ -52,6 +54,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     EventService,
     NewsService,
     RewardService,
+    TagService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],

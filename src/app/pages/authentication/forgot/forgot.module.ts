@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ForgotComponent } from './forgot.component';
 import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '../../../shared/shared.module';
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 export const forgotRoutes: Routes = [
   {
@@ -19,7 +19,9 @@ export const forgotRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(forgotRoutes),
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [ForgotComponent]
 })

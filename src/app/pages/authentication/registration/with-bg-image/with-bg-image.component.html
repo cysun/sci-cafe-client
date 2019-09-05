@@ -1,13 +1,14 @@
-<section class="login text-center bg-primary common-img-bg">
+<section class="text-center bg-primary common-img-bg">
   <!-- starts -->
   <div class="auth-fluid">
     <div class="row">
-      <div>
+      <div class="col-sm-12">
         <!-- Authentication card start -->
         <div class="login-card card-body auth-body">
           <form class="md-float-material" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="auth-box">
               <hr/>
+              
               <div class="form-group row">
                 <input type="input" class="form-control" formControlName="firstName" placeholder="First Name" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
                 <span class="md-line"></span>
@@ -19,11 +20,22 @@
                 <div class="messages text-danger error" *ngIf="submitted && registerForm.controls.firstName.errors?.required">Last Name can't be blank</div>              
               </div> 
               <div class="form-group row">
+                <input type="input" class="form-control" formControlName="username" placeholder="Username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                <span class="md-line"></span>
+                <div 
+                style="color: red"
+                *ngIf="registerForm.controls.username.errors?.userNameExists">Username already exists.</div>
+                <div class="messages text-danger error" *ngIf="submitted && registerForm.controls.username.errors?.required">Username can't be blank</div>              
+              </div>  
+              <div class="form-group row">
                 <input type="input" class="form-control" formControlName="email" placeholder="Email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
                 <span class="md-line"></span>
+                <div 
+                style="color: red"
+                *ngIf="registerForm.controls.email.errors?.emailExists">Email already exists.</div>
                 <div class="messages text-danger error" *ngIf="submitted && (registerForm.controls.email.errors?.required || registerForm.controls.email.errors?.email)">Please enter correct email</div>              
               </div> 
-              <div class="form-group row">
+              <!-- <div class="form-group row">
                 <select name="unit" formControlName="unit" class="form-control form-control-default" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.unit.errors }">
                   <option value="" disabled selected>Unit</option>
                   <option value="Computer Science Department">Computer Science Department</option>
@@ -47,12 +59,8 @@
                 </select>
                 <span class="md-line"></span>
                 <div class="messages text-danger error" *ngIf="submitted && registerForm.controls.position.errors?.required">Unit can't be blank</div>              
-              </div>  
-              <div class="form-group row">
-                <input type="input" class="form-control" formControlName="username" placeholder="Username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
-                <span class="md-line"></span>
-                <div class="messages text-danger error" *ngIf="submitted && registerForm.controls.username.errors?.required">Username can't be blank</div>              
-              </div>  
+              </div>   -->
+              
               <div class="form-group row">
                 <input type="password" class="form-control" formControlName="password" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
                 <span class="md-line"></span>
@@ -63,9 +71,22 @@
                 <div class="messages text-danger" *ngIf="submitted && registerForm.controls.rpassword.errors?.required">Repeat password can't be blank</div>
                 <div class="messages text-danger" *ngIf="submitted && registerForm.controls.rpassword.errors?.equalTo">The passwords does not match</div>
               </div>
+              <div class="row" >
+                <div class="form-inline">
+                  <div>
+                    <input type="text" class="form-control" style="width:120px;height: 40px" formControlName="code" placeholder="4-didgit Code">
+                    <div class="messages text-danger error" *ngIf="submitted && registerForm.controls.code.errors?.required">Verification code can't be blank</div>
+                    <div class="messages text-danger error" *ngIf="submitted && wrongCode">Wrong verification code</div>
+                  </div>
+                  <div class="text-right">
+                    <button type="button" [disabled]="countDown" class="btn btn-success my-2 my-sm-0" style="width:120px;height: 40px" (click)="getCode($event)">{{showButtonText}}</button>
+                  </div>
+                </div>
+                <div class="messages text-danger" *ngIf="submitted && registerForm.controls.code.errors?.required">Verification code can't be blank</div>
+              </div>
               <div class="row m-t-30">
                 <div class="col-md-12">
-                  <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign up now.</button>
+                  <button [disabled] = "registerForm.controls.username.errors?.userNameExists || registerForm.controls.email.errors?.emailExists" type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign up now.</button>
                   <a [routerLink]="['/authentication/login/with-bg-image']" class="text-right f-w-600 text-inverse">Sign in</a>
                 </div>
               </div>

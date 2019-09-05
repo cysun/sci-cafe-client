@@ -6,6 +6,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {HttpModule} from '@angular/http';
 import {DataTableModule} from 'angular2-datatable';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { QuillModule } from 'ngx-quill';
 
 export const RewardRoutes: Routes = [{
   path: '',
@@ -25,6 +26,7 @@ export const RewardRoutes: Routes = [{
     HttpModule,
     DataTableModule,
     ReactiveFormsModule,
+    QuillModule.forRoot()
   ],
   declarations: [RewardComponent]
 })

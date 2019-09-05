@@ -56,9 +56,17 @@ export class EventService {
         formdata.append('eventDate',event.eventDate.toString());
         formdata.append('startTime',event.startTime.toString());
         formdata.append('endTime',event.endTime.toString());
-        formdata.append('status',event.status.toString())
+        if(event.status != null) {
+            formdata.append('status',event.status.toString());
+        } else {
+            formdata.append('status','0');
+        }
 
         return this.http.post(this.apiUrl+'/events',formdata);
+    }
+
+    addEventTag(id: number,tid:number) {
+        return this.http.put(`${this.apiUrl}/addEventTag/${id}/${tid}`,[]);
     }
 
     editEvent(event: Event,id: Number) {

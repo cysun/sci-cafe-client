@@ -4,9 +4,6 @@
       <div class="col-sm-12">
         <div class="login-card card-body auth-body">
           <form class="md-float-material">
-            <div class="text-center">
-              <img src="assets/images/auth/logo-dark.png" alt="Guru Able">
-            </div>
             <div class="auth-box">
               <div class="row m-b-20">
                 <div class="col-md-12">
@@ -15,25 +12,21 @@
                 </div>
               </div>
               <p class="text-inverse b-b-default text-right">Back to <a [routerLink]="['/authentication/login/with-bg-image']">Login.</a></p>
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Your Email Address">
-                <span class="md-line"></span>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Reset and send me a new Password</button>
-                </div>
-              </div>
+              <form class="md-float-material" [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+                    <div class="input-group">
+                      <input  type="input" class="form-control" formControlName="email" placeholder="Email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Your Email Address">
+                      <div 
+                      style="color: red"
+                      *ngIf="!emailForm.controls.email.errors?.emailExists">Email does not exists.</div>
+                      <div class="messages text-danger error" *ngIf="submitted && emailForm.controls.email.errors?.required">Please enter correct email</div>              
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <button [disabled] = "!emailForm.controls.email.errors?.emailExists" type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Reset and send me a new Password</button>
+                      </div>
+                    </div>
+              </form>
               <hr/>
-              <div class="row">
-                <div class="col-md-10">
-                  <p class="text-inverse text-left m-b-0">Thank you and enjoy our website.</p>
-                  <p class="text-inverse text-left"><b>Your Autentification Team</b></p>
-                </div>
-                <div class="col-md-2">
-                  <img src="assets/images/auth/Logo-small-bottom.png" alt="small-logo.png">
-                </div>
-              </div>
             </div>
           </form>
         </div>

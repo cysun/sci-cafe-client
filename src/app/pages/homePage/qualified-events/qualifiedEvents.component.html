@@ -1,0 +1,165 @@
+<section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" style="background-image: url(images/page-banner-3.jpg)">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-banner-cont">
+                    <h2>{{reward?.name}}</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+                            <li class="breadcrumb-item"><a [routerLink]="['/home/rewards']">Rewards</a></li>
+                            <li class="breadcrumb-item"><a [routerLink]="['/home/rewards/detail']" [queryParams]="{id:reward?.id}">{{reward?.name}}</a></li>
+                        </ol>
+                    </nav>
+                </div> <!-- page banner cont -->
+            </div>
+        </div> <!-- row -->
+    </div> <!-- container -->
+</section>
+
+<!--====== PAGE BANNER PART ENDS ======-->
+
+<!--====== EVENTS PART START ======-->
+
+<section id="reward-singel" class="pt-120 pb-120 gray-bg">
+    <div class="container">
+        <div class="events-area">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="events-left">
+                        <h3>{{reward?.name}}</h3>
+                        <div class="label-main">
+                            Tag: <label *ngFor="let tag of reward?.tags" class="label label-primary">{{tag?.name}}</label>
+                        </div>
+                        <div class="m-3" style="float:right">
+                            <form class="form-inline f-right" [formGroup]="addTagForm" (ngSubmit)="onAdd()">
+                                <div>
+                                    <select name="tag" formControlName="tag" class="form-control form-control-default" class="form-control" [ngClass]="{ 'is-invalid': submitted && tagForm.tag.errors }">
+                                        <option *ngFor="let tag of tags" value={{tag.id}}>{{tag.name}}</option>
+                                    </select>
+                                    <div class="messages text-danger error" *ngIf="submitted && addTagForm.controls.Tag.errors?.required">Tag can't be blank</div>                    
+                                </div>
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add Tag</button>
+                            </form>
+                        </div>
+                        <br>
+                        <h3>Description:</h3>
+                        <br>
+                        <quill-view [preserveWhitespace]="true" [content]="reward?.description"></quill-view>
+                        <br>
+                        <br>
+                        <div id="crm-contact" class="dt-responsive">
+                                <div class="row">
+                                  <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+                                    <div>
+                                    </div>
+                                  </div>
+                                  <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div style="text-align: right;">
+                                      <label>Search:
+                                        <input type="search" [(ngModel)]="filterQuery" class="form-control input-sm full-data-search" placeholder="Search By Event Name">
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- <div class="panel-heading">User information</div>-->
+                                <div class="table-responsive">
+                                  <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter :['name']: filterQuery" #mf="mfDataTable"
+                                         [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                                    <thead>
+                                    <tr>
+                                      <th>
+                                        <mfDefaultSorter  by="name">Name</mfDefaultSorter>
+                                      </th>
+                                      <th>
+                                        <mfDefaultSorter  by="location">Location</mfDefaultSorter>
+                                      </th>
+                                      <th>
+                                        <mfDefaultSorter by="date">Date</mfDefaultSorter>
+                                      </th>
+                                      <th>
+                                        <mfDefaultSorter by="organizer">Organizer</mfDefaultSorter>
+                                      </th>
+                                      <th>
+                                        <mfDefaultSorter>Action</mfDefaultSorter>
+                                      </th>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let item of mf.data">
+                                      <td>{{item?.name}}</td>
+                                      <td>{{item?.location}}   </td>
+                                      <td>{{item?.eventDate | date:'yyyy-MM-dd'}}</td>
+                                      <td>{{item?.organizer.firstName}} {{item?.organizer.lastName}}</td>
+                                      <td class="action-icon">
+                                        <button class="btn btn-primary" (click)="addEventToRewardById(item?.id)" type="submit">Add</button>
+                                      </td>
+                                    </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                      <td colspan="10">
+                                        <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+                                      </td>
+                                    </tr>
+                                    </tfoot>
+                                  </table>
+                                </div>
+                              </div>
+                        <br>
+                        <br>
+                        <br>
+                        <h3>Qualified Events</h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                <th scope="col">Events</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Loction</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Start Time</th>
+                                <th scope="col">End Time</th>
+                                <th scope="col">Organizer</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let event of events;index as i">
+                                <tr>
+                                <th scope="row">{{i+1}}</th>
+                                <td><a [routerLink]="['/home/events/detail']" [queryParams]="{id:event.id}">{{event?.name}}</a></td>
+                                <td>{{event?.location}}   </td>
+                                <td>{{event?.eventDate | date:'yyyy-MM-dd'}}</td>
+                                <td>{{event?.startTime}}        </td>
+                                <td>{{event?.endTime}}         </td>
+                                <td>{{event?.organizer.firstName}} {{event?.organizer.lastName}}</td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        <br>
+                        <br>
+                        <h3>Winners</h3>
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Winner</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Email</th>
+                              </tr>
+                            </thead>
+                            <tbody *ngFor="let winner of winners;index as i">
+                              <tr>
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{winner?.firstName}} {{winner?.lastName}}</td>
+                                <td>{{winner?.username}}</td>
+                                <td>{{winner?.email}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div> <!-- rewards left -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- rewards-area -->
+    </div> <!-- container -->
+</section>

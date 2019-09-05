@@ -30,7 +30,7 @@ export class NewsComponent implements OnInit {
   title = new FormControl('', Validators.required);
   author = new FormControl('', Validators.required);
   content = new FormControl('', Validators.required);
-  isTop = new FormControl('', []);
+  isTop = new FormControl('No', []);
   image = new FormControl('', []);
 
 
@@ -108,6 +108,33 @@ selectFile(event) {
 
   onClick(id:number) {
     
+  }
+
+  blured = false
+  focused = false
+
+  created(event) {
+    // tslint:disable-next-line:no-console
+    console.log('editor-created', event)
+  }
+
+  changedEditor(event) {
+    // tslint:disable-next-line:no-console
+    console.log('editor-change', event)
+  }
+
+  focus($event) {
+    // tslint:disable-next-line:no-console
+    console.log('focus', $event)
+    this.focused = true
+    this.blured = false
+  }
+
+  blur($event) {
+    // tslint:disable-next-line:no-console
+    console.log('blur', $event)
+    this.focused = false
+    this.blured = true
   }
 }
 

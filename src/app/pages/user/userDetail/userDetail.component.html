@@ -12,7 +12,7 @@
                   <div class="card-header">
                     <h5 class="card-header-text">{{profile?.firstName}}  {{profile?.lastName}}</h5>
                     <button id="edit-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right" (click)="toggleEditProfile()">
-                      <i class="icofont {{ editProfileIcon }}"></i>
+                      Edit
                     </button>
                   </div>
                   <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
@@ -283,6 +283,76 @@
               </div>
             </ng-template>
           </ngb-tab>
+          <div *ngIf="isAdmin==='true'">
+              <ngb-tab title="Roles">
+                  <ng-template ngbTabContent>
+                    <div [@fadeInOutTranslate] class="m-t-15">
+                      <!-- info card start -->
+                      <div class="">
+      
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <h5 class="card-header-text">Roles</h5>
+                        </div>
+                        <div class="m-3" style="float:right">
+                            <form class="form-inline f-right" [formGroup]="addRoleForm" (ngSubmit)="onAddRole()">
+                                <div>
+                                    <select name="role" formControlName="role" class="form-control form-control-default" class="form-control" [ngClass]="{ 'is-invalid': submitted && roleForm.program.errors }">
+                                        <option value=0>Regular</option>
+                                        <option value=1>Administrator</option>
+                                        <option value=2>Event Organizer</option>
+                                        <option value=3>Rewar Provider</option>
+                                    </select>
+                                    <div class="messages text-danger error" *ngIf="submitted && addRoleForm.controls.role.errors?.required">Role can't be blank</div>                    
+                                </div>
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
+                            </form>
+                        </div>
+                        <div class="card-body" >
+                          <div class="row">
+                            <div class="col-md-6" *ngFor="let role of profile.roles">
+                              <div class="card b-l-danger business-info services">
+                                <div ngbDropdown class="card-header">
+                                  <div class="service-header">
+                                    <h3 class="card-header-text">{{role.name}}</h3>
+                                  </div>
+                                  <span ngbDropdownToggle class="dropdown-toggle addon-btn text-muted f-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
+                                                 </span>
+                                  <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right b-none services-list">
+                                    <a class="dropdown-item" role="button" (click)="onDeleteRole(role.id)" ><i class="icofont icofont-ui-delete"></i> Delete</a>
+                                  </div>
+                                </div>
+                                <div class="card-header">
+                                    <div class="row">
+                                      <div class="col-sm-12">
+                                        <p class="task-detail">{{role.name}}</p>
+                                      </div>
+                                      <!-- end of col-sm-8 -->
+                                    </div>
+                                    <!-- end of row -->
+                                </div>
+                                <div class="card-body">
+                                  <div class="row">
+                                    <div class="col-sm-12">
+    
+                                    </div>
+                                    <!-- end of col-sm-8 -->
+                                  </div>
+                                  <!-- end of row -->
+                                </div>
+                                <!-- end of card-body -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- info card end -->
+                    </div>
+                  </ng-template>
+                </ngb-tab>
+          </div>
+          
         </ngb-tabset>
       </div>
     </div>

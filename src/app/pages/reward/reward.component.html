@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header">
       <h5>Rewards</h5>
-      <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> <i class="icofont icofont-plus m-r-5"></i> Add Event
+      <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> <i class="icofont icofont-plus m-r-5"></i> Add Reward
       </button>
     </div>
     <div class="card-body">
@@ -40,9 +40,6 @@
                     <mfDefaultSorter  by="name">name</mfDefaultSorter>
                   </th>
                   <th>
-                    <mfDefaultSorter  by="description">Description</mfDefaultSorter>
-                  </th>
-                  <th>
                     <mfDefaultSorter  by="provider name">Provider Name</mfDefaultSorter>
                   </th>
                   <th>
@@ -60,14 +57,12 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let item of mf.data">
-                  <td>{{item?.name}}   </td>
-                  <td>{{item?.description}}   </td>
+                  <td><a [routerLink]="['/home/reward/qualifiedEvents']" [queryParams]="{id:item?.id}">{{item?.name}}</a></td>
                   <td>{{item?.submitter?.firstName}} {{item?.submitter?.lastName}}</td>
                   <td>{{item?.status}}        </td>
                   <td>{{item?.criteria}}        </td>
                   <td class="action-icon">
-                    <a class="m-r-15 crm-action-edit text-muted text-primary"><i class="icofont icofont-ui-edit"></i></a>
-                    <a role="button" (click)="onDelete(item.id)" class="crm-action-delete text-muted text-danger"><i class="icofont icofont-delete-alt"></i></a>
+                      <button class="btn bg-c-pink btn-round " (click)="onDelete(item?.id)">Delete</button>
                   </td>
                 </tr>
                 </tbody>
@@ -96,7 +91,7 @@
         <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.name.errors?.required">Name can't be blank</div>         
       </div>
       <div class="input-group">
-        <textarea rows="8" cols="200" type="text" formControlName="description" class="form-control" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+        <quill-editor [styles]="{height: '70px'}" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)" [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
         <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.description.errors?.required">Description can't be blank</div>    
       </div>
       <div class="input-group">

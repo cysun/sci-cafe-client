@@ -4,26 +4,24 @@
             <ngb-tabset justify="fill">
               <ngb-tab title="Approved Events">
                 <ng-template ngbTabContent>
-                  <div [@fadeInOutTranslate] class="m-t-15">
+                  <div class="m-t-15">
                     <!-- personal card start -->
                     <div class="card">
                       <div class="card-header">
                         <h5 class="card-header-text">Approved Events</h5>
+                        <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> Add Event</button>
                       </div>
                       <div class="card-body" >
                           <div class="card-comment " *ngFor="let event of events">
-                              <div class="card-block-small" *ngIf="event.status==1">
+                              <div class="card-block-small" *ngIf="event?.status==1">
                                 <img class="img-radius img-50" src="assets/images/event.png" alt="user-4">
                                 <div class="comment-desc">
                                     <div class="label-main">
                                         <label *ngFor="let tag of event.tags" class="label label-primary">{{tag?.name}}</label>
                                     </div>
                                     <a [routerLink]="['/home/event/checkIn']" [queryParams]="{id:event.id}"><h6>{{event?.name}}</h6></a>
-                                  <p class="text-muted ">{{event.description}}</p>
                                   <div class="comment-btn">
-                                    <button *ngIf = "event.status == 'submitted'" class="btn bg-c-blue btn-round btn-comment ">Submitted</button>
-                                    <button *ngIf = "event.status == 'approved'" class="btn bg-c-green btn-round btn-comment ">Approved</button>
-                                    <button *ngIf = "event.status == 'rejected'" class="btn bg-c-pink btn-round btn-comment ">Rejected</button>
+                                      <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(event?.id)">Delete</button>
                                   </div>
                                   <div class="date">
                                     <i>{{event.eventDate | date:'yyyy-MM-dd'}}  {{event.startTime}} ~~ {{event.endTime}}</i>
@@ -40,7 +38,7 @@
               </ngb-tab>
               <ngb-tab title="Submitted Events">
                 <ng-template ngbTabContent>
-                  <div [@fadeInOutTranslate] class="m-t-15">
+                  <div class="m-t-15">
                     <!-- info card start -->
                     <div class="">
     
@@ -48,6 +46,7 @@
                     <div class="card">
                       <div class="card-header">
                         <h5 class="card-header-text">Submitted Events</h5>
+                        <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> Add Event</button>
                       </div>
                       <div class="card-body" >
                           <div class="card-comment " *ngFor="let event of events">
@@ -57,12 +56,9 @@
                                     <div class="label-main">
                                         <label *ngFor="let tag of event.tags" class="label label-primary">{{tag?.name}}</label>
                                     </div>
-                                  <h6>{{event.name}}</h6>
-                                  <p class="text-muted ">{{event.description}}</p>
+                                    <a [routerLink]="['/home/event/checkIn']" [queryParams]="{id:event.id}"><h6>{{event?.name}}</h6></a>
                                   <div class="comment-btn">
-                                    <button *ngIf = "event.status == 'submitted'" class="btn bg-c-blue btn-round btn-comment ">Submitted</button>
-                                    <button *ngIf = "event.status == 'approved'" class="btn bg-c-green btn-round btn-comment ">Approved</button>
-                                    <button *ngIf = "event.status == 'rejected'" class="btn bg-c-pink btn-round btn-comment ">Rejected</button>
+                                      <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(event?.id)">Delete</button>
                                   </div>
                                   <div class="date">
                                     <i>{{event.eventDate | date:'yyyy-MM-dd'}}  {{event.startTime}} ~~ {{event.endTime}}</i>
@@ -78,7 +74,7 @@
               </ngb-tab>
               <ngb-tab title="Rejected Events">
                   <ng-template ngbTabContent>
-                    <div [@fadeInOutTranslate] class="m-t-15">
+                    <div class="m-t-15">
                       <!-- info card start -->
                       <div class="">
       
@@ -86,6 +82,7 @@
                       <div class="card">
                         <div class="card-header">
                           <h5 class="card-header-text">Rejected Events</h5>
+                          <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> Add Event</button>
                         </div>
                         <div class="card-body" >
                             <div class="card-comment " *ngFor="let event of events">
@@ -95,11 +92,9 @@
                                       <div class="label-main">
                                           <label *ngFor="let tag of event.tags" class="label label-primary">{{tag?.name}}</label>
                                       </div>
-                                    <h6>{{event.name}}</h6>
+                                      <a [routerLink]="['/home/event/checkIn']" [queryParams]="{id:event.id}"><h6>{{event?.name}}</h6></a>
                                     <div class="comment-btn">
-                                      <button *ngIf = "event.status == 0" class="btn bg-c-blue btn-round btn-comment ">Submitted</button>
-                                      <button *ngIf = "event.status == 1" class="btn bg-c-green btn-round btn-comment ">Approved</button>
-                                      <button *ngIf = "event.status == 2" class="btn bg-c-pink btn-round btn-comment ">Rejected</button>
+                                      <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(event?.id)">Delete</button>
                                     </div>
                                     <div class="date">
                                       <i>{{event.eventDate | date:'yyyy-MM-dd'}}  {{event.startTime}} ~~ {{event.endTime}}</i>
@@ -117,3 +112,47 @@
           </div>
         </div>
       </div>
+      <app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
+          <h3 class="f-26">Add Event</h3>
+          <div class="text-center">
+            <form class="md-float-material" [formGroup]="addEventForm" (ngSubmit)="onSubmit()">
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+              <input type="text" formControlName="name" class="form-control" placeholder="name" [ngClass]="{ 'is-invalid': submitted && f.name?.errors }" />
+              <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.name?.errors?.required">Name can't be blank</div>         
+            </div>
+            <div class="input-group">
+              Upload Image<input type="file" class="form-control" accept="image/*" [ng2FileSize]="{ min: 1024, max: 1024 * 1024 }"
+              [fileSizeErrorMsg]="'Image size must be less than 1mb and more than 50kb!'"
+              formControlName="image" (change)="selectFile($event)">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+                <input type="text" formControlName="location" class="form-control" placeholder="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors }" />
+                <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.location?.errors?.required">Location can't be blank</div>    
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+                <input type="date" formControlName="eventDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.eventDate.errors }" />
+                <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.eventDate?.errors?.required">EventDate can't be blank</div>    
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+                <input type="time" formControlName="startTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.startTime.errors }" />
+                <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.startTime?.errors?.required">StartTime can't be blank</div>    
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+                <input type="time" formControlName="endTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.endTime.errors }" />
+                <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.endTime?.errors?.required">EndTime can't be blank</div>    
+            </div>
+            <div class="input-group">
+              <quill-editor [styles]="{height: '70px'}" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)" [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
+              <!-- <textarea rows="8" cols="200" formControlName="description" class="form-control" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea> -->
+              <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.description.errors?.required">Description can't be blank</div>    
+            </div>
+            <button type="submit" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
+            </form>
+          </div>
+          <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+        </app-modal-animation>

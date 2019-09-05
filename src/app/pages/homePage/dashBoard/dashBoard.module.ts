@@ -43,7 +43,16 @@ export const DashBoardRoutes: Routes = [
       },{
         path: 'myEvents',
         loadChildren: '../events/myEvents.module#MyEventsModule'
-      }
+      },{
+        path: 'myRewards',
+        loadChildren: '../rewards/myRewards.module#MyRewardsModule'
+      }, {
+        path: 'qualifiedEvents',
+        loadChildren: '../qualified-events/qualifiedEvents.module#QualifiedEventsModule'
+      },{
+        path: 'userDetail',
+        loadChildren: '../../user/userDetail/userDetail.module#UserDetailModule'
+      }, 
     ]
   }
 ];

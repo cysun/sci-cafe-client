@@ -7,6 +7,7 @@ import { CalendarModule } from 'angular-calendar';
 import { PipesModule } from 'w-ng5';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 export const EventsRoutes: Routes = [
   {
@@ -23,7 +24,9 @@ export const EventsRoutes: Routes = [
     CalendarModule,
     PipesModule,
     NgxPaginationModule ,
-    FormsModule
+    FormsModule,
+    FroalaEditorModule.forRoot(), 
+    FroalaViewModule.forRoot() 
   ],
   declarations: [EventsComponent]
 })

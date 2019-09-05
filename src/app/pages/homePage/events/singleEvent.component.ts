@@ -26,6 +26,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SingleEventComponent implements OnInit {
   event: Event;
+  isAdmin:String;
 
   constructor(
     public http: Http,
@@ -39,6 +40,7 @@ export class SingleEventComponent implements OnInit {
 
   ngOnInit() {
     this.getEventById(this.routerInfo.snapshot.queryParams["id"]);
+    this.isAdmin = localStorage.getItem("isAdmin");
   }
 
   private getEventById(id:number) {
@@ -47,5 +49,15 @@ export class SingleEventComponent implements OnInit {
     });
   }
 
+  private approveById(id:Number) {
+    this.eventService.approveEventById(id).subscribe();
+    window.location.reload();
+  }
+
+  private rejectById(id:Number) {
+    this.eventService.rejectEventById(id).subscribe();
+    window.location.reload();
+  }
+  
 }
 

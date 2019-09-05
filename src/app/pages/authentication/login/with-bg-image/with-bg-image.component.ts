@@ -14,6 +14,7 @@ export class WithBgImageComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted = false; 
+  loginFail = false;
   returnUrl: string;
   username = new FormControl('', Validators.required);
   password = new FormControl('', Validators.required);
@@ -52,11 +53,13 @@ export class WithBgImageComponent implements OnInit {
             data => {
                 // location.reload();
                 console.log("3");
+                this.loginFail = false;
                 this.router.navigate(['/home']);
             },
             error => {
                 console.log("4");
                 this.submitted = false;
+                this.loginFail = true;
                 this.alertService.error(error);
             });
   }

@@ -1,0 +1,128 @@
+<div class="row">
+        <div class="col-md-12">
+          <div class="md-tabs">
+            <ngb-tabset justify="fill">
+              <ngb-tab title="Approved Rewards">
+                <ng-template ngbTabContent>
+                  <div  class="m-t-15">
+                    <!-- personal card start -->
+                    <div class="card">
+                      <div class="card-header">
+                        <h5 class="card-header-text">Approved Rewards</h5>
+                        <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> Add Reward</button>
+                      </div>
+                      <div class="card-body" >
+                          <div class="card-comment " *ngFor="let reward of rewards">
+                              <div class="card-block-small" *ngIf="reward.status==1">
+                                <img class="img-radius img-50" src="assets/images/reward.png" alt="user-4">
+                                <div class="comment-desc">
+                                    <div class="label-main">
+                                        <label *ngFor="let tag of reward.tags" class="label label-primary">{{tag?.name}}</label>
+                                    </div>
+                                    <a [routerLink]="['/home/reward/qualifiedEvents']" [queryParams]="{id:reward.id}"><h6>{{reward?.name}}</h6></a>
+                                    <div class="comment-btn">
+                                        <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(reward?.id)">Delete</button>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                      </div>
+                      <!-- end of card-body -->
+                    </div>
+                    <!-- personal card end-->
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Submitted Rewards">
+                <ng-template ngbTabContent>
+                  <div  class="m-t-15">
+                    <!-- info card start -->
+                    <div class="">
+    
+                    </div>
+                    <div class="card">
+                      <div class="card-header">
+                        <h5 class="card-header-text">Submitted Rewards</h5>
+                        <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> Add Reward</button>
+                      </div>
+                      <div class="card-body" >
+                          <div class="card-comment " *ngFor="let reward of rewards">
+                              <div class="card-block-small" *ngIf="reward.status==0">
+                                <img class="img-radius img-50" src="assets/images/reward.png" alt="user-4">
+                                <div class="comment-desc">
+                                    <div class="label-main">
+                                        <label *ngFor="let tag of reward.tags" class="label label-primary">{{tag?.name}}</label>
+                                    </div>
+                                    <a [routerLink]="['/home/reward/qualifiedEvents']" [queryParams]="{id:reward.id}"><h6>{{reward?.name}}</h6></a>
+                                    <div class="comment-btn">
+                                        <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(reward?.id)">Delete</button>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                      </div>
+                    </div>
+                    <!-- info card end -->
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Rejected Rewards">
+                  <ng-template ngbTabContent>
+                    <div class="m-t-15">
+                      <!-- info card start -->
+                      <div class="">
+      
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <h5 class="card-header-text">Rejected Rewards</h5>
+                          <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> Add Reward</button>
+                        </div>
+                        <div class="card-body" >
+                            <div class="card-comment " *ngFor="let reward of rewards">
+                                <div class="card-block-small" *ngIf="reward.status==2">
+                                  <img class="img-radius img-50" src="assets/images/reward.png" alt="user-4">
+                                  <div class="comment-desc">
+                                      <div class="label-main">
+                                          <label *ngFor="let tag of reward.tags" class="label label-primary">{{tag?.name}}</label>
+                                      </div>
+                                      <a [routerLink]="['/home/reward/qualifiedEvents']" [queryParams]="{id:reward.id}"><h6>{{reward?.name}}</h6></a>
+                                      <div class="comment-btn">
+                                          <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(reward?.id)">Delete</button>
+                                      </div>
+                                    </div>                                  
+                                </div>
+                              </div>
+                        </div>
+                      </div>
+                      <!-- info card end -->
+                    </div>
+                  </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+          </div>
+        </div>
+      </div>
+      <app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
+        <h3 class="f-26">Add Reward</h3>
+        <div class="text-center">
+          <form class="md-float-material" [formGroup]="addRewardForm" (ngSubmit)="onSubmit()">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+            <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+            <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.name.errors?.required">Name can't be blank</div>         
+          </div>
+          <div class="input-group">
+            <quill-editor [styles]="{height: '70px'}" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)" [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
+            <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.description.errors?.required">Description can't be blank</div>    
+          </div>
+          <div class="input-group">
+              <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+              <input type="text" formControlName="criteria" class="form-control" placeholder="criteria" [ngClass]="{ 'is-invalid': submitted && f.criteria.errors }" />
+              <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.criteria.errors?.required">Criteria can't be blank</div>    
+          </div>
+          <button type="submit" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
+          </form>
+        </div>
+        <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+      </app-modal-animation>

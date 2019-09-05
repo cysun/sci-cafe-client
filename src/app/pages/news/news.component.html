@@ -57,13 +57,12 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let item of mf.data">
-                  <td>{{item?.title}}   </td>
+                  <td><a [routerLink]="['/home/news/detail']" [queryParams]="{id:item?.id}">{{item?.title}}</a></td>
                   <td>{{item?.author}}   </td>
                   <td>{{item?.postedDate | date:'yyyy-MM-dd'}}</td>
                   <td>{{item?.isTop}}        </td>
                   <td class="action-icon">
-                    <a class="m-r-15 crm-action-edit text-muted text-primary"><i class="icofont icofont-ui-edit"></i></a>
-                    <a role="button" (click)="onDelete(item.id)" class="crm-action-delete text-muted text-danger"><i class="icofont icofont-delete-alt"></i></a>
+                      <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(item?.id)">Delete</button>
                   </td>
                 </tr>
                 </tbody>
@@ -97,7 +96,7 @@
         <div class="messages text-danger error" *ngIf="submitted && addNewsForm.controls.author?.errors?.required">Author can't be blank</div>    
       </div>
       <div class="input-group">
-          <textarea rows="15" cols="200" formControlName="content" class="form-control" placeholder="Content" [ngClass]="{ 'is-invalid': submitted && f.content.errors }"></textarea>
+          <quill-editor [styles]="{height: '150px'}" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)" [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="content" placeholder="Content" [ngClass]="{ 'is-invalid': submitted && f.content.errors }"></quill-editor>
           <div class="messages text-danger error" *ngIf="submitted && addNewsForm.controls.content?.errors?.required">Content can't be blank</div>    
       </div>
       <div class="input-group">  

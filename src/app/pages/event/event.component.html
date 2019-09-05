@@ -66,7 +66,7 @@
               </thead>
               <tbody>
               <tr *ngFor="let item of mf.data">
-                <td>{{item?.name}}   </td>
+                <td><a [routerLink]="['/home/event/checkIn']" [queryParams]="{id:item?.id}">{{item?.name}}</a></td>
                 <td>{{item?.location}}   </td>
                 <td>{{item?.eventDate | date:'yyyy-MM-dd'}}</td>
                 <td>{{item?.startTime}}        </td>
@@ -76,8 +76,7 @@
                 <td *ngIf = "item.status === 1">Approved</td>
                 <td *ngIf = "item.status === 2">Rejected</td>
                 <td class="action-icon">
-                  <a class="m-r-15 crm-action-edit text-muted text-primary"><i class="icofont icofont-ui-edit"></i></a>
-                  <a role="button" (click)="onDelete(item?.id)" class="crm-action-delete text-muted text-danger"><i class="icofont icofont-delete-alt"></i></a>
+                    <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(item?.id)">Delete</button>
                 </td>
               </tr>
               </tbody>
@@ -153,7 +152,7 @@
       <span class="md-line"></span>
     </div>
     <div class="input-group">
-      <textarea rows="8" cols="200" formControlName="description" class="form-control" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+      <quill-editor [styles]="{height: '70px'}"[preserveWhitespace]="true" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
       <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.description.errors?.required">Description can't be blank</div>    
     </div>
     <button type="submit" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>

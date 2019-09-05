@@ -37,11 +37,11 @@ export class EventsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadAllEvents();
+    this.loadAllApprovedEvents();
   }
 
-  private loadAllEvents() {
-    this.eventService.getAllEvents().subscribe(events => {
+  private loadAllApprovedEvents() {
+    this.eventService.getAllApprovedEvents().subscribe(events => {
         this.events = events;
     });
   }

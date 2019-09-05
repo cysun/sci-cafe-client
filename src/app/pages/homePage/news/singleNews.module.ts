@@ -7,6 +7,7 @@ import { CalendarModule } from 'angular-calendar';
 import { PipesModule } from 'w-ng5';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
+import { QuillModule } from 'ngx-quill'
 
 export const SingleNewsRoutes: Routes = [
   {
@@ -23,7 +24,8 @@ export const SingleNewsRoutes: Routes = [
     CalendarModule,
     PipesModule,
     NgxPaginationModule ,
-    FormsModule
+    FormsModule,
+    QuillModule.forRoot()
   ],
   declarations: [SingleNewsComponent]
 })

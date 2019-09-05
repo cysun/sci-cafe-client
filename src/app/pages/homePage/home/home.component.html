@@ -21,10 +21,10 @@
       <section id="slider-part" class="slider-active">
         <ngb-carousel >
             <ng-template ngbSlide *ngFor="let news of topNews" class="class_outer">
-              <img src={{news?.imageUrl}} height="750" width="1800" alt={{news?.title}} style="width:100%;">
+              <img src={{news?.imageUrl}} width="1800" alt={{news?.title}} style="width:100%;">
               <div class="carousel-caption class_cover">
                 <a class="nav-link" [routerLink]="['/home/news/detail']" style="color:white" [queryParams]="{id:news?.id}">
-                    <h1 style="color:white;">{{news?.title}}</h1>
+                    <h3 style="color:white;">{{news?.title}}</h3>
                 </a>    
               </div>
             </ng-template>
@@ -135,19 +135,26 @@
                     </div> <!-- section title -->
                 </div>
             </div> <!-- row -->
-            <div class="row course-slied mt-30">
-                <div *ngFor="let program of programs"class="col-lg-4">
-                    <div class="singel-course">
-                        <div class="thum">
-                            <div class="image">
-                                <img src={{program?.imageUrl}} alt="Program">
-                            </div>
-                        </div>
-                        <div class="cont">
-                            <a [routerLink]="['/home/programs/detail']" [queryParams]="{id:program?.id}"><h4>{{program?.name}}</h4></a>
-                        </div>
-                    </div> <!-- singel course -->
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active"  id="courses-grid" role="tabpanel" aria-labelledby="courses-grid-tab">
                 </div>
+            </div>
+            <div class="row mt-30">
+                    <div class="row">
+                            <div class="col-md-6 col-lg-4" *ngFor="let program of programs">
+                                    <div class="singel-course mt-30">
+                                        <div class="thum">
+                                            <div class="image">
+                                                <img src={{program?.imageUrl}} height="200" alt="Course">
+                                            </div>
+                                        </div>
+                                        <div class="cont">
+                                            <a [routerLink]="['/home/programs/detail']" [queryParams]="{id:program?.id}"><h4>{{program?.name}}</h4></a>
+                                            <p>{{program?.fullName}}</p>
+                                        </div>
+                                    </div> <!-- singel course -->
+                                </div>
+                    </div> <!-- row -->
             </div> <!-- course slied -->
         </div> <!-- container -->
     </section>

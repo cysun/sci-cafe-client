@@ -1,14 +1,15 @@
 import { Component, OnInit,ViewChild} from '@angular/core';
 import {Http} from '@angular/http';
 
-import { EventService } from '../../../services';
+import { EventService,TagService,AlertService} from '../../../services';
 import { first } from 'rxjs/operators';
-import { Event } from '../../../models';
+import { Event,Tag} from '../../../models';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 
 import { Result } from '@zxing/library';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-attendeess',
@@ -28,23 +29,56 @@ import { Result } from '@zxing/library';
 })
 export class AttendeesComponent implements OnInit {
   event: Event;
+  addTagForm: FormGroup;
+  submitted = false; 
+  returnUrl: string;
+  tag = new FormControl('', Validators.required);
+  tags: Tag[] = [];
   constructor(
     public http: Http,
     private eventService: EventService,
     private router: Router,
-    private routerInfo:ActivatedRoute
+    private routerInfo:ActivatedRoute,
+    private tagService: TagService,
+    private alertService:AlertService
   ) { 
 
   }
 
   ngOnInit() {
     this.getEventById(this.routerInfo.snapshot.queryParams["id"]);
-
+    this.addTagForm = new FormGroup({
+      tag:this.tag
+    })
+    this.loadAllTags();
   }
+
+
 
   private getEventById(id:number) {
     this.eventService.getEventById(id).subscribe(event => {
         this.event = event;
+    });
+  }
+
+  private loadAllTags() {
+    this.tagService.getAllTags().subscribe(tags => {
+        this.tags = tags;
+    });
+  }
+
+  get tagForm() {return this.addTagForm.controls; }
+
+  onAdd() {
+    if (this.addTagForm.invalid) {
+      return;
+    }
+
+    this.eventService.addEventTag(Number(this.event.id),this.tag.value).pipe().subscribe(data=>{
+      location.reload();
+    },error => {
+      this.alertService.error(error);
+      this.submitted = false;
     });
   }
 

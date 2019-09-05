@@ -7,6 +7,7 @@ import {HttpModule} from '@angular/http';
 import {DataTableModule} from 'angular2-datatable';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Ng2FileSizeModule } from 'ng2-file-size';
+import { QuillModule } from 'ngx-quill';
 
 export const ProgramRoutes: Routes = [{
   path: '',
@@ -26,7 +27,8 @@ export const ProgramRoutes: Routes = [{
     HttpModule,
     DataTableModule,
     ReactiveFormsModule,
-    Ng2FileSizeModule
+    Ng2FileSizeModule,
+    QuillModule.forRoot()
   ],
   declarations: [ProgramComponent]
 })

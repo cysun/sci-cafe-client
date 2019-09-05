@@ -20,15 +20,11 @@
                 <input type="password" class="form-control" formControlName="password" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
                 <span class="md-line"></span>
                 <div class="messages text-danger error" *ngIf="submitted && loginForm.controls.password.errors?.required">Password can't be blank</div>
+                <div style="color:red" *ngIf="loginFail">The combination of username and password is wrong.</div>
               </div>
               <div class="row m-t-25 text-left formGroup row">
                 <div class="col-sm-7 col-xs-12">
                   <div class="checkbox-fade fade-in-primary">
-                    <label>
-                      <input type="checkbox" value="">
-                      <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                      <span class="text-inverse">Remember me</span>
-                    </label>
                   </div>
                 </div>
                 <div class="col-sm-5 col-xs-12 forgot-phone text-right">

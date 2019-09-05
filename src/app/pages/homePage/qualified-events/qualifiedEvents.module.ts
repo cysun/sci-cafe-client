@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AttendeesComponent } from './attendees.component';
+import { QualifiedEventsComponent } from './qualifiedEvents.component';
 import {RouterModule, Routes} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarModule } from 'angular-calendar';
@@ -10,19 +10,20 @@ import {SharedModule} from '../../../shared/shared.module';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
+import {DataTableModule} from 'angular2-datatable';
 import { QuillModule } from 'ngx-quill'
 
-export const AttendeesRoutes: Routes = [
+export const QualifiedEventsRoutes: Routes = [
   {
     path: '',
-    component: AttendeesComponent
+    component: QualifiedEventsComponent
   }
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(AttendeesRoutes),
+    RouterModule.forChild(QualifiedEventsRoutes),
     NgbModule,
     CalendarModule,
     PipesModule,
@@ -32,8 +33,9 @@ export const AttendeesRoutes: Routes = [
     ZXingScannerModule.forRoot(),
     HttpModule,
     ReactiveFormsModule,
+    DataTableModule,
     QuillModule.forRoot()
   ],
-  declarations: [AttendeesComponent]
+  declarations: [QualifiedEventsComponent]
 })
-export class AttendeesModule { }
+export class QualifiedEventsModule { }

@@ -56,5 +56,9 @@ export class SingleNewsComponent implements OnInit {
     });
   }
 
+  private doRefresh(id:number) {
+    this.getNewsById(id);
+  }
+
 }
 

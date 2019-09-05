@@ -60,9 +60,12 @@ export const AppRoutes: Routes = [
       },{
         path: 'home/event/scan',
         loadChildren: './pages/homePage/qrcode/scanner.module#ScannerModule'
-      }
+      },{
+        path: 'home/reward/qualifiedEvents',
+        loadChildren: './pages/homePage/qualified-events/qualifiedEvents.module#QualifiedEventsModule'
+      },
     ]
   },
   { path: '**', redirectTo: 'home' },
-  { path: '', redirectTo: 'home', pathMatch: 'full' }
+  { path: ' ', redirectTo: 'home', pathMatch: 'full' }
 ];

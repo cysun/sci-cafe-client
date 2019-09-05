@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 import {Http} from '@angular/http';
 
 import { RewardService } from '../../../services';
 import { first } from 'rxjs/operators';
-import { Reward,User } from '../../../models';
+import { Reward,User,Event} from '../../../models';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
@@ -26,6 +26,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SingleRewardComponent implements OnInit {
   reward: Reward;
+  events:Event[] = [];
+  isAdmin:string;
 
   constructor(
     public http: Http,
@@ -39,6 +41,8 @@ export class SingleRewardComponent implements OnInit {
 
   ngOnInit() {
     this.getRewardById(this.routerInfo.snapshot.queryParams["id"]);
+    this.getQualifiedEvents(this.routerInfo.snapshot.queryParams["id"]);
+    this.isAdmin = localStorage.getItem("isAdmin");
   }
 
   private getRewardById(id:number) {
@@ -47,5 +51,21 @@ export class SingleRewardComponent implements OnInit {
     });
   }
 
+  private getQualifiedEvents(id:number) {
+    this.rewardService.getQualifiedEvents(id).subscribe(events=> {
+        this.events = events;
+        console.log(events);
+    });
+  }
+
+  private rejectRewardById(id:Number) {
+    this.rewardService.rejectRewardById(id).subscribe();
+    window.location.reload();
+  }
+
+  private approveRewardById(id:Number) {
+    this.rewardService.approveRewardById(id).subscribe();
+    window.location.reload();
+  }
 }
 

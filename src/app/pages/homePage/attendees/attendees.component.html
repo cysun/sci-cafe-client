@@ -31,8 +31,22 @@
                         <div class="label-main">
                             Tag: <label *ngFor="let tag of event?.tags" class="label label-primary">{{tag?.name}}</label>
                         </div>
+                        <div class="m-3" style="float:right">
+                            <form class="form-inline f-right" [formGroup]="addTagForm" (ngSubmit)="onAdd()">
+                                <div>
+                                    <select name="tag" formControlName="tag" class="form-control form-control-default" class="form-control" [ngClass]="{ 'is-invalid': submitted && tagForm.tag.errors }">
+                                        <option *ngFor="let tag of tags" value={{tag.id}}>{{tag.name}}</option>
+                                    </select>
+                                    <div class="messages text-danger error" *ngIf="submitted && addTagForm.controls.Tag.errors?.required">Tag can't be blank</div>                    
+                                </div>
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add Tag</button>
+                            </form>
+                        </div>
                         <img src={{event?.imageUrl}} height="404" width="722" alt={{event?.name}}>
-                        <p>{{event?.description}}</p>
+                        <br>
+                        <h3>Description:</h3>
+                        <br>
+                        <quill-view [preserveWhitespace]="true" [content]="event?.description"></quill-view>
                         <br>
                         <br>
                         <button type="button" class="btn btn-primary waves-effect waves-light d-inline-block md-trigger" (click)="scan()"> <i class="icofont icofont-plus m-r-5"></i> Scan
@@ -71,7 +85,7 @@
                                         </div>
                                         <div class="cont">
                                             <h6>Start Time</h6>
-                                            <span>{{event?.startTime}}</span>
+                                            <span>{{event.eventDate | date:'yyyy-MM-dd'}}  {{event?.startTime}}</span>
                                         </div>
                                     </div> <!-- singel address -->
                                 </li>
@@ -82,7 +96,7 @@
                                         </div>
                                         <div class="cont">
                                             <h6>Finish Time</h6>
-                                            <span>{{event?.endTime}}</span>
+                                            <span>{{event.eventDate | date:'yyyy-MM-dd'}}  {{event?.endTime}}</span>
                                         </div>
                                     </div> <!-- singel address -->
                                 </li>

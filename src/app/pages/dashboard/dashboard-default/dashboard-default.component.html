@@ -66,26 +66,81 @@
     </div>
 
     <div class="col-md-12" *ngIf="isAdmin==='true'">
-      <app-card [title]="'Events'" [blockClass]="'p-0'">
-        <div class="card-comment " *ngFor="let event of events">
-          <div class="card-block-small" *ngIf="event.status==0">
-            <img class="img-radius img-50" src="assets/images/event.png" alt="user-4">
-            <div class="comment-desc">
-                <div class="label-main">
-                    <label *ngFor="let tag of event.tags" class="label label-primary">{{tag?.name}}</label>
-                </div>
-              <h6>{{event.name}}</h6>
-              <div class="comment-btn">
-                <i>{{event.eventDate | date:'yyyy-MM-dd'}}  {{event.startTime}} ~~ {{event.endTime}}</i>
-              </div>
-              <div class="date">
-                  <button class="btn bg-c-green btn-round btn-comment " (click)="approveById(event?.id)">Approved</button>
-                  <button class="btn bg-c-pink btn-round btn-comment " (click)="rejectById(event?.id)">Rejected</button>
-              </div>
-            </div>
+        <div class="md-tabs">
+            <ngb-tabset justify="fill">
+                <ngb-tab title="Events">
+                  <ng-template ngbTabContent>
+                    <div  class="m-t-15">
+                      <!-- personal card start -->
+                      <div class="card">
+                        <div class="card-header">
+                          <h5 class="card-header-text">Events</h5>
+                        </div>
+                        <div class="card-body" >
+                            <div class="card-comment " *ngFor="let event of events">
+                                <div class="card-block-small" *ngIf="event.status==0">
+                                  <img class="img-radius img-50" src="assets/images/event.png" alt="user-4">
+                                  <div class="comment-desc">
+                                      <div class="label-main">
+                                          <label *ngFor="let tag of event.tags" class="label label-primary">{{tag?.name}}</label>
+                                      </div>
+                                      <a [routerLink]="['/home/events/detail']" [queryParams]="{id:event.id}"><h4>{{event?.name}}</h4></a>
+                                    <div class="comment-btn">
+                                      <i>{{event?.eventDate | date:'yyyy-MM-dd'}}  {{event.startTime}} ~~ {{event.endTime}}</i>
+                                    </div>
+                                    <div>
+                                        <button class="btn bg-c-green btn-round btn-comment " (click)="approveById(event?.id)">Approv</button>
+                                        <button class="btn bg-c-pink btn-round btn-comment " (click)="rejectById(event?.id)">Reject</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                        <!-- end of card-body -->
+                      </div>
+                      <!-- personal card end-->
+                    </div>
+                  </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Rewards">
+                    <ng-template ngbTabContent>
+                      <div class="m-t-15">
+                        <!-- info card start -->
+                        <div class="">
+        
+                        </div>
+                        <div class="card">
+                          <div class="card-header">
+                            <h5 class="card-header-text">Rewards</h5>
+                          </div>
+                          <div class="card-body" >
+                              <div class="card-comment " *ngFor="let reward of rewards">
+                                  <div class="card-block-small" *ngIf="reward.status==0">
+                                    <img class="img-radius img-50" src="assets/images/reward.png" alt="user-4">
+                                    <div class="comment-desc">
+                                        <div class="label-main">
+                                            <label *ngFor="let tag of reward.tags" class="label label-primary">{{tag?.name}}</label>
+                                        </div>
+                                      <a [routerLink]="['/home/rewards/detail']" [queryParams]="{id:reward.id}"><h6>{{reward?.name}}</h6></a>
+                                      <div class="comment-btn">
+                                          
+                                      </div>
+                                      <div class="date">
+                                          <button class="btn bg-c-green btn-round btn-comment " (click)="approveRewardById(reward?.id)">Approve</button>
+                                          <button class="btn bg-c-pink btn-round btn-comment " (click)="rejectRewardById(reward?.id)">Reject</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                        </div>
+                        <!-- info card end -->
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+              </ngb-tabset>
           </div>
-        </div>
-      </app-card>
+        
     </div>
 
 </div>

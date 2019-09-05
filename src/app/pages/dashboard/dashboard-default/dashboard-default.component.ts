@@ -15,8 +15,8 @@ import * as jquery from 'jquery';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-import { Event } from '../../../models';
-import { AlertService,EventService,UserService, AuthenticationService } from '../../../services';
+import { Event,Reward} from '../../../models';
+import { AlertService,EventService,UserService, AuthenticationService,RewardService} from '../../../services';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 declare const AmCharts: any;
@@ -35,6 +35,7 @@ declare const $: any;
 export class DashboardDefaultComponent implements OnInit {
 
   events: Event[] = [];
+  rewards: Reward[] = [];
   isAdmin:string;
 
   constructor(
@@ -43,14 +44,21 @@ export class DashboardDefaultComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private eventService:EventService,
+    private rewardService:RewardService,
     private alertService: AlertService,
   ) {
 
   }
 
-  private loadAllEvent() {
+  private loadAllEvents() {
     this.eventService.getAllEvents().subscribe(events => {
         this.events = events;
+    });
+  }
+
+  private loadAllRewards() {
+    this.rewardService.getAllRewards().subscribe(rewards => {
+        this.rewards = rewards;
     });
   }
 
@@ -64,10 +72,21 @@ export class DashboardDefaultComponent implements OnInit {
     window.location.reload();
   }
 
+  private rejectRewardById(id:Number) {
+    this.rewardService.rejectRewardById(id).subscribe();
+    window.location.reload();
+  }
+
+  private approveRewardById(id:Number) {
+    this.rewardService.approveRewardById(id).subscribe();
+    window.location.reload();
+  }
+
   ngOnInit() {
     this.isAdmin = localStorage.getItem("isAdmin");
     if (this.isAdmin) {
-      this.loadAllEvent();
+      this.loadAllEvents();
+      this.loadAllRewards();
     }
 
     AmCharts.makeChart('email-sent', {

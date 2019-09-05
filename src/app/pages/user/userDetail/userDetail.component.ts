@@ -6,7 +6,7 @@ import {User,Program} from '../../../models/index.js';
 import { first } from 'rxjs/operators';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from 'ng2-validation';
-import { AlertService, AuthenticationService,UserService,ProgramService } from '../../../services';
+import { AlertService, AuthenticationService,UserService,ProgramService} from '../../../services';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -29,6 +29,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class UserDetailComponent implements OnInit {
 
   editProfileForm: FormGroup;
+  addRoleForm: FormGroup;
   addProgramForm: FormGroup;
   submitted = false; 
   returnUrl: string;
@@ -42,6 +43,7 @@ export class UserDetailComponent implements OnInit {
   rpassword = new FormControl('', [ CustomValidators.equalTo(this.password)]);
 
   program = new FormControl('', Validators.required);
+  role = new FormControl('', Validators.required);
 
   editProfile = true;
   editProfileIcon = 'icofont-edit';
@@ -50,7 +52,7 @@ export class UserDetailComponent implements OnInit {
   editAboutIcon = 'icofont-edit';
   name:String;
   programs: Program[] = [];
-
+  isAdmin="false";
 
 
   profile:User;
@@ -73,6 +75,8 @@ export class UserDetailComponent implements OnInit {
     this.name = localStorage.getItem('name');
     this.getProfile();
     this.loadAllPrograms();
+    this.isAdmin = localStorage.getItem('isAdmin');
+    console.log(this.isAdmin);
     this.editProfileForm = new FormGroup({
       password: this.password,
       firstName: this.firstName,
@@ -86,11 +90,15 @@ export class UserDetailComponent implements OnInit {
     this.addProgramForm = new FormGroup({
       program:this.program
     })
+    this.addRoleForm = new FormGroup({
+      role:this.role
+    })
     console.log(this.routeInfo.snapshot.queryParams["id"]);
   }
 
   get f() { return this.editProfileForm.controls; }
   get programForm() {return this.addProgramForm.controls; }
+  get roleForm() {return this.addRoleForm.controls; }
 
   onSubmit() {
     this.submitted = true;
@@ -115,6 +123,12 @@ export class UserDetailComponent implements OnInit {
   }
 
   private loadAllPrograms() {
+    this.programService.getAllPrograms().subscribe(programs => {
+        this.programs = programs;
+    });
+  }
+
+  private loadAllRoles() {
     this.programService.getAllPrograms().subscribe(programs => {
         this.programs = programs;
     });
@@ -149,12 +163,34 @@ export class UserDetailComponent implements OnInit {
     });
   }
 
+  onDeleteRole(rid:number) {
+    this.userService.deleteUserRole(Number(this.profile.id),rid).pipe().subscribe(data=>{
+      location.reload();
+    },error => {
+      this.alertService.error(error);
+      this.submitted = false;
+    });
+  }
+
   onAdd() {
     if (this.addProgramForm.invalid) {
       return;
     }
 
     this.userService.addUserProgram(Number(this.profile.id),this.program.value).pipe().subscribe(data=>{
+      location.reload();
+    },error => {
+      this.alertService.error(error);
+      this.submitted = false;
+    });
+  }
+
+  onAddRole() {
+    if (this.addRoleForm.invalid) {
+      return;
+    }
+
+    this.userService.addUserRole(Number(this.profile.id),this.role.value).pipe().subscribe(data=>{
       location.reload();
     },error => {
       this.alertService.error(error);
