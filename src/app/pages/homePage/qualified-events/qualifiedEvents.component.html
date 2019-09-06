@@ -28,8 +28,8 @@
                 <div class="col-lg-8">
                     <div class="events-left">
                         <h3>{{reward?.name}}</h3>
-                        <div class="label-main">
-                            Tag: <label *ngFor="let tag of reward?.tags" class="label label-primary">{{tag?.name}}</label>
+                        <div class="label-main" *ngIf="name">
+                            Tag: <label *ngFor="let tag of reward?.tags" class="label label-default"><a [routerLink]="['/home/reward/qualifiedEvents']" [queryParams]="{id:reward.id}" (click)="deleteTag(reward?.id,tag?.id)" >{{tag?.name}} x</a></label>
                         </div>
                         <div class="m-3" style="float:right">
                             <form class="form-inline f-right" [formGroup]="addTagForm" (ngSubmit)="onAdd()">

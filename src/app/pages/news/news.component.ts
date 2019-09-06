@@ -20,6 +20,7 @@ export class NewsComponent implements OnInit {
   public sortBy = '';
   public sortOrder = 'desc';
   data: News[] = [];
+  editNews : News;
 
   selectedFiles: FileList;
   currentFileUpload: File;
@@ -135,6 +136,47 @@ selectFile(event) {
     console.log('blur', $event)
     this.focused = false
     this.blured = true
+  }
+
+  openEditModal(event,id:number) {
+    this.newsService.getNewsById(id).subscribe(news=>{
+      this.editNews = news;
+      this.title.setValue(news.title);
+      this.author.setValue(news.author);
+      this.content.setValue(news.content);
+      this.isTop.setValue(news.isTop);
+    });
+    
+    document.querySelector('#' + event).classList.add('md-show');
+  }
+
+  clearForm() {
+    this.title.setValue("");
+    this.author.setValue("");
+    this.content.setValue("");
+    this.isTop.setValue("");
+  }
+
+  onEdit(id:number) {
+    this.submitted = true;
+  
+    // stop here if form is invalid
+    if (this.addNewsForm.invalid) {
+        return;
+    }
+  
+    this.newsService.editNews(this.addNewsForm.value,this.currentFileUpload,id)
+        .pipe(first())
+        .subscribe(
+            data => {
+                this.alertService.success('Edit a program successful', true);
+                this.clearForm();
+                location.reload();
+            },
+            error => {
+                this.submitted = false;
+                this.alertService.error(error);
+            });
   }
 }
 

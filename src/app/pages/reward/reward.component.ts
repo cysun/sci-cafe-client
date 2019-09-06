@@ -21,7 +21,8 @@ export class RewardComponent implements OnInit {
   public sortBy = '';
   public sortOrder = 'desc';
   data: Reward[] = [];
-
+  editReward : Reward;
+  
   addRewardForm: FormGroup;
   submitted = false; 
   returnUrl: string;
@@ -133,6 +134,45 @@ export class RewardComponent implements OnInit {
     console.log('blur', $event)
     this.focused = false
     this.blured = true
+  }
+
+  openEditModal(event,id:number) {
+    this.rewardService.getRewardById(id).subscribe(reward=>{
+      this.editReward = reward;
+      this.name.setValue(reward.name);
+      this.description.setValue(reward.description);
+      this.criteria.setValue(reward.criteria);
+    });
+    
+    document.querySelector('#' + event).classList.add('md-show');
+  }
+
+  clearForm() {
+    this.name.setValue("");
+    this.criteria.setValue("");
+    this.description.setValue("");
+  }
+
+  onEdit(id:number) {
+    this.submitted = true;
+  
+    // stop here if form is invalid
+    if (this.addRewardForm.invalid) {
+        return;
+    }
+  
+    this.rewardService.editReward(this.addRewardForm.value,id)
+        .pipe(first())
+        .subscribe(
+            data => {
+                this.alertService.success('Edit a reward successful', true);
+                this.clearForm();
+                location.reload();
+            },
+            error => {
+                this.submitted = false;
+                this.alertService.error(error);
+            });
   }
 
 }

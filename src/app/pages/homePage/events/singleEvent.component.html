@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="cont">
                                             <h6>Start Time</h6>
-                                            <span>{{event.eventDate | date:'yyyy-MM-dd'}}  {{event?.startTime}}</span>
+                                            <span>{{event.eventDate | date:'yyyy-MM-dd':'UTC'}}  {{event?.startTime}}</span>
                                         </div>
                                     </div> <!-- singel address -->
                                 </li>
@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="cont">
                                             <h6>Finish Time</h6>
-                                            <span>{{event.eventDate | date:'yyyy-MM-dd'}}  {{event?.endTime}}</span>
+                                            <span>{{event.eventDate | date:'yyyy-MM-dd':'UTC'}}  {{event?.endTime}}</span>
                                         </div>
                                     </div> <!-- singel address -->
                                 </li>

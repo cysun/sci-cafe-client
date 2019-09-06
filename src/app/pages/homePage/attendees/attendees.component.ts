@@ -34,6 +34,7 @@ export class AttendeesComponent implements OnInit {
   returnUrl: string;
   tag = new FormControl('', Validators.required);
   tags: Tag[] = [];
+  name : string;
   constructor(
     public http: Http,
     private eventService: EventService,
@@ -49,7 +50,8 @@ export class AttendeesComponent implements OnInit {
     this.getEventById(this.routerInfo.snapshot.queryParams["id"]);
     this.addTagForm = new FormGroup({
       tag:this.tag
-    })
+    });
+    this.name = localStorage.getItem("name");
     this.loadAllTags();
   }
 
@@ -68,6 +70,15 @@ export class AttendeesComponent implements OnInit {
   }
 
   get tagForm() {return this.addTagForm.controls; }
+
+  private deleteTag (eventId:number,tagId:number) {
+    this.eventService.deleteTag(eventId,tagId).pipe().subscribe(data=>{
+      location.reload();
+    },error => {
+      this.alertService.error(error);
+      this.submitted = false;
+    });
+  }
 
   onAdd() {
     if (this.addTagForm.invalid) {

@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
       this.calendarEvents =  events.map((event:Event)=>{
         return {
           title: event.name+'  '+event.startTime+'~'+event.endTime,
-          start: new Date(event.eventDate),
+          start: new Date(new Date(event.eventDate).getTime() + new Date().getTimezoneOffset() * 60000),
           color: colors.blue,
           meta: {
             event

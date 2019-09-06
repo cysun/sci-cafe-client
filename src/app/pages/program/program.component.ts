@@ -20,6 +20,7 @@ export class ProgramComponent implements OnInit {
   public sortBy = '';
   public sortOrder = 'desc';
   data: Program[] = [];
+  editProgram : Program;
 
   selectedFiles: FileList;
   currentFileUpload: File;
@@ -133,6 +134,45 @@ selectFile(event) {
     console.log('blur', $event)
     this.focused = false
     this.blured = true
+  }
+
+  openEditModal(event,id:number) {
+    this.programService.getProgramById(id).subscribe(program=>{
+      this.editProgram = program;
+      this.name.setValue(program.name);
+      this.description.setValue(program.description);
+      this.fullName.setValue(program.fullName);
+    });
+    
+    document.querySelector('#' + event).classList.add('md-show');
+  }
+
+  clearForm() {
+    this.name.setValue("");
+    this.description.setValue("");
+    this.fullName.setValue("");
+  }
+
+  onEdit(id:number) {
+    this.submitted = true;
+  
+    // stop here if form is invalid
+    if (this.addProgramForm.invalid) {
+        return;
+    }
+  
+    this.programService.editProgram(this.addProgramForm.value,this.currentFileUpload,id)
+        .pipe(first())
+        .subscribe(
+            data => {
+                this.alertService.success('Edit a program successful', true);
+                this.clearForm();
+                location.reload();
+            },
+            error => {
+                this.submitted = false;
+                this.alertService.error(error);
+            });
   }
 }
 

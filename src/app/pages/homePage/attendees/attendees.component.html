@@ -28,8 +28,8 @@
                 <div class="col-lg-8">
                     <div class="events-left">
                         <h3>{{event?.name}}</h3>
-                        <div class="label-main">
-                            Tag: <label *ngFor="let tag of event?.tags" class="label label-primary">{{tag?.name}}</label>
+                        <div class="label-main" *ngIf="name">
+                            Tag: <label *ngFor="let tag of event?.tags" class="label label-default"><a [routerLink]="['/home/event/checkIn']" (click)="deleteTag(event?.id,tag?.id)" [queryParams]="{id:event?.id}">{{tag?.name}} x</a></label>
                         </div>
                         <div class="m-3" style="float:right">
                             <form class="form-inline f-right" [formGroup]="addTagForm" (ngSubmit)="onAdd()">
@@ -85,7 +85,7 @@
                                         </div>
                                         <div class="cont">
                                             <h6>Start Time</h6>
-                                            <span>{{event.eventDate | date:'yyyy-MM-dd'}}  {{event?.startTime}}</span>
+                                            <span>{{event.eventDate | date:'yyyy-MM-dd':'UTC'}}  {{event?.startTime}}</span>
                                         </div>
                                     </div> <!-- singel address -->
                                 </li>
@@ -96,7 +96,7 @@
                                         </div>
                                         <div class="cont">
                                             <h6>Finish Time</h6>
-                                            <span>{{event.eventDate | date:'yyyy-MM-dd'}}  {{event?.endTime}}</span>
+                                            <span>{{event.eventDate | date:'yyyy-MM-dd':'UTC'}}  {{event?.endTime}}</span>
                                         </div>
                                     </div> <!-- singel address -->
                                 </li>

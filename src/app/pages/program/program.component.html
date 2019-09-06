@@ -54,6 +54,7 @@
                   <td><a [routerLink]="['/home/programs/detail']" [queryParams]="{id:item?.id}">{{item?.name}}</a> </td>
                   <td>{{item?.fullName}}   </td>
                   <td class="action-icon">
+                      <button class="btn bg-c-blue btn-round btn-comment" (click)="openEditModal('effect-14',item?.id)">Edit</button>
                       <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(item?.id)">Delete</button>
                   </td>
                 </tr>
@@ -92,8 +93,8 @@
           <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.description?.errors?.required">Description can't be blank</div>    
       </div>
       <div class="input-group">
-        Upload Image<input type="file" class="form-control" accept="image/*" [ng2FileSize]="{ min: 1024, max: 1024 * 1024 }"
-        [fileSizeErrorMsg]="'Image size must be less than 1mb and more than 50kb!'"
+        Upload Image<input type="file" class="form-control" accept="image/*" [ng2FileSize]="{ min: 1 * 1024, max: 5 * 1024 * 1024 }"
+        [fileSizeErrorMsg]="'Image size must be less than 5mb and more than 1kb!'"
         formControlName="image" (change)="selectFile($event)">
       </div>
       <button type="submit" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
@@ -101,6 +102,34 @@
     </div>
     <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
   </app-modal-animation>
+  <app-modal-animation [modalID]="'effect-14'" [modalClass]="'md-effect-13'">
+      <h3 class="f-26">Edit Program</h3>
+      <div class="text-center">
+        <form class="md-float-material" [formGroup]="addProgramForm" (ngSubmit)="onSubmit()">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+          <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+          <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.name?.errors?.required">Name can't be blank</div>         
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+          <input type="text" formControlName="fullName" class="form-control" placeholder="FullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }" />
+          <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.fullName?.errors?.required">FullName can't be blank</div>    
+        </div>
+        <div class="input-group">
+            <quill-editor [styles]="{height: '150px'}" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)" [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description" placeholder="Description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
+            <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.description?.errors?.required">Description can't be blank</div>    
+        </div>
+        <div class="input-group">
+          Upload Image<input type="file" class="form-control" accept="image/*" [ng2FileSize]="{ min: 1 * 1024, max: 5 * 1024 * 1024 }"
+          [fileSizeErrorMsg]="'Image size must be less than 5mb and more than 1kb!'"
+          formControlName="image" (change)="selectFile($event)">
+        </div>
+        <button type="button" (click)="onEdit(editProgram?.id)" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
+        </form>
+      </div>
+      <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+    </app-modal-animation>
   <!-- Add Contact Ends Model-->
   <!-- ends -->
   

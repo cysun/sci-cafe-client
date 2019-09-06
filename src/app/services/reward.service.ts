@@ -61,4 +61,7 @@ export class RewardService {
         return this.http.delete(`${this.apiUrl}/reward/${id}`);
     }
 
+    deleteTag(id: number,tid:number) {
+        return this.http.put(`${this.apiUrl}/deleteRewardTag/${id}/${tid}`,[]);
+    }
 }

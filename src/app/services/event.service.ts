@@ -69,8 +69,24 @@ export class EventService {
         return this.http.put(`${this.apiUrl}/addEventTag/${id}/${tid}`,[]);
     }
 
-    editEvent(event: Event,id: Number) {
-        return this.http.put(`${this.apiUrl}/event/${id}`,event);
+    editEvent(event: Event,file:File,id: Number) {
+        const formdata: FormData = new FormData();
+
+        console.log(event.eventDate.toString);
+        formdata.append('image', file);
+        formdata.append('name',event.name);
+        formdata.append('location',event.location);
+        formdata.append('description',event.description);
+        formdata.append('eventDate',event.eventDate.toString());
+        formdata.append('startTime',event.startTime.toString());
+        formdata.append('endTime',event.endTime.toString());
+        if(event.status != null) {
+            formdata.append('status',event.status.toString());
+        } else {
+            formdata.append('status','0');
+        }
+
+        return this.http.put(`${this.apiUrl}/event/${id}`,formdata);
     }
 
     addAttendeeByUsername(id:Number,username:String) {
@@ -83,5 +99,9 @@ export class EventService {
 
     enrollEvent(id:Number) {
         return this.http.post(`${this.apiUrl}/event/${id}/attendee`,"");
+    }
+
+    deleteTag(id: number,tid:number) {
+        return this.http.put(`${this.apiUrl}/deleteEventTag/${id}/${tid}`,[]);
     }
 }

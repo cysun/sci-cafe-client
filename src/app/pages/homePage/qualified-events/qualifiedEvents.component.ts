@@ -41,6 +41,7 @@ export class QualifiedEventsComponent implements OnInit {
   public sortBy = '';
   public sortOrder = 'desc';
   data: Event[] = [];
+  name : string;
   constructor(
     public http: Http,
     private rewardService: RewardService,
@@ -62,6 +63,7 @@ export class QualifiedEventsComponent implements OnInit {
     this.getQualifiedEvents(this.routerInfo.snapshot.queryParams["id"]);
     this.getWinners(this.routerInfo.snapshot.queryParams["id"]);
     this.loadAllEvents();
+    this.name = localStorage.getItem("name");
   }
 
   private getQualifiedEvents(id:number) {
@@ -118,6 +120,15 @@ export class QualifiedEventsComponent implements OnInit {
 
   scan() {
     this.router.navigate(['/home/reward/scan'],{ queryParams: {rewardId: this.reward.id}})
+  }
+
+  private deleteTag (rewardId:number,tagId:number) {
+    this.rewardService.deleteTag(rewardId,tagId).pipe().subscribe(data=>{
+      location.reload();
+    },error => {
+      this.alertService.error(error);
+      this.submitted = false;
+    });
   }
 }
 

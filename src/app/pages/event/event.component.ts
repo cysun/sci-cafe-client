@@ -22,6 +22,7 @@ export class EventComponent implements OnInit {
   data: Event[] = [];
   selectedFiles: FileList;
   currentFileUpload: File;
+  editEvent: Event;
 
   addEventForm: FormGroup;
   submitted = false; 
@@ -114,6 +115,51 @@ export class EventComponent implements OnInit {
 
   onClick(id:number) {
     
+  }
+
+  onEdit(id:number) {
+    this.submitted = true;
+  
+    // stop here if form is invalid
+    if (this.addEventForm.invalid) {
+        return;
+    }
+  
+    this.eventService.editEvent(this.addEventForm.value,this.currentFileUpload,id)
+        .pipe(first())
+        .subscribe(
+            data => {
+                this.alertService.success('Edit an event successful', true);
+                this.clearForm();
+                location.reload();
+            },
+            error => {
+                this.submitted = false;
+                this.alertService.error(error);
+            });
+  }
+
+  openEditModal(event,id:number) {
+    this.eventService.getEventById(id).subscribe(event=>{
+      this.editEvent = event;
+      this.name.setValue(event.name);
+      this.location.setValue(event.location);
+      this.eventDate.setValue("xx");
+      this.startTime.setValue(event.startTime);
+      this.endTime.setValue(event.endTime);
+      this.description.setValue(event.description);
+    });
+    
+    document.querySelector('#' + event).classList.add('md-show');
+  }
+
+  clearForm() {
+    this.name.setValue("");
+    this.location.setValue("");
+    this.eventDate.setValue("");
+    this.startTime.setValue("");
+    this.endTime.setValue("");
+    this.description.setValue("");
   }
 
   blured = false
