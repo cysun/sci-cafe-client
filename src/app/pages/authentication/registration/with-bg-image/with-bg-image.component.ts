@@ -27,8 +27,8 @@ export class WithBgImageComponent implements OnInit {
   returnUrl: string;
   firstName = new FormControl('', Validators.required);
   lastName = new FormControl('', Validators.required);
-  username = new FormControl('', Validators.required,this.uniqueUserService.userValidator());
-  password = new FormControl('', Validators.required);
+  username = new FormControl('', Validators.compose([Validators.required,Validators.pattern("^[a-z0-9_-]{6,15}$")]),this.uniqueUserService.userValidator());
+  password = new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9_-]{6,15}$"),Validators.minLength(8),Validators.maxLength(15)]);
   // unit = new FormControl('', Validators.required);
   // position = new FormControl('', Validators.required);
   // title = new FormControl('');
