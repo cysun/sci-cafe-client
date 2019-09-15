@@ -31,7 +31,7 @@
                         <div class="label-main" *ngIf="name">
                             Tag: <label *ngFor="let tag of reward?.tags" class="label label-default"><a [routerLink]="['/home/reward/qualifiedEvents']" [queryParams]="{id:reward.id}" (click)="deleteTag(reward?.id,tag?.id)" >{{tag?.name}} x</a></label>
                         </div>
-                        <div class="m-3" style="float:right">
+                        <div class="m-3" style="float:right" *ngIf="reward?.status==1">
                             <form class="form-inline f-right" [formGroup]="addTagForm" (ngSubmit)="onAdd()">
                                 <div>
                                     <select name="tag" formControlName="tag" class="form-control form-control-default" class="form-control" [ngClass]="{ 'is-invalid': submitted && tagForm.tag.errors }">
@@ -48,7 +48,7 @@
                         <quill-view [preserveWhitespace]="true" [content]="reward?.description"></quill-view>
                         <br>
                         <br>
-                        <div id="crm-contact" class="dt-responsive">
+                        <div class="table-responsive" *ngIf="reward?.status==1">
                                 <div class="row">
                                   <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
                                     <div>
@@ -112,53 +112,90 @@
                         <br>
                         <br>
                         <h3>Qualified Events</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                <th scope="col">Events</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Loction</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Start Time</th>
-                                <th scope="col">End Time</th>
-                                <th scope="col">Organizer</th>
-                                </tr>
-                            </thead>
-                            <tbody *ngFor="let event of events;index as i">
-                                <tr>
-                                <th scope="row">{{i+1}}</th>
-                                <td><a [routerLink]="['/home/events/detail']" [queryParams]="{id:event.id}">{{event?.name}}</a></td>
-                                <td>{{event?.location}}   </td>
-                                <td>{{event?.eventDate | date:'yyyy-MM-dd'}}</td>
-                                <td>{{event?.startTime}}        </td>
-                                <td>{{event?.endTime}}         </td>
-                                <td>{{event?.organizer.firstName}} {{event?.organizer.lastName}}</td>
-                                </tr>
-                            </tbody>
-                            </table>
+                        <div class="table-responsive">
+                          <table class="table">
+                              <thead>
+                                  <tr>
+                                  <th scope="col">Events</th>
+                                  <th scope="col">Name</th>
+                                  <th scope="col">Loction</th>
+                                  <th scope="col">Date</th>
+                                  <th scope="col">Start Time</th>
+                                  <th scope="col">End Time</th>
+                                  <th scope="col">Organizer</th>
+                                  </tr>
+                              </thead>
+                              <tbody *ngFor="let event of events;index as i">
+                                  <tr>
+                                  <th scope="row">{{i+1}}</th>
+                                  <td><a [routerLink]="['/home/events/detail']" [queryParams]="{id:event.id}">{{event?.name}}</a></td>
+                                  <td>{{event?.location}}   </td>
+                                  <td>{{event?.eventDate | date:'yyyy-MM-dd'}}</td>
+                                  <td>{{event?.startTime}}        </td>
+                                  <td>{{event?.endTime}}         </td>
+                                  <td>{{event?.organizer.firstName}} {{event?.organizer.lastName}}</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                        </div>
                         <br>
                         <br>
                         <h3>Winners</h3>
-                        <table class="table">
-                            <thead>
-                              <tr>
-                                <th scope="col">Winner</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">Email</th>
-                              </tr>
-                            </thead>
-                            <tbody *ngFor="let winner of winners;index as i">
-                              <tr>
-                                <th scope="row">{{i+1}}</th>
-                                <td>{{winner?.firstName}} {{winner?.lastName}}</td>
-                                <td>{{winner?.username}}</td>
-                                <td>{{winner?.email}}</td>
-                              </tr>
-                            </tbody>
-                          </table>
+                        <div class="table-responsive">
+                          <table class="table">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Winner</th>
+                                  <th scope="col">Name</th>
+                                  <th scope="col">Username</th>
+                                  <th scope="col">Email</th>
+                                </tr>
+                              </thead>
+                              <tbody *ngFor="let winner of winners;index as i">
+                                <tr>
+                                  <th scope="row">{{i+1}}</th>
+                                  <td>{{winner?.firstName}} {{winner?.lastName}}</td>
+                                  <td>{{winner?.username}}</td>
+                                  <td>{{winner?.email}}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                        </div>
                     </div> <!-- rewards left -->
-                </div>
+                    </div>
+                    <div class="col-lg-4">
+                          <div class="events-right">
+                              <div class="events-coundwon bg_cover" data-overlay="8" style="background-image: url(images/event/singel-event/coundown.jpg)">
+                                  <h5>Event Infomation</h5>
+                              </div> <!-- events coundwon -->
+                              <div class="events-address mt-30">
+                                  <ul>
+                                      <li>
+                                          <div class="singel-address">
+                                              <div class="icon">
+                                                  <i class="fa fa-clock-o"></i>
+                                              </div>
+                                              <div class="cont">
+                                                  <h6>Start Date</h6>
+                                                  <span>{{reward?.startDate | date:'yyyy-MM-dd':'UTC'}}</span>
+                                              </div>
+                                          </div> <!-- singel address -->
+                                      </li>
+                                      <li>
+                                          <div class="singel-address">
+                                              <div class="icon">
+                                                  <i class="fa fa-bell-slash"></i>
+                                              </div>
+                                              <div class="cont">
+                                                  <h6>End Date</h6>
+                                                  <span>{{reward?.endDate | date:'yyyy-MM-dd':'UTC'}}  </span>
+                                              </div>
+                                          </div> <!-- singel address -->
+                                      </li>
+                                  </ul>
+                              </div> <!-- events address -->
+                          </div> <!-- events right -->
+                        </div>
             </div> <!-- row -->
         </div> <!-- rewards-area -->
     </div> <!-- container -->

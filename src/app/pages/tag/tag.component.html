@@ -1,0 +1,107 @@
+<div class="card">
+    <div class="card-header">
+      <h5>Tags</h5>
+      <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> <i class="icofont icofont-plus m-r-5"></i> Add Tag
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="table-content crm-table">
+        <div class="project-table">
+          <div id="crm-contact" class="dt-responsive">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+                <div>
+                  <label class="label-control">Show
+                    <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+                      <option [ngValue]="10">10</option>
+                      <option [ngValue]="25">25</option>
+                      <option [ngValue]="50">50</option>
+                      <option [ngValue]="100">100</option>
+                    </select>
+                    entries
+                  </label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6">
+                <div style="text-align: right;">
+                  <label>Search:
+                    <input type="search" [(ngModel)]="filterQuery" class="form-control input-sm full-data-search" placeholder="Search">
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="panel-heading">User information</div>-->
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered full-data-table" [mfData]="data | Filter :['name']: filterQuery" #mf="mfDataTable"
+                     [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                <thead>
+                <tr>
+                  <th>
+                    <mfDefaultSorter  by="id">Id</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter  by="name">Name</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter>Action</mfDefaultSorter>
+                  </th>
+                </tr>
+                <tr>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of mf.data">
+                  <td>{{item?.id}}</td>
+                  <td>{{item?.name}}</td>
+                  <td class="action-icon">
+                      <button class="btn bg-c-blue btn-round btn-comment" (click)="openEditModal('effect-14',item?.id)">Edit</button>
+                      <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(item?.id)">Delete</button>
+                  </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <td colspan="10">
+                    <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add Contact Start Model -->
+  <app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
+    <h3 class="f-26">Add Tag</h3>
+    <div class="text-center">
+      <form class="md-float-material" [formGroup]="addTagForm" (ngSubmit)="onSubmit()">
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+        <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+        <div class="messages text-danger error" *ngIf="submitted && addTagForm.controls.name.errors?.required">Name can't be blank</div>         
+      </div>
+      <button type="submit" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
+      </form>
+    </div>
+    <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+  </app-modal-animation>
+  <app-modal-animation [modalID]="'effect-14'" [modalClass]="'md-effect-13'">
+      <h3 class="f-26">Edit Tag</h3>
+      <div class="text-center">
+        <form class="md-float-material" [formGroup]="editTagForm" (ngSubmit)="onSubmit()">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+          <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': editSubmitted && e.editName.errors }" />
+          <div class="messages text-danger error" *ngIf="submitted && editTagForm.controls.editName.errors?.required">Name can't be blank</div>         
+        </div>
+        <button type="button" (click)="onEdit(editTag?.id)" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
+        </form>
+      </div>
+      <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+    </app-modal-animation>
+  <!-- Add Contact Ends Model-->
+  <!-- ends -->
+  

@@ -49,6 +49,12 @@
                     <mfDefaultSorter  by="criteria">Criteria</mfDefaultSorter>
                   </th>
                   <th>
+                    <mfDefaultSorter  by="start date">Start Date</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter  by="end date">End Date</mfDefaultSorter>
+                  </th>
+                  <th>
                     <mfDefaultSorter>Action</mfDefaultSorter>
                   </th>
                 </tr>
@@ -59,8 +65,12 @@
                 <tr *ngFor="let item of mf.data">
                   <td><a [routerLink]="['/home/reward/qualifiedEvents']" [queryParams]="{id:item?.id}">{{item?.name}}</a></td>
                   <td>{{item?.submitter?.firstName}} {{item?.submitter?.lastName}}</td>
-                  <td>{{item?.status}}        </td>
-                  <td>{{item?.criteria}}        </td>
+                  <td *ngIf = "item?.status == 0">Submitted  </td>
+                  <td *ngIf = "item?.status == 1">Approved  </td>
+                  <td *ngIf = "item?.status == 2">Rejected   </td>
+                  <td>{{item?.criteria}}      </td>
+                  <td>{{item?.startDate | date:'yyyy-MM-dd'}}     </td>
+                  <td>{{item?.endDate | date:'yyyy-MM-dd'}}       </td>
                   <td class="action-icon">
                       <button class="btn bg-c-blue btn-round btn-comment" (click)="openEditModal('effect-14',item?.id)">Edit</button>
                       <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(item?.id)">Delete</button>
@@ -83,7 +93,7 @@
   </div>
   <!-- Add Contact Start Model -->
   <app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
-    <h3 class="f-26">Edit Reward</h3>
+    <h3 class="f-26">Add Reward</h3>
     <div class="text-center">
       <form class="md-float-material" [formGroup]="addRewardForm" (ngSubmit)="onSubmit()">
       <div class="input-group">
@@ -94,6 +104,16 @@
       <div class="input-group">
         <quill-editor [styles]="{height: '70px'}" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)" [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
         <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.description.errors?.required">Description can't be blank</div>    
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+        <input type="text" onfocus="(this.type='date')"  placeholder="Start Date" formControlName="startDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }" />
+        <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.startDate?.errors?.required">Start Date can't be blank</div>    
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+        <input type="text" onfocus="(this.type='date')"  placeholder="End Date" formControlName="endDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }" />
+        <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.eventDate?.errors?.required">End Date can't be blank</div>    
       </div>
       <div class="input-group">
           <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
@@ -127,6 +147,16 @@
         <div class="input-group">
           <quill-editor [styles]="{height: '120px'}" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)" [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
           <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.description.errors?.required">Description can't be blank</div>    
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+          <input type="text" onfocus="(this.type='date')"  placeholder="Start Date" formControlName="startDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }" />
+          <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.startDate?.errors?.required">Start Date can't be blank</div>    
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+          <input type="text" onfocus="(this.type='date')" placeholder="End Date" formControlName="endDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }" />
+          <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.endDate?.errors?.required">End Date can't be blank</div>    
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>

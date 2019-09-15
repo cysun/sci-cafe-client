@@ -1,11 +1,12 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { User } from '../models';
+import { User,Progress} from '../models';
+import { environment } from '../../environments/environment';
 
-@Injectable() //@Injectable({ providedIn: 'root' })
+@Injectable() 
 export class UserService {
-    apiUrl = "http://localhost:8080/springrest/api"
+    apiUrl = environment.apiUrl;
     constructor(private http: HttpClient) { }
 
     getAll() {
@@ -65,5 +66,9 @@ export class UserService {
         console.log("reset")
         email = email.replace('.','itsadot426');
         return this.http.get<any>(`${this.apiUrl}/resetPassword/${email}`)
+    }
+
+    getProgresses() {
+        return this.http.get<Progress[]>(`${this.apiUrl}/user/progresses`);
     }
 }

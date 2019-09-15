@@ -5,7 +5,7 @@ import { AlertService, AuthenticationService,ProgramService,EventService, NewsSe
 import { first } from 'rxjs/operators';
 import { Event,Program,News} from '../../../models';
 import { Router, ActivatedRoute } from '@angular/router';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+var moment = require('moment');
 import {
   startOfDay,
   endOfDay,
@@ -91,9 +91,11 @@ export class HomeComponent implements OnInit {
   private loadAllApprovedEvents() {
     this.eventService.getAllApprovedEvents().subscribe(events => {
       this.calendarEvents =  events.map((event:Event)=>{
+        console.log("xxxxx");
+        console.log(event.eventDate.toString().replace(' ', 'T'));
         return {
           title: event.name+'  '+event.startTime+'~'+event.endTime,
-          start: new Date(new Date(event.eventDate).getTime() + new Date().getTimezoneOffset() * 60000),
+          start: moment(event.eventDate).toDate(),
           color: colors.blue,
           meta: {
             event

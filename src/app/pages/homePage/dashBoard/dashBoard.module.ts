@@ -14,6 +14,9 @@ export const DashBoardRoutes: Routes = [
         path: 'default',
         loadChildren: '../../dashboard/dashboard-default/dashboard-default.module#DashboardDefaultModule'
       },{
+        path: 'approve',
+        loadChildren: '../../dashboard/dashboard-approve/dashboard-approve.module#DashboardApproveModule'
+      },{
         path: 'profile',
         loadChildren: '../../user/profile/profile.module#ProfileModule'
       }, {
@@ -30,7 +33,7 @@ export const DashBoardRoutes: Routes = [
         loadChildren: '../../program/program.module#ProgramModule'
       },{
         path: 'news',
-        loadChildren: '../../news/news.module#NewsModule'
+        loadChildren: '../../news/newslist.module#NewsListModule'
       }, {
         path: 'rewards',
         loadChildren: '../../reward/reward.module#RewardModule'
@@ -52,7 +55,10 @@ export const DashBoardRoutes: Routes = [
       },{
         path: 'userDetail',
         loadChildren: '../../user/userDetail/userDetail.module#UserDetailModule'
-      }, 
+      }, {
+        path: 'tags',
+        loadChildren: '../../tag/tag.module#TagModule'
+      },
     ]
   }
 ];

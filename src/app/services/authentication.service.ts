@@ -1,13 +1,12 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { User } from '../models';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
-    apiUrl = "http://localhost:8080/springrest/api"
+    apiUrl = environment.apiUrl;
 
     constructor(private http: HttpClient) {
     }

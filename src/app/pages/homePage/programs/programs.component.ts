@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 
 import { ProgramService } from '../../../services';
-import { first } from 'rxjs/operators';
-import { User,Program } from '../../../models';
+import { Program } from '../../../models';
 import { Router, ActivatedRoute } from '@angular/router';
 
 

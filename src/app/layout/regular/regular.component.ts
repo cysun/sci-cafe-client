@@ -1,6 +1,8 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../services';
+import { Router} from '@angular/router';
 import '../js/slick.min.js';
+
 
 @Component({
   selector: 'regular',
@@ -26,7 +28,8 @@ export class RegularComponent implements OnInit {
   name:string;
   public navbarCollapsed = true;
   constructor(
-    private authenticationService:AuthenticationService
+    private authenticationService:AuthenticationService,
+    private router: Router,
   ) { 
   }
 
@@ -37,7 +40,8 @@ export class RegularComponent implements OnInit {
 
   logOut() {
     this.authenticationService.logout();
-    location.reload();
+    this.router.navigate(['/home']);
+    
   }
 }
 

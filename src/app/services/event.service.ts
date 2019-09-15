@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 
 import { Event } from '../models';
 import { User } from '../models';
+import { environment } from '../../environments/environment';
 
 @Injectable() //@Injectable({ providedIn: 'root' })
 export class EventService {
-    apiUrl = "http://localhost:8080/springrest/api"
+    apiUrl = environment.apiUrl;
     constructor(private http: HttpClient) { }
 
     getOwnEvents() {
@@ -91,6 +92,10 @@ export class EventService {
 
     addAttendeeByUsername(id:Number,username:String) {
         return this.http.post(`${this.apiUrl}/event/${id}/attendee/username`,username);
+    }
+
+    getAttendedEvents() {
+        return this.http.get<Event[]>(`${this.apiUrl}/user/events`);
     }
 
     addAttendeeById(id:Number,userId:Number) {

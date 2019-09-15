@@ -14,7 +14,6 @@ import {AuthGuard} from './guards'
 import { HttpModule } from '@angular/http'
 import {HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
-import { JwtModule } from '@auth0/angular-jwt';
 import { PipesModule } from 'w-ng5';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CalendarModule} from 'angular-calendar';

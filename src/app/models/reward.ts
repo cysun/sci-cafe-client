@@ -7,8 +7,8 @@ export class Reward implements Deserializable{
     name: string;
     description: string;
     providerName: string;
-    startTime: Date;
-    endTime: Date;
+    startDate: Date;
+    endDate: Date;
     tags : Set<Tag>;
     criteria:number;
     submitter:User;

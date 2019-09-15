@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { AbstractControl, AsyncValidatorFn } from '@angular/forms';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap  } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmailValidators {
-  Url =  "http://localhost:8080/springrest/api";
+  Url =  environment.apiUrl;
   constructor(private http: HttpClient) {}
 
   searchEmail(text) {

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProgramComponent } from '../program/program.component';
+import { NewsListComponent } from './newslist.component';
 import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '../../shared/shared.module';
 import {HttpModule} from '@angular/http';
@@ -9,11 +9,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Ng2FileSizeModule } from 'ng2-file-size';
 import { QuillModule } from 'ngx-quill';
 
-export const ProgramRoutes: Routes = [{
+export const NewsListRoutes: Routes = [{
   path: '',
-  component: ProgramComponent,
+  component: NewsListComponent,
   data: {
-    breadcrumb: 'Program',
+    breadcrumb: 'News',
     icon: 'icofont-contacts bg-c-pink'
   }
 }];
@@ -21,7 +21,7 @@ export const ProgramRoutes: Routes = [{
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(ProgramRoutes),
+    RouterModule.forChild(NewsListRoutes),
     SharedModule,
     FormsModule,
     HttpModule,
@@ -30,6 +30,6 @@ export const ProgramRoutes: Routes = [{
     Ng2FileSizeModule,
     QuillModule.forRoot(),
   ],
-  declarations: [ProgramComponent]
+  declarations: [NewsListComponent]
 })
-export class ProgramModule { }
+export class NewsListModule { }

@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 
 import { Reward,Event} from '../models';
 import { User } from '../models';
+import { environment } from '../../environments/environment';
 
-@Injectable() //@Injectable({ providedIn: 'root' })
+@Injectable()
 export class RewardService {
-    apiUrl = "http://localhost:8080/springrest/api"
+    apiUrl = environment.apiUrl;
     constructor(private http: HttpClient) { }
 
     getAllRewards() {
@@ -46,7 +47,14 @@ export class RewardService {
     }
 
     editReward(reward: Reward,id: Number) {
-        return this.http.put(`${this.apiUrl}/reward/${id}`,reward);
+        const formdata: FormData = new FormData();
+
+        formdata.append('name', reward.name);
+        formdata.append('description',reward.description);
+        formdata.append('startDate',reward.startDate.toString());
+        formdata.append('endDate',reward.endDate.toString());
+        formdata.append('criteria',reward.criteria.toString());
+        return this.http.put(`${this.apiUrl}/reward/${id}`,formdata);
     }
 
     rejectRewardById (id:Number) {

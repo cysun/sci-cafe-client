@@ -13,6 +13,9 @@ export const dashboardRoutes: Routes = [
       {
         path: 'default',
         loadChildren: './dashboard-default/dashboard-default.module#DashboardDefaultModule'
+      },{
+        path: 'approve',
+        loadChildren: './dashboard-approve/dashboard-approve.module#DashboardApproveModule'
       }
     ]
   }

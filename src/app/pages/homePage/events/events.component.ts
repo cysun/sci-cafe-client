@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 
 import { EventService } from '../../../services';
-import { first } from 'rxjs/operators';
 import { User,Event } from '../../../models';
 import { Router, ActivatedRoute } from '@angular/router';
 

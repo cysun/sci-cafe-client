@@ -38,6 +38,10 @@ export class ScannerComponent implements OnInit {
 
   }
 
+  camerasFoundHandler(event) {
+    this.scanner.scan(event[0].deviceId);     
+  };
+
   ngOnInit(): void {
 
     this.eventId =  this.routerInfo.snapshot.queryParams["eventId"];
@@ -45,11 +49,9 @@ export class ScannerComponent implements OnInit {
     this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
       this.hasDevices = true;
       this.availableDevices = devices;
-
-      this.currentDevice = devices[0];
+      // this.currentDevice = devices[0];
     });
 
-    this.scanner.camerasNotFound.subscribe(() => this.hasDevices = false);
     this.scanner.scanComplete.subscribe((result: Result) => this.qrResult = result);
     this.scanner.permissionResponse.subscribe((perm: boolean) => this.hasPermission = perm);
   }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AlertService, AuthenticationService } from './services';
-import { HttpClient,HttpHandler } from '@angular/common/http';
+import { AuthenticationService } from './services';
+import { HttpClient} from '@angular/common/http';
 @Component({
   selector: 'app-root',
   template: '<router-outlet><app-spinner></app-spinner></router-outlet>',

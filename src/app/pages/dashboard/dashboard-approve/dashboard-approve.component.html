@@ -53,17 +53,17 @@
     <div class="col-md-12" *ngIf="isAdmin==='true'">
         <div class="md-tabs">
             <ngb-tabset justify="fill">
-                <ngb-tab title="Attended Events">
+                <ngb-tab title="Events">
                   <ng-template ngbTabContent>
                     <div  class="m-t-15">
                       <!-- personal card start -->
                       <div class="card">
                         <div class="card-header">
-                          <h5 class="card-header-text">Attended Events</h5>
+                          <h5 class="card-header-text">Events</h5>
                         </div>
                         <div class="card-body" >
                             <div class="card-comment " *ngFor="let event of events">
-                                <div class="card-block-small">
+                                <div class="card-block-small" *ngIf="event.status==0">
                                   <img class="img-radius img-50" src="assets/images/event.png" alt="user-4">
                                   <div class="comment-desc">
                                       <div class="label-main">
@@ -72,6 +72,10 @@
                                       <a [routerLink]="['/home/events/detail']" [queryParams]="{id:event.id}"><h4>{{event?.name}}</h4></a>
                                     <div class="comment-btn">
                                       <i>{{event?.eventDate | date:'yyyy-MM-dd'}}  {{event.startTime}} ~~ {{event.endTime}}</i>
+                                    </div>
+                                    <div>
+                                        <button class="btn bg-c-green btn-round btn-comment " (click)="approveById(event?.id)">Approve</button>
+                                        <button class="btn bg-c-pink btn-round btn-comment " (click)="rejectById(event?.id)">Reject</button>
                                     </div>
                                   </div>
                                 </div>
@@ -83,7 +87,7 @@
                     </div>
                   </ng-template>
                 </ngb-tab>
-                <ngb-tab title="Potential Rewards">
+                <ngb-tab title="Rewards">
                     <ng-template ngbTabContent>
                       <div class="m-t-15">
                         <!-- info card start -->
@@ -92,34 +96,23 @@
                         </div>
                         <div class="card">
                           <div class="card-header">
-                            <h5 class="card-header-text">Potential Rewards</h5>
+                            <h5 class="card-header-text">Rewards</h5>
                           </div>
                           <div class="card-body" >
-                              <div class="card-comment " *ngFor="let progress of progresses">
-                                  <div class="card-block-small">
+                              <div class="card-comment " *ngFor="let reward of rewards">
+                                  <div class="card-block-small" *ngIf="reward.status==0">
                                     <img class="img-radius img-50" src="assets/images/reward.png" alt="user-4">
                                     <div class="comment-desc">
                                         <div class="label-main">
-                                            <label *ngFor="let tag of progress?.reward?.tags" class="label label-primary">{{tag?.name}}</label>
+                                            <label *ngFor="let tag of reward.tags" class="label label-primary">{{tag?.name}}</label>
                                         </div>
-                                      <a [routerLink]="['/home/rewards/neededEvents']" [queryParams]="{id:progress?.reward?.id}"><h6>{{progress?.reward?.name}}</h6></a>
+                                      <a [routerLink]="['/home/rewards/detail']" [queryParams]="{id:reward.id}"><h6>{{reward?.name}}</h6></a>
                                       <div class="comment-btn">
-                                          <i class="f-w-600 " *ngIf="progress?.percentage == 100">Progress rate: {{progress?.reward?.criteria}}/{{progress?.reward?.criteria}}</i>
-                                          <i class="f-w-600 " *ngIf="progress?.percentage != 100">Progress rate: {{progress?.attendedEvents?.length}}/{{progress?.reward?.criteria}}</i>
+                                          
                                       </div>
-                                      <div>
-                                          <div class="progress" *ngIf="progress?.percentage <= 25">
-                                              <div class="progress-bar bg-success" role="progressbar" style.width="{{progress?.percentage}}%" attr.aria-valuenow={{progress?.percentage}} aria-valuemin="0" aria-valuemax="100"></div>
-                                          </div>
-                                          <div class="progress" *ngIf="progress?.percentage > 25 && progress?.percentage <= 50">
-                                              <div class="progress-bar bg-info" role="progressbar" style.width="{{progress?.percentage}}%" attr.aria-valuenow={{progress?.percentage}} aria-valuemin="0" aria-valuemax="100"></div>
-                                          </div>
-                                          <div class="progress" *ngIf="progress?.percentage > 50 && progress?.percentage <= 75">
-                                              <div class="progress-bar bg-warning"" role="progressbar" style.width="{{progress?.percentage}}%" attr.aria-valuenow={{progress?.percentage}} aria-valuemin="0" aria-valuemax="100"></div>
-                                          </div>
-                                          <div class="progress" *ngIf="progress?.percentage > 75">
-                                              <div class="progress-bar bg-danger" role="progressbar" style.width="{{progress?.percentage}}%" attr.aria-valuenow={{progress?.percentage}} aria-valuemin="0" aria-valuemax="100"></div>
-                                          </div>
+                                      <div class="date">
+                                          <button class="btn bg-c-green btn-round btn-comment " (click)="approveRewardById(reward?.id)">Approve</button>
+                                          <button class="btn bg-c-pink btn-round btn-comment " (click)="rejectRewardById(reward?.id)">Reject</button>
                                       </div>
                                     </div>
                                   </div>
@@ -127,6 +120,7 @@
                           </div>
                         </div>
                         <!-- info card end -->
+                      </div>
                     </ng-template>
                   </ngb-tab>
               </ngb-tabset>

@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { News } from '../models';
+import { environment } from '../../environments/environment';
 
-@Injectable() //@Injectable({ providedIn: 'root' })
+@Injectable() 
 export class NewsService {
-    apiUrl = "http://localhost:8080/springrest/api"
+    apiUrl = environment.apiUrl;
     constructor(private http: HttpClient) { }
 
     getAllNews() {
@@ -45,22 +46,6 @@ export class NewsService {
     editProgram(news: News,id: Number) {
         return this.http.put(`${this.apiUrl}/news/${id}`,news);
     }
-
-    // getAttendees(id:Number) {
-    //     return this.http.get<User[]>(this.apiUrl+'/event/' + id + '/attendees');
-    // }
-
-    // getEventById (id:Number) {
-    //     return this.http.get<Event>(this.apiUrl+"/event/"+id);
-    // }
-
-    // rejectEventById (id:Number) {
-    //     return this.http.put<Event>(this.apiUrl+"/event/reject/"+id,null);
-    // }
-
-    // approveEventById (id:Number) {
-    //     return this.http.put<Event>(this.apiUrl+"/event/approve/"+id,null);
-    // }
 
     delete(id: Number) {
         return this.http.delete(`${this.apiUrl}/news/${id}`);

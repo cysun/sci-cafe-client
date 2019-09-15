@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SingleRewardComponent } from './singleReward.component';
+import { PotentialRewardComponent } from './potential-reward.component';
 import {RouterModule, Routes} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarModule } from 'angular-calendar';
@@ -9,24 +9,24 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 
-export const SingleRewardRoutes: Routes = [
+export const PotentialRewardRoutes: Routes = [
   {
     path: '',
-    component: SingleRewardComponent
+    component: PotentialRewardComponent
   }
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(SingleRewardRoutes),
+    RouterModule.forChild(PotentialRewardRoutes),
     NgbModule,
     CalendarModule,
     PipesModule,
     NgxPaginationModule ,
     FormsModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
   ],
-  declarations: [SingleRewardComponent]
+  declarations: [PotentialRewardComponent]
 })
-export class SingleRewardModule { }
+export class PotentialRewardModule { }

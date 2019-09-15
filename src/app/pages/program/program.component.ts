@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 
-import { AlertService, AuthenticationService,ProgramService } from '../../services';
+import { AlertService, ProgramService } from '../../services';
 import { first } from 'rxjs/operators';
-import { User,Program } from '../../models';
+import { Program } from '../../models';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from 'ng2-validation';
-import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -37,10 +35,7 @@ export class ProgramComponent implements OnInit {
   constructor(
     public http: Http,
     private programService:ProgramService,
-    private route: ActivatedRoute,
-    private authenticationService: AuthenticationService,
     private alertService: AlertService,
-    private router: Router,
   ) { 
 
   }

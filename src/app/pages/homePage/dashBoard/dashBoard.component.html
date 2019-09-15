@@ -26,23 +26,25 @@
                                 <div class="categories mt-30">
                                     <h4>Menu</h4>
                                     <ul *ngIf="isAdmin=='false'">
-                                        <li><a [routerLink]="['/home/user/dashboard/qrcode']">My QRcode</a></li>
                                         <li><a [routerLink]="['/home/user/dashboard/default']">Dashboard</a></li>
+                                        <li><a [routerLink]="['/home/user/dashboard/qrcode']">My QRcode</a></li>
                                         <li><a [routerLink]="['/home/user/dashboard/profile']">Profile</a></li>
                                         <li><a [routerLink]="['/home/user/dashboard/myEvents/']">My Events</a></li>
                                         <li><a [routerLink]="['/home/user/dashboard/myRewards/']">My Rewards</a></li>
                                     </ul>
                                     <ul *ngIf="isAdmin==='true'">
-                                        <li><a [routerLink]="['/home/user/dashboard/qrcode']">My QRcode</a></li>
                                         <li><a [routerLink]="['/home/user/dashboard/default']">Dashboard</a></li>
+                                        <li><a [routerLink]="['/home/user/dashboard/approve']">Approve</a></li>
+                                        <li><a [routerLink]="['/home/user/dashboard/qrcode']">My QRcode</a></li>
                                         <li><a [routerLink]="['/home/user/dashboard/profile']">Profile</a></li>
                                         <li><a [routerLink]="['/home/user/dashboard/myEvents/']">My Events</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/myRewards/']">My Rewars</a></li>
+                                        <li><a [routerLink]="['/home/user/dashboard/myRewards/']">My Rewards</a></li>
                                         <li><a [routerLink]="['/home/user/dashboard/users']">Users</a></li>
                                         <li><a [routerLink]="['/home/user/dashboard/events']">Events</a></li>
                                         <li><a [routerLink]="['/home/user/dashboard/programs']">Programs</a></li>
                                         <li><a [routerLink]="['/home/user/dashboard/news']">News</a></li>
                                         <li><a [routerLink]="['/home/user/dashboard/rewards']">Rewards</a></li>
+                                        <li><a [routerLink]="['/home/user/dashboard/tags']">Tags</a></li>
                                     </ul>
                                 </div>
                             </div> <!-- categories -->

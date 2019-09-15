@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from 'ng2-validation';
 import { AlertService, AuthenticationService } from '../../../../services';
 import { first } from 'rxjs/operators';
 
@@ -21,7 +20,6 @@ export class WithBgImageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
   ) {

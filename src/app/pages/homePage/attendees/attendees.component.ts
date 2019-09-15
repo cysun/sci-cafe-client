@@ -2,13 +2,9 @@ import { Component, OnInit,ViewChild} from '@angular/core';
 import {Http} from '@angular/http';
 
 import { EventService,TagService,AlertService} from '../../../services';
-import { first } from 'rxjs/operators';
 import { Event,Tag} from '../../../models';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { ZXingScannerComponent } from '@zxing/ngx-scanner';
-
-import { Result } from '@zxing/library';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -35,6 +31,7 @@ export class AttendeesComponent implements OnInit {
   tag = new FormControl('', Validators.required);
   tags: Tag[] = [];
   name : string;
+  isAdmin :string;
   constructor(
     public http: Http,
     private eventService: EventService,
@@ -52,6 +49,7 @@ export class AttendeesComponent implements OnInit {
       tag:this.tag
     });
     this.name = localStorage.getItem("name");
+    this.isAdmin = localStorage.getItem("isAdmin");
     this.loadAllTags();
   }
 

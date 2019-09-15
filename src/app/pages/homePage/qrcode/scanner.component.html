@@ -1,6 +1,6 @@
 <div class="scanner-shell" [hidden]="!hasDevices">
       
-        <zxing-scanner #scanner [device]="currentDevice" (scanSuccess)="handleQrCodeResult($event)" [formats]="['EAN_13', 'CODE_128', 'QR_CODE']" [tryHarder]="true"></zxing-scanner>
+        <zxing-scanner #scanner (camerasFound)="camerasFoundHandler($event)" (scanSuccess)="handleQrCodeResult($event)" [formats]="['EAN_13', 'CODE_128', 'QR_CODE']" [tryHarder]="true"></zxing-scanner>
         <a [routerLink]="['/home/event/checkIn']" [queryParams]="{id:eventId}"><input type="button" class="btn btn-primary" value="Done"/></a>
         <section class="results" *ngIf="qrResultString">
           <strong>{{ qrResultString }}</strong>

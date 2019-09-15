@@ -3,9 +3,8 @@ import {Http} from '@angular/http';
 
 import { AlertService, AuthenticationService,RewardService } from '../../services';
 import { first } from 'rxjs/operators';
-import { User,Reward } from '../../models';
+import { Reward } from '../../models';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from 'ng2-validation';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
@@ -30,6 +29,8 @@ export class RewardComponent implements OnInit {
   description = new FormControl('', Validators.required);
   criteria = new FormControl('', Validators.required);
   status = new FormControl (0, []);
+  endDate = new FormControl ('', Validators.required);
+  startDate = new FormControl ('', Validators.required);
   imageUrl = new FormControl ('../../../assets/images/news/default.jpg', []);
 
   constructor(
@@ -50,6 +51,8 @@ export class RewardComponent implements OnInit {
       description:this.description,
       criteria:this.criteria,
       status:this.status,
+      startDate:this.startDate,
+      endDate:this.endDate,
     });
   }
 
@@ -142,6 +145,8 @@ export class RewardComponent implements OnInit {
       this.name.setValue(reward.name);
       this.description.setValue(reward.description);
       this.criteria.setValue(reward.criteria);
+      this.startDate.setValue("Start Date");
+      this.endDate.setValue("End Date");
     });
     
     document.querySelector('#' + event).classList.add('md-show');
@@ -151,6 +156,8 @@ export class RewardComponent implements OnInit {
     this.name.setValue("");
     this.criteria.setValue("");
     this.description.setValue("");
+    this.startDate.setValue("");
+    this.endDate.setValue("");
   }
 
   onEdit(id:number) {

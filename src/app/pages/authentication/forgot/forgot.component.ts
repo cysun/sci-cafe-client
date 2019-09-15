@@ -1,8 +1,7 @@
 import { EmailValidators} from '../../../validators/email.validator';
-import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from 'ng2-validation';
 import { AlertService, AuthenticationService,UserService } from '../../../services';
 import { first } from 'rxjs/operators';
 
@@ -19,8 +18,6 @@ export class ForgotComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
-    private authenticationService: AuthenticationService,
     private alertService: AlertService,
     private userService:UserService,
     private uniqueEmailService: EmailValidators

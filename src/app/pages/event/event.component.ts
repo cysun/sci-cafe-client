@@ -3,10 +3,8 @@ import {Http} from '@angular/http';
 
 import { AlertService, AuthenticationService,UserService,EventService } from '../../services';
 import { first } from 'rxjs/operators';
-import { User,Event } from '../../models';
+import { Event } from '../../models';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from 'ng2-validation';
-import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -38,12 +36,8 @@ export class EventComponent implements OnInit {
 
   constructor(
     public http: Http,
-    private userService: UserService,
     private eventService: EventService,
-    private route: ActivatedRoute,
-    private authenticationService: AuthenticationService,
     private alertService: AlertService,
-    private router: Router,
   ) { 
 
   }

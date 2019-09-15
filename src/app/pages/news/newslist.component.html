@@ -110,7 +110,7 @@
         <span class="md-line"></span>
       </div>
       <div class="input-group">
-        Upload Image<input type="file" class="form-control" accept="image/*" [ng2FileSize]="{ min:  1024, max: 1 * 1024 * 1024 }"
+        Upload Image<input type="file" class="form-control" accept="image/*" [ng2FileSize]="{ min:  1024, max: 5 * 1024 * 1024 }"
         [fileSizeErrorMsg]="'Image size must be less than 5mb and more than 1kb!'"
         formControlName="image" (change)="selectFile($event)">
       </div>

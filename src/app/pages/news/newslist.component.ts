@@ -3,18 +3,17 @@ import {Http} from '@angular/http';
 
 import { AlertService, AuthenticationService,NewsService } from '../../services';
 import { first } from 'rxjs/operators';
-import { User,News } from '../../models';
+import { News } from '../../models';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from 'ng2-validation';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
-  selector: 'app-event',
-  templateUrl: './news.component.html',
-  styleUrls: ['./news.component.css']
+  selector: 'app-news-list',
+  templateUrl: './newslist.component.html',
+  styleUrls: ['./newslist.component.css']
 })
-export class NewsComponent implements OnInit {
+export class NewsListComponent implements OnInit {
   public rowsOnPage = 10;
   public filterQuery = '';
   public sortBy = '';

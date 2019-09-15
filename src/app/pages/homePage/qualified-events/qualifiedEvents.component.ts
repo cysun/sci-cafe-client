@@ -2,13 +2,9 @@ import { Component, OnInit,ViewChild} from '@angular/core';
 import {Http} from '@angular/http';
 
 import { RewardService,TagService,AlertService,EventService} from '../../../services';
-import { first } from 'rxjs/operators';
 import { Reward,Tag,Event,User} from '../../../models';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { ZXingScannerComponent } from '@zxing/ngx-scanner';
-
-import { Result } from '@zxing/library';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -42,6 +38,7 @@ export class QualifiedEventsComponent implements OnInit {
   public sortOrder = 'desc';
   data: Event[] = [];
   name : string;
+  isAdmin: string;
   constructor(
     public http: Http,
     private rewardService: RewardService,
@@ -64,6 +61,7 @@ export class QualifiedEventsComponent implements OnInit {
     this.getWinners(this.routerInfo.snapshot.queryParams["id"]);
     this.loadAllEvents();
     this.name = localStorage.getItem("name");
+    this.isAdmin = localStorage.getItem("isAdmin");
   }
 
   private getQualifiedEvents(id:number) {
@@ -92,7 +90,7 @@ export class QualifiedEventsComponent implements OnInit {
   }
 
   private loadAllEvents() {
-    this.eventService.getAllEvents().subscribe(events => {
+    this.eventService.getAllApprovedEvents().subscribe(events => {
         this.data = events;
     });
   }

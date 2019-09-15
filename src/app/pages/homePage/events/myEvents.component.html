@@ -141,12 +141,12 @@
             </div>
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
-                <input type="time" formControlName="startTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.startTime.errors }" />
+                <input type="text" onfocus="(this.type='time')"  placeholder="Start Time" formControlName="startTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.startTime.errors }" />
                 <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.startTime?.errors?.required">StartTime can't be blank</div>    
             </div>
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
-                <input type="time" formControlName="endTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.endTime.errors }" />
+                <input type="text" onfocus="(this.type='time')"  placeholder="Start Time" formControlName="endTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.endTime.errors }" />
                 <div class="messages text-danger error" *ngIf="submitted && addEventForm.controls.endTime?.errors?.required">EndTime can't be blank</div>    
             </div>
             <div class="input-group">

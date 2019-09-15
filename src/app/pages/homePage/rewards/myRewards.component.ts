@@ -32,6 +32,8 @@ export class MyRewardsComponent implements OnInit {
   name = new FormControl('', Validators.required);
   description = new FormControl('', Validators.required);
   criteria = new FormControl('', Validators.required);
+  endDate = new FormControl ('', Validators.required);
+  startDate = new FormControl ('', Validators.required);
   status = new FormControl (0, []);
 
   constructor(
@@ -59,6 +61,8 @@ export class MyRewardsComponent implements OnInit {
       description:this.description,
       criteria:this.criteria,
       status:this.status,
+      startDate:this.startDate,
+      endDate:this.endDate,
     });
   }
   
@@ -135,6 +139,8 @@ export class MyRewardsComponent implements OnInit {
       this.name.setValue(reward.name);
       this.description.setValue(reward.description);
       this.criteria.setValue(reward.criteria);
+      this.startDate.setValue("Start Date");
+      this.endDate.setValue("End Date");
     });
     
     document.querySelector('#' + event).classList.add('md-show');
@@ -144,6 +150,8 @@ export class MyRewardsComponent implements OnInit {
     this.name.setValue("");
     this.criteria.setValue("");
     this.description.setValue("");
+    this.startDate.setValue("");
+    this.endDate.setValue("");
   }
 
   onEdit(id:number) {

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RewardComponent } from './Reward.component';
+import { RewardComponent } from './reward.component';
 import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '../../shared/shared.module';
 import {HttpModule} from '@angular/http';
@@ -26,7 +26,7 @@ export const RewardRoutes: Routes = [{
     HttpModule,
     DataTableModule,
     ReactiveFormsModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
   ],
   declarations: [RewardComponent]
 })

@@ -120,6 +120,16 @@
             <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.description.errors?.required">Description can't be blank</div>    
           </div>
           <div class="input-group">
+            <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+            <input type="text" onfocus="(this.type='date')"  placeholder="Start Date" formControlName="startDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }" />
+            <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.startDate?.errors?.required">Start Date can't be blank</div>    
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+            <input type="text" onfocus="(this.type='date')" placeholder="End Date" formControlName="endDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }" />
+            <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.endDate?.errors?.required">End Date can't be blank</div>    
+          </div>
+          <div class="input-group">
               <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
               <input type="text" formControlName="criteria" class="form-control" placeholder="criteria" [ngClass]="{ 'is-invalid': submitted && f.criteria.errors }" />
               <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.criteria.errors?.required">Criteria can't be blank</div>    
@@ -142,6 +152,16 @@
               <quill-editor [styles]="{height: '120px'}" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)" [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
               <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.description.errors?.required">Description can't be blank</div>    
             </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+                <input type="text" onfocus="(this.type='date')"  placeholder="Start Date" formControlName="startDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }" />
+                <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.startDate?.errors?.required">Start Date can't be blank</div>    
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+                <input type="text" onfocus="(this.type='date')" placeholder="End Date" formControlName="endDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }" />
+                <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.endDate?.errors?.required">End Date can't be blank</div>    
+              </div>
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
                 <input type="text" formControlName="criteria" class="form-control" placeholder="criteria" [ngClass]="{ 'is-invalid': submitted && f.criteria.errors }" />

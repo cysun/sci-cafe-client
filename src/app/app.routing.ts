@@ -1,10 +1,9 @@
 import {Routes} from '@angular/router';
 import {AuthComponent} from './layout/auth/auth.component';
-import {HomeComponent} from './pages/homePage/home/home.component';
 import {RegularComponent} from './layout/regular/regular.component';
-import { AuthGuard } from './guards';
 
 export const AppRoutes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: '',
     component: AuthComponent,
@@ -46,6 +45,9 @@ export const AppRoutes: Routes = [
         path: 'home/rewards/detail',
         loadChildren: './pages/homePage/rewards/singleReward.module#SingleRewardModule'
       },{
+        path: 'home/rewards/neededEvents',
+        loadChildren: './pages/homePage/rewards/potential-reward.module#PotentialRewardModule'
+      },{
         path: 'home/news',
         loadChildren: './pages/homePage/news/news.module#NewsModule'
       },{
@@ -67,5 +69,5 @@ export const AppRoutes: Routes = [
     ]
   },
   { path: '**', redirectTo: 'home' },
-  { path: ' ', redirectTo: 'home', pathMatch: 'full' }
+
 ];
