@@ -1,10 +1,13 @@
 <div class="scanner-shell" [hidden]="!hasDevices">
-      
-        <zxing-scanner #scanner (camerasFound)="camerasFoundHandler($event)" (scanSuccess)="handleQrCodeResult($event)" [formats]="['EAN_13', 'CODE_128', 'QR_CODE']" [tryHarder]="true"></zxing-scanner>
-        <a [routerLink]="['/home/event/checkIn']" [queryParams]="{id:eventId}"><input type="button" class="btn btn-primary" value="Done"/></a>
-        <section class="results" *ngIf="qrResultString">
-          <strong>{{ qrResultString }}</strong>
-        </section>
-      
-      </div>
-      
+  <input type="image" class="f-right" (click)="switchCamera()" src='../../../../assets/images/all-icon/switch-camera.png' height="48"
+    width="48">
+  <zxing-scanner #scanner [(device)]="currentDevice" (camerasFound)="camerasFoundHandler($event)" (scanSuccess)="handleQrCodeResult($event)"
+    [formats]="['EAN_13', 'CODE_128', 'QR_CODE']" [tryHarder]="true">
+  </zxing-scanner>
+  <a [routerLink]="['/home/event/checkIn']" [queryParams]="{id:eventId}"><input type="button" class="btn btn-primary" value="Done"
+    /></a>
+  <section class="results" *ngIf="qrResultString">
+    <strong>{{ qrResultString }}</strong>
+  </section>
+
+</div>

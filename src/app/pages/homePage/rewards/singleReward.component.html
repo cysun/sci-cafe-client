@@ -29,51 +29,53 @@
                     <div class="">
                         <h3>{{reward?.name}}</h3>
                         <div class="label-main">
-                            Tag: <label *ngFor="let tag of reward?.tags" class="label label-primary">{{tag?.name}}</label>
+                            Tag: <label *ngFor="let tag of reward?.tags" data-toggle="tooltip" data-placement="top" title={{tag.description}}
+                                class={{tag?.type}}>{{tag?.name}}</label>
                         </div>
-                        <h5>Attend at least {{reward?.criteria}} qualified events to get reward.</h5>                      
+                        <h5>Attend at least {{reward?.criteria}} qualified events to get reward.</h5>
                         <br>
                         <h3>Description:</h3>
                         <br>
                         <quill-view [preserveWhitespace]="true" [content]="reward?.description"></quill-view>
-                        <div *ngIf="isAdmin=='true' && reward?.status==0">
-                            <button class="btn btn-success " (click)="approveRewardById(reward?.id)">Approve</button>
-                            <button class="btn btn-danger " (click)="rejectRewardById(reward?.id)">Reject</button>
-                        </div>
                         <br>
-         
+
                         <h3>Qualified Events</h3>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
-                                <tr>
-                                    <th scope="col">Events</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Loction</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Start Time</th>
-                                    <th scope="col">End Time</th>
-                                    <th scope="col">Organizer</th>
-                                </tr>
+                                    <tr>
+                                        <th scope="col">Events</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Loction</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Start Time</th>
+                                        <th scope="col">End Time</th>
+                                        <th scope="col">Organizer</th>
+                                    </tr>
                                 </thead>
                                 <tbody *ngFor="let event of events;index as i">
-                                <tr>
-                                    <th scope="row">{{i+1}}</th>
-                                    <td><a [routerLink]="['/home/events/detail']" [queryParams]="{id:event.id}">{{event?.name}}</a></td>
-                                    <td>{{event?.location}}   </td>
-                                    <td>{{event?.eventDate | date:'yyyy-MM-dd'}}</td>
-                                    <td>{{event?.startTime}}        </td>
-                                    <td>{{event?.endTime}}         </td>
-                                    <td>{{event?.organizer.firstName}} {{event?.organizer.lastName}}</td>
-                                </tr>
+                                    <tr>
+                                        <th scope="row">{{i+1}}</th>
+                                        <td><a [routerLink]="['/home/events/detail']" [queryParams]="{id:event.id}">{{event?.name}}</a></td>
+                                        <td>{{event?.location}} </td>
+                                        <td>{{event?.eventDate | date:'yyyy-MM-dd'}}</td>
+                                        <td>{{event?.startTime}} </td>
+                                        <td>{{event?.endTime}} </td>
+                                        <td>{{event?.organizer.firstName}} {{event?.organizer.lastName}}</td>
+                                    </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <br>
+                        <div *ngIf="isAdmin=='true' && reward?.status==0">
+                            <button class="btn btn-success " (click)="approveRewardById(reward?.id)">Approve</button>
+                            <button class="btn btn-danger " (click)="rejectRewardById(reward?.id)">Reject</button>
                         </div>
                     </div> <!-- events left -->
                 </div>
                 <div class="col-lg-4">
                     <div class="events-right">
-                        <div class="events-coundwon bg_cover" data-overlay="8" style="background-image: url(images/event/singel-event/coundown.jpg)">
+                        <div class="events-coundwon bg_cover" data-overlay="8">
                             <h5>Event Infomation</h5>
                         </div> <!-- events coundwon -->
                         <div class="events-address mt-30">
@@ -96,14 +98,14 @@
                                         </div>
                                         <div class="cont">
                                             <h6>End Date</h6>
-                                            <span>{{reward?.endDate | date:'yyyy-MM-dd':'UTC'}}  </span>
+                                            <span>{{reward?.endDate | date:'yyyy-MM-dd':'UTC'}} </span>
                                         </div>
                                     </div> <!-- singel address -->
                                 </li>
                             </ul>
                         </div> <!-- events address -->
                     </div> <!-- events right -->
-                  </div>
+                </div>
             </div> <!-- row -->
         </div> <!-- events-area -->
     </div> <!-- container -->

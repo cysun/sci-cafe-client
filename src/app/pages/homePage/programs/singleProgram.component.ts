@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from '@angular/http';
+import { Http } from '@angular/http';
 
 import { ProgramService } from '../../../services';
 import { first } from 'rxjs/operators';
-import { Program,User } from '../../../models';
+import { Program, User } from '../../../models';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
@@ -32,8 +32,8 @@ export class SingleProgramComponent implements OnInit {
     private programService: ProgramService,
     private route: ActivatedRoute,
     private router: Router,
-    private routerInfo:ActivatedRoute
-  ) { 
+    private routerInfo: ActivatedRoute
+  ) {
 
   }
 
@@ -41,9 +41,9 @@ export class SingleProgramComponent implements OnInit {
     this.getProgramById(this.routerInfo.snapshot.queryParams["id"]);
   }
 
-  private getProgramById(id:number) {
+  private getProgramById(id: number) {
     this.programService.getProgramById(id).subscribe(program => {
-        this.program = program;
+      this.program = program;
     });
   }
 

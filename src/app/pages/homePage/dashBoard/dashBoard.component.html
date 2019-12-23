@@ -1,4 +1,4 @@
-<section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" >
+<section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -10,7 +10,7 @@
                             <li class="breadcrumb-item"><a [routerLink]="['/home/user/dashboard']">Dashboard</a></li>
                         </ol>
                     </nav>
-                </div>  <!-- page banner cont -->
+                </div> <!-- page banner cont -->
             </div>
         </div> <!-- row -->
     </div> <!-- container -->
@@ -18,44 +18,44 @@
 
 <section id="blog-singel" class="pt-90 pb-120 gray-bg">
     <div class="container">
-       <div class="row">
-          <div class="col-lg-4">
-                    <div class="saidbar">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-6">
-                                <div class="categories mt-30">
-                                    <h4>Menu</h4>
-                                    <ul *ngIf="isAdmin=='false'">
-                                        <li><a [routerLink]="['/home/user/dashboard/default']">Dashboard</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/qrcode']">My QRcode</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/profile']">Profile</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/myEvents/']">My Events</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/myRewards/']">My Rewards</a></li>
-                                    </ul>
-                                    <ul *ngIf="isAdmin==='true'">
-                                        <li><a [routerLink]="['/home/user/dashboard/default']">Dashboard</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/approve']">Approve</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/qrcode']">My QRcode</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/profile']">Profile</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/myEvents/']">My Events</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/myRewards/']">My Rewards</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/users']">Users</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/events']">Events</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/programs']">Programs</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/news']">News</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/rewards']">Rewards</a></li>
-                                        <li><a [routerLink]="['/home/user/dashboard/tags']">Tags</a></li>
-                                    </ul>
-                                </div>
-                            </div> <!-- categories -->
-                        </div> <!-- row -->
-                    </div> <!-- saidbar -->
-          </div>
-          <div class="col-lg-8">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="saidbar">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-6">
+                            <div class="categories mt-30">
+                                <h4>Menu</h4>
+                                <ul *ngIf="isAdmin=='false'">
+                                    <li><a [routerLink]="['/home/user/dashboard/default']">Dashboard</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/qrcode']">My QRcode</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/profile']">Profile</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/myEvents/']">My Events</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/myRewards/']">My Rewards</a></li>
+                                </ul>
+                                <ul *ngIf="isAdmin==='true'">
+                                    <li><a [routerLink]="['/home/user/dashboard/default']">Dashboard</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/approve']">Approve</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/qrcode']">My QRcode</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/profile']">Profile</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/myEvents/']">My Events</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/myRewards/']">My Rewards</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/users']">Users</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/events']">Events</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/programs']">Programs</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/news']">News</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/rewards']">Rewards</a></li>
+                                    <li><a [routerLink]="['/home/user/dashboard/tags']">Tags</a></li>
+                                </ul>
+                            </div>
+                        </div> <!-- categories -->
+                    </div> <!-- row -->
+                </div> <!-- saidbar -->
+            </div>
+            <div class="col-lg-8">
                 <router-outlet>
                     <app-spinner></app-spinner>
                 </router-outlet>
-          </div>
-       </div> <!-- row -->
+            </div>
+        </div> <!-- row -->
     </div> <!-- container -->
 </section>

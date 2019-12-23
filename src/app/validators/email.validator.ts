@@ -15,7 +15,6 @@ export class EmailValidators {
   searchEmail(text) {
     // debounce
     var email = text.replace('.','itsadot426')
-    console.log(email);
     return timer(100)
       .pipe(
         switchMap(() => {
@@ -27,7 +26,6 @@ export class EmailValidators {
   }
 
   emailValidator(): AsyncValidatorFn {
-    console.log("xxxx");
     return (control: AbstractControl): Observable<{ [key: string]: any } | null> => {
       return this.searchEmail(control.value)
         .pipe(

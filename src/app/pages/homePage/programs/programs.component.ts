@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from '@angular/http';
+import { Http } from '@angular/http';
 
 import { ProgramService } from '../../../services';
 import { Program } from '../../../models';
@@ -26,12 +26,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ProgramsComponent implements OnInit {
   programs: Program[] = [];
 
+
   constructor(
     public http: Http,
     private programService: ProgramService,
     private route: ActivatedRoute,
     private router: Router,
-  ) { 
+  ) {
 
   }
 
@@ -41,12 +42,12 @@ export class ProgramsComponent implements OnInit {
 
   private loadAllPrograms() {
     this.programService.getAllPrograms().subscribe(programs => {
-        this.programs = programs;
+      this.programs = programs;
     });
   }
 
-  onClick(id:number) {
-    
+  onClick(id: number) {
+
   }
 }
 

@@ -6,3 +6,4 @@ export * from './program.service';
 export * from './news.service';
 export * from './reward.service';
 export * from './tag.service';
+export * from './image.service';

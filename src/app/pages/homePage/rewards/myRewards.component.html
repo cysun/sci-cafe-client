@@ -1,174 +1,277 @@
 <div class="row">
-        <div class="col-md-12">
-          <div class="md-tabs">
-            <ngb-tabset justify="fill">
-              <ngb-tab title="Approved Rewards">
-                <ng-template ngbTabContent>
-                  <div  class="m-t-15">
-                    <!-- personal card start -->
-                    <div class="card">
-                      <div class="card-header">
-                        <h5 class="card-header-text">Approved Rewards</h5>
-                        <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> Add Reward</button>
-                      </div>
-                      <div class="card-body" >
-                          <div class="card-comment " *ngFor="let reward of rewards">
-                              <div class="card-block-small" *ngIf="reward.status==1">
-                                <img class="img-radius img-50" src="assets/images/reward.png" alt="user-4">
-                                <div class="comment-desc">
-                                    <div class="label-main">
-                                        <label *ngFor="let tag of reward.tags" class="label label-primary">{{tag?.name}}</label>
-                                    </div>
-                                    <a [routerLink]="['/home/reward/qualifiedEvents']" [queryParams]="{id:reward.id}"><h6>{{reward?.name}}</h6></a>
-                                    <div class="comment-btn">
-                                      <button class="btn bg-c-blue btn-round btn-comment" (click)="openEditModal('effect-14',reward?.id)">Edit</button>
-                                      <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(reward?.id)">Delete</button>
-                                    </div>
-                                </div>
-                              </div>
-                            </div>
-                      </div>
-                      <!-- end of card-body -->
-                    </div>
-                    <!-- personal card end-->
+  <div class="col-md-12">
+    <div class="md-tabs">
+      <ngb-tabset justify="fill">
+        <ngb-tab title="Approved Rewards">
+          <ng-template ngbTabContent>
+            <div class="m-t-15">
+              <!-- personal card start -->
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="card-header-text">Approved Rewards</h5>
+                  <button type="button" (click)="openAddModal($event)" class="btn btn-primary f-right" data-toggle="modal" data-target="#addReward">
+                    Add Reward
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div class="courses-search float-right">
+                    <input type="text" [(ngModel)]="search" placeholder="Search">
                   </div>
-                </ng-template>
-              </ngb-tab>
-              <ngb-tab title="Submitted Rewards">
-                <ng-template ngbTabContent>
-                  <div  class="m-t-15">
-                    <!-- info card start -->
-                    <div class="">
-    
-                    </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <h5 class="card-header-text">Submitted Rewards</h5>
-                        <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> Add Reward</button>
-                      </div>
-                      <div class="card-body" >
-                          <div class="card-comment " *ngFor="let reward of rewards">
-                              <div class="card-block-small" *ngIf="reward.status==0">
-                                <img class="img-radius img-50" src="assets/images/reward.png" alt="user-4">
-                                <div class="comment-desc">
-                                    <div class="label-main">
-                                        <label *ngFor="let tag of reward.tags" class="label label-primary">{{tag?.name}}</label>
-                                    </div>
-                                    <a [routerLink]="['/home/reward/qualifiedEvents']" [queryParams]="{id:reward.id}"><h6>{{reward?.name}}</h6></a>
-                                    <div class="comment-btn">
-                                      <button class="btn bg-c-blue btn-round btn-comment" (click)="openEditModal('effect-14',reward?.id)">Edit</button>
-                                      <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(reward?.id)">Delete</button>
-                                    </div>
-                                  </div>
-                              </div>
-                            </div>
-                      </div>
-                    </div>
-                    <!-- info card end -->
-                  </div>
-                </ng-template>
-              </ngb-tab>
-              <ngb-tab title="Rejected Rewards">
-                  <ng-template ngbTabContent>
-                    <div class="m-t-15">
-                      <!-- info card start -->
-                      <div class="">
-      
-                      </div>
-                      <div class="card">
-                        <div class="card-header">
-                          <h5 class="card-header-text">Rejected Rewards</h5>
-                          <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> Add Reward</button>
+                  <div class="card-comment " *ngFor="let reward of approveds | search :['name','description']: search  | paginate: { itemsPerPage: 5, currentPage: p }">
+                    <div class="card-block-small">
+                      <img class="img-radius img-50" src="assets/images/reward.png" alt="user-4">
+                      <div class="comment-desc">
+                        <div class="label-main">
+                          <label *ngFor="let tag of reward?.tags" data-toggle="tooltip" data-placement="top" title={{tag.description}} class={{tag?.type}}>{{tag?.name}}</label>
                         </div>
-                        <div class="card-body" >
-                            <div class="card-comment " *ngFor="let reward of rewards">
-                                <div class="card-block-small" *ngIf="reward.status==2">
-                                  <img class="img-radius img-50" src="assets/images/reward.png" alt="user-4">
-                                  <div class="comment-desc">
-                                      <div class="label-main">
-                                          <label *ngFor="let tag of reward.tags" class="label label-primary">{{tag?.name}}</label>
-                                      </div>
-                                      <a [routerLink]="['/home/reward/qualifiedEvents']" [queryParams]="{id:reward.id}"><h6>{{reward?.name}}</h6></a>
-                                      <div class="comment-btn">
-                                        <button class="btn bg-c-blue btn-round btn-comment" (click)="openEditModal('effect-14',reward?.id)">Edit</button>
-                                        <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(reward?.id)">Delete</button>
-                                      </div>
-                                    </div>                                  
-                                </div>
-                              </div>
+                        <a [routerLink]="['/home/reward/qualifiedEvents']" [queryParams]="{id:reward.id}"><h6>{{reward?.name}}</h6></a>
+                        <div class="comment-btn">
+                          <button class="btn bg-c-blue btn-round btn-comment" data-toggle="modal" data-target="#editReward" (click)="openEditModal('effect-14',reward?.id)">Edit</button>
+                          <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(reward?.id)">Delete</button>
                         </div>
                       </div>
-                      <!-- info card end -->
                     </div>
-                  </ng-template>
-                </ngb-tab>
-            </ngb-tabset>
-          </div>
-        </div>
+                  </div>
+                  <br>
+                  <div class="text-center">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </div>
+                </div>
+                <!-- end of card-body -->
+              </div>
+              <!-- personal card end-->
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Pending Rewards">
+          <ng-template ngbTabContent>
+            <div class="m-t-15">
+              <!-- info card start -->
+              <div class="">
+
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="card-header-text">Pending Rewards</h5>
+                  <button type="button" (click)="openAddModal($event)" class="btn btn-primary f-right" data-toggle="modal" data-target="#addReward">
+                    Add Reward
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div class="courses-search float-right">
+                    <input type="text" [(ngModel)]="search" placeholder="Search">
+                  </div>
+                  <div class="card-comment " *ngFor="let reward of pendings | search :['name','description']: search  | paginate: { itemsPerPage: 5, currentPage: p }">
+                    <div class="card-block-small">
+                      <img class="img-radius img-50" src="assets/images/reward.png" alt="user-4">
+                      <div class="comment-desc">
+                        <div class="label-main">
+                          <label *ngFor="let tag of reward?.tags" data-toggle="tooltip" data-placement="top" title={{tag.description}} class={{tag?.type}}>{{tag?.name}}</label>
+                        </div>
+                        <a [routerLink]="['/home/reward/qualifiedEvents']" [queryParams]="{id:reward.id}"><h6>{{reward?.name}}</h6></a>
+                        <div class="comment-btn">
+                          <button class="btn bg-c-blue btn-round btn-comment" data-toggle="modal" data-target="#editReward" (click)="openEditModal('effect-14',reward?.id)">Edit</button>
+                          <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(reward?.id)">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="text-center">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </div>
+                </div>
+              </div>
+              <!-- info card end -->
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Rejected Rewards">
+          <ng-template ngbTabContent>
+            <div class="m-t-15">
+              <!-- info card start -->
+              <div class="">
+
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="card-header-text">Rejected Rewards</h5>
+                  <button type="button" (click)="openAddModal($event)" class="btn btn-primary f-right" data-toggle="modal" data-target="#addReward">
+                    Add Reward
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div class="courses-search float-right">
+                    <input type="text" [(ngModel)]="search" placeholder="Search">
+                  </div>
+                  <div class="card-comment " *ngFor="let reward of rejecteds | search :['name','description']: search  | paginate: { itemsPerPage: 5, currentPage: p }">
+                    <div class="card-block-small">
+                      <img class="img-radius img-50" src="assets/images/reward.png" alt="user-4">
+                      <div class="comment-desc">
+                        <div class="label-main">
+                          <label *ngFor="let tag of reward?.tags" data-toggle="tooltip" data-placement="top" title={{tag.description}} class={{tag?.type}}>{{tag?.name}}</label>
+                        </div>
+                        <a [routerLink]="['/home/reward/qualifiedEvents']" [queryParams]="{id:reward.id}"><h6>{{reward?.name}}</h6></a>
+                        <div class="comment-btn">
+                          <button class="btn bg-c-blue btn-round btn-comment" data-toggle="modal" data-target="#editReward" (click)="openEditModal('effect-14',reward?.id)">Edit</button>
+                          <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(reward?.id)">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="text-center">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </div>
+                </div>
+              </div>
+              <!-- info card end -->
+            </div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="addReward" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Add Reward</h5>
+        <button type="button" class="close" (click)="closeMyModal($event)" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
-        <h3 class="f-26">Add Reward</h3>
+      <div class="modal-body">
         <div class="text-center">
           <form class="md-float-material" [formGroup]="addRewardForm" (ngSubmit)="onSubmit()">
-          <div class="input-group">
-            <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
-            <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-            <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.name.errors?.required">Name can't be blank</div>         
-          </div>
-          <div class="input-group">
-            <quill-editor [styles]="{height: '120px'}" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)" [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
-            <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.description.errors?.required">Description can't be blank</div>    
-          </div>
-          <div class="input-group">
-            <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
-            <input type="text" onfocus="(this.type='date')"  placeholder="Start Date" formControlName="startDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }" />
-            <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.startDate?.errors?.required">Start Date can't be blank</div>    
-          </div>
-          <div class="input-group">
-            <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
-            <input type="text" onfocus="(this.type='date')" placeholder="End Date" formControlName="endDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }" />
-            <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.endDate?.errors?.required">End Date can't be blank</div>    
-          </div>
-          <div class="input-group">
-              <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
-              <input type="text" formControlName="criteria" class="form-control" placeholder="criteria" [ngClass]="{ 'is-invalid': submitted && f.criteria.errors }" />
-              <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.criteria.errors?.required">Criteria can't be blank</div>    
-          </div>
-          <button type="submit" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
-          </form>
-        </div>
-        <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
-      </app-modal-animation>
-      <app-modal-animation [modalID]="'effect-14'" [modalClass]="'md-effect-13'">
-          <h3 class="f-26">Edit Reward</h3>
-          <div class="text-center">
-            <form class="md-float-material" [formGroup]="addRewardForm" (ngSubmit)="onSubmit()">
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
-              <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-              <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.name.errors?.required">Name can't be blank</div>         
+              Name: <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+              />
+              <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.name.errors?.required">Name
+                can't be blank</div>
             </div>
             <div class="input-group">
-              <quill-editor [styles]="{height: '120px'}" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)" [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description" placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
-              <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.description.errors?.required">Description can't be blank</div>    
+              <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+              Start Date:<input type="date" placeholder="Start Date" formControlName="startDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }"
+              />
+              <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.startDate?.errors?.required">Start
+                Date can't be blank</div>
             </div>
             <div class="input-group">
-                <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
-                <input type="text" onfocus="(this.type='date')"  placeholder="Start Date" formControlName="startDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }" />
-                <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.startDate?.errors?.required">Start Date can't be blank</div>    
+              <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+              End Date:<input type="date" placeholder="End Date" formControlName="endDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }"
+              />
+              <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.endDate?.errors?.required">End
+                Date can't be blank</div>
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+              Criteria: <input type="text" formControlName="criteria" class="form-control" placeholder="criteria" [ngClass]="{ 'is-invalid': submitted && f.criteria.errors }"
+              />
+              <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.criteria.errors?.required && !addRewardForm.controls.criteria.errors?.min">Criteria
+                can't be blank</div>
+              <div class="messages text-danger error" *ngIf="submitted && !addRewardForm.controls.criteria.errors?.required && addRewardForm.controls.criteria.errors?.min">Criteria
+                must greater than 0</div>
+            </div>
+            <form class="form-inline" [formGroup]="addTagForm">
+              <div>
+                Tags:<select name="tag" formControlName="tag" class="form-control form-control-default" class="form-control">
+                  <option *ngFor="let tag of allTags" value={{tag.id}}>{{tag.name}}</option>
+                </select>
               </div>
-              <div class="input-group">
-                <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
-                <input type="text" onfocus="(this.type='date')" placeholder="End Date" formControlName="endDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }" />
-                <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.endDate?.errors?.required">End Date can't be blank</div>    
-              </div>
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
-                <input type="text" formControlName="criteria" class="form-control" placeholder="criteria" [ngClass]="{ 'is-invalid': submitted && f.criteria.errors }" />
-                <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.criteria.errors?.required">Criteria can't be blank</div>    
-            </div>
-            <button type="button" (click)="onEdit(editReward?.id)" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
+              <button class="btn btn-outline-success my-2 my-sm-0" (click)="onAdd()">Add Tag</button>
             </form>
-          </div>
-          <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
-        </app-modal-animation>
+            <div class="label-main f-left">
+              <label *ngFor="let tag of tags" class={{tag?.type}}>{{tag?.name}} <span class="badge badge-light" (click)="deleteTag(tag?.id)">x</span></label>
+            </div>
+            <br>
+            <div class="input-group">
+              <quill-editor [styles]="{height: '300px'}" (onEditorCreated)="EditorCreated($event)" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)"
+                [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description"
+                placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
+              <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.description.errors?.required">Description
+                can't be blank</div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" (click)="onSubmit()" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="editReward" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Edit Reward</h5>
+        <button type="button" class="close" (click)="closeMyModal($event)" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <form class="md-float-material" [formGroup]="addRewardForm" (ngSubmit)="onSubmit()">
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+              Name: <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+              />
+              <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.name.errors?.required">Name
+                can't be blank</div>
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+              Start Date:<input type="date" placeholder="Start Date" formControlName="startDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }"
+              />
+              <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.startDate?.errors?.required">Start
+                Date can't be blank</div>
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+              End Date:<input type="date" placeholder="End Date" formControlName="endDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }"
+              />
+              <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.endDate?.errors?.required">End
+                Date can't be blank</div>
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+              Criteria: <input type="text" formControlName="criteria" class="form-control" placeholder="criteria" [ngClass]="{ 'is-invalid': submitted && f.criteria.errors }"
+              />
+              <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.criteria.errors?.required && !addRewardForm.controls.criteria.errors?.min">Criteria
+                can't be blank</div>
+              <div class="messages text-danger error" *ngIf="submitted && !addRewardForm.controls.criteria.errors?.required && addRewardForm.controls.criteria.errors?.min">Criteria
+                must greater than 0</div>
+            </div>
+            <form class="form-inline" [formGroup]="addTagForm">
+              <div>
+                Tags:<select name="tag" formControlName="tag" class="form-control form-control-default" class="form-control">
+                  <option *ngFor="let tag of allTags" value={{tag.id}}>{{tag.name}}</option>
+                </select>
+              </div>
+              <button class="btn btn-outline-success my-2 my-sm-0" (click)="onAdd()">Add Tag</button>
+            </form>
+            <div class="label-main f-left">
+              <label *ngFor="let tag of tags" class={{tag?.type}}>{{tag?.name}} <span class="badge badge-light" (click)="deleteTag(tag?.id)">x</span></label>
+            </div>
+            <br>
+            <div class="input-group">
+              <quill-editor [styles]="{height: '300px'}" (onEditorCreated)="EditorCreated($event)" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)"
+                [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description"
+                placeholder="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
+              <div class="messages text-danger error" *ngIf="submitted && addRewardForm.controls.description.errors?.required">Description
+                can't be blank</div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" (click)="onEdit(editReward?.id)" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl:'https://api.sci-cafe.com', 
+  //apiUrl:'https://api.sci-cafe.com', 
+  apiUrl:'http://localhost:8080'
 };
 
 /*

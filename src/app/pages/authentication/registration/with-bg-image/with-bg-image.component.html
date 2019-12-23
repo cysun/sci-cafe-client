@@ -1,14 +1,16 @@
-<section class="text-center bg-primary common-img-bg">
+<section class="text-center bg-primary" >
   <!-- starts -->
-  <div class="auth-fluid">
+  <div class="auth-fluid common-img-bg">
     <div class="row">
       <div class="col-sm-12">
         <!-- Authentication card start -->
         <div class="login-card card-body auth-body">
           <form class="md-float-material" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="auth-box">
+              <h3 class="text-left txt-primary">
+                Sign Up
+              </h3>
               <hr/>
-              
               <div class="form-group row">
                 <input type="input" class="form-control" formControlName="firstName" placeholder="First Name" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
                 <span class="md-line"></span>
@@ -66,26 +68,31 @@
                 <input type="password" class="form-control" formControlName="password" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
                 <span class="md-line"></span>
                 <div class="messages text-danger error" *ngIf="submitted && registerForm.controls.password.errors?.required">Password can't be blank</div>
-                <div class="messages text-danger error" *ngIf="submitted && registerForm.controls.username.errors?.pattern">Password may only contain numbers and letters(8-15 digits).</div>                 
+                <div class="messages text-danger error" *ngIf="submitted && (registerForm.controls.password.errors?.minlength || registerForm.controls.password.errors?.maxlength)">Password may should have 8-15 digits.</div>                 
               </div>
               <div class="form-group row">
                 <input type="password" class="form-control" formControlName="rpassword" placeholder="Repeat Password" formControlName="rpassword" [ngClass]="{ 'is-invalid': submitted && f.rpassword.errors }">
                 <div class="messages text-danger" *ngIf="submitted && registerForm.controls.rpassword.errors?.required">Repeat password can't be blank</div>
-                <div class="messages text-danger" *ngIf="submitted && registerForm.controls.rpassword.errors?.equalTo">The passwords does not match</div>
+                <div class="messages text-danger" *ngIf="submitted && !registerForm.controls.rpassword.errors?.required && registerForm.controls.rpassword.errors?.equalTo">The passwords does not match</div>
+              </div>
+              <div class="messages text-success">
+                Please enter correct email address.A 4-digit verification code will send to your email address.
               </div>
               <div class="row" >
                 <div class="form-inline">
                   <div>
                     <input type="text" class="form-control" style="width:120px;height: 40px" formControlName="code" placeholder="4-digit Code">
-                    <div class="messages text-danger error" *ngIf="submitted && registerForm.controls.code.errors?.required">Verification code can't be blank</div>
-                    <div class="messages text-danger error" *ngIf="submitted && wrongCode">Wrong verification code</div>
                   </div>
                   <div class="text-right">
-                    <button type="button" [disabled]="countDown" class="btn btn-success my-2 my-sm-0" style="width:120px;height: 40px" (click)="getCode($event)">{{showButtonText}}</button>
+                    <button type="button" [disabled]="countDown&&!registerForm.controls.email.emailExists&&!f.email?.errors" class="btn btn-success my-2 my-sm-0" (click)="getCode($event)">{{showButtonText}}</button>
                   </div>
                 </div>
-                <div class="messages text-danger" *ngIf="submitted && registerForm.controls.code.errors?.required">Verification code can't be blank</div>
               </div>
+              <div class="messages text-danger error form-group row" *ngIf="tryToGetCode && registerForm.controls.email.errors?.required">Please enter your email address to get verification code.</div>
+              <div class="messages text-danger error form-group row" *ngIf="tryToGetCode && !registerForm.controls.email.errors?.required && registerForm.controls.email.errors?.email">Please enter your correct email address to get verification code.</div>
+              <div class="messages text-danger error form-group row" *ngIf="tryToGetCode && !registerForm.controls.email.errors?.required && !registerForm.controls.email.errors?.email && registerForm.controls.email.errors?.emailExists">This email have already been registered.</div>
+              <div class="messages text-danger error form-group row" *ngIf="submitted && registerForm.controls.code.errors?.required">Verification code can't be blank</div>
+              <div class="messages text-danger error form-group row" *ngIf="submitted && wrongCode && !registerForm.controls.code.errors?.required">Wrong verification code</div>
               <div class="row m-t-30">
                 <div class="col-md-12">
                   <button [disabled] = "registerForm.controls.username.errors?.userNameExists || registerForm.controls.email.errors?.emailExists" type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign up now.</button>
@@ -93,6 +100,10 @@
                 </div>
               </div>
               <hr/>
+              <div class="col-md-10">
+                  <p class="text-inverse text-left m-b-0">Thank you and enjoy our website.</p>
+                  <p class="text-inverse text-left"><b>Your Autentification Team -- Sci-Cafe</b></p>
+              </div>
               <!-- <div class="row">
                 <div class="col-md-10">
                   <p class="text-inverse text-left m-b-0">Thank you and enjoy our website.</p>

@@ -10,7 +10,7 @@ import { EmailValidators} from '../../../../validators/email.validator';
 @Component({
   selector: 'app-with-bg-image',
   templateUrl: './with-bg-image.component.html',
-  styleUrls: ['./with-bg-image.component.css']
+  styleUrls: ['./with-bg-image.component.css'],
 })
 export class WithBgImageComponent implements OnInit {
 
@@ -18,17 +18,18 @@ export class WithBgImageComponent implements OnInit {
  
   countDownTime = 60;  // countdown 60S
  
-  showButtonText = "Send Code";
+  showButtonText = "Verify Email";
 
-  wrongCode = undefined;
+  wrongCode = false;
 
   registerForm: FormGroup;
   submitted = false; 
+  tryToGetCode =  false;
   returnUrl: string;
   firstName = new FormControl('', Validators.required);
   lastName = new FormControl('', Validators.required);
-  username = new FormControl('', Validators.compose([Validators.required,Validators.pattern("^[a-z0-9_-]{6,15}$")]),this.uniqueUserService.userValidator());
-  password = new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9_-]{6,15}$"),Validators.minLength(8),Validators.maxLength(15)]);
+  username = new FormControl('', Validators.compose([Validators.required,Validators.pattern("^[a-zA-Z0-9_-]{8,15}$")]),this.uniqueUserService.userValidator());
+  password = new FormControl('', [Validators.required,Validators.minLength(8),Validators.maxLength(15)]);
   email = new FormControl('', Validators.compose([Validators.required,Validators.email]),this.uniqueEmailService.emailValidator());
   rpassword = new FormControl('', [Validators.required, CustomValidators.equalTo(this.password)]);
   code = new FormControl('',Validators.required);
@@ -58,6 +59,8 @@ export class WithBgImageComponent implements OnInit {
   }
 
   getCode(event) {
+
+    this.tryToGetCode = true;
     
     if (this.registerForm.controls.email.invalid) {
       return;
@@ -90,7 +93,6 @@ export class WithBgImageComponent implements OnInit {
       var decoded = Number(localStorage.getItem('code')) / 13 - 7; // decode the verification code
       var email = localStorage.getItem('email');
       email = email.replace("itsadot426",".");
-      console.log(email+"   " + decoded);
       if (email == this.registerForm.controls.email.value && decoded == this.registerForm.controls.code.value) {
         this.wrongCode = false;
       } else {
@@ -132,13 +134,11 @@ export class WithBgImageComponent implements OnInit {
 
     this.verifyEmail();
 
-    console.log(this.wrongCode);
+    this.submitted = true;
 
     if (this.wrongCode) {
       return;
     }
-
-    this.submitted = true;
 
         // stop here if form is invalid
         if (this.registerForm.invalid) {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PotentialRewardComponent } from './potential-reward.component';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarModule } from 'angular-calendar';
 import { PipesModule } from 'w-ng5';
@@ -23,7 +23,7 @@ export const PotentialRewardRoutes: Routes = [
     NgbModule,
     CalendarModule,
     PipesModule,
-    NgxPaginationModule ,
+    NgxPaginationModule,
     FormsModule,
     QuillModule.forRoot(),
   ],

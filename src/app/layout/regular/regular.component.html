@@ -1,6 +1,6 @@
-    <!--====== PRELOADER PART START ======-->
-    
-    <!-- <div class="preloader">
+<!--====== PRELOADER PART START ======-->
+
+<!-- <div class="preloader">
         <div class="loader rubix-cube">
             <div class="layer layer-1"></div>
             <div class="layer layer-2"></div>
@@ -12,48 +12,54 @@
             <div class="layer layer-8"></div>
         </div>
     </div> -->
-    
-    <!--====== PRELOADER PART START ======-->
-    
-    <!--====== HEADER PART START ======-->
-    
-    <header id="header-part">
-        
-            <div class="navigation">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <nav class="navbar navbar-expand-lg" st>
-                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </button>
-        
-                                    <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                                            <ul class="navbar-nav mr-auto">
-                                                    <li class="nav-item">
-                                                        <a [routerLink]="['/home']">Home</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a [routerLink]="['/about']">About us</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a [routerLink]="['/home/programs']">Programs</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a [routerLink]="['/home/events']">Events</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a [routerLink]="['/home/rewards']"  >Rewards</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a [routerLink]="['/home/news']"  >News</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="http://www.calstatela.edu">Link</a>
-                                                    </li>
-                                                    <!-- <li class="nav-item">
+
+<!--====== PRELOADER PART START ======-->
+
+<!--====== HEADER PART START ======-->
+<header id="header-part">
+
+    <div class="navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-lg navbar-fixed-top">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <script>
+                            $("#myNarbar").on('show.bs.collapse', function () {
+                                $('a.nav-link').click(function () {
+                                    $("#myNarbar").collapse('hide');
+                                });
+                            });
+                        </script>
+                        <div class="collapse navbar-collapse" id="myNavbar">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                    <a [routerLink]="['/home']">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a [routerLink]="['/about']">About us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a [routerLink]="['/home/programs']">Programs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a [routerLink]="['/home/events']">Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a [routerLink]="['/home/rewards']">Rewards</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a [routerLink]="['/home/news']">News</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="http://www.calstatela.edu">Link</a>
+                                </li>
+                                <!-- <li class="nav-item">
                                                         <a href="shop.html"  >Link</a>
                                                         <ul class="sub-menu">
                                                             <li><a href="shop.html">Link 1</a></li>
@@ -67,126 +73,115 @@
                                                             <li><a href="contact-2.html">Link 2</a></li>
                                                         </ul>
                                                     </li> -->
-                                                   
-                                                </ul>
-                                                <ul class="navbar-nav ml-auto" *ngIf="name">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" [routerLink]="['/home/user/dashboard/default']"  >{{name}}</a>
-                                                    </li>
-                                                    <li class="nav-item"><a [routerLink]="['/home']"   (click)="logOut()">Log Out</a></li>
-                                                </ul>
-                                                <ul class="navbar-nav ml-auto" *ngIf="!name">
-                                                    <li class="nav-item" >
-                                                        <a class="nav-link" [routerLink]="['/authentication/login/with-bg-image']"  >Sign In</a>
-                                                    </li>
-                                                    <li class="nav-item"  > 
-                                                        <a class="nav-link" [routerLink]="['/authentication/registration/with-bg-image']"  >Sign Up</a>
-                                                    </li>
-                                                </ul>
-                                    </div>
-                                </nav> <!-- nav -->
-                            </div>
-                        </div> <!-- row -->
-                    </div> <!-- container -->
+
+                            </ul>
+                            <ul class="navbar-nav ml-auto" *ngIf="name">
+                                <li class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/home/user/dashboard/default']">{{name}}</a>
+                                </li>
+                                <li class="nav-item"><a [routerLink]="['/home']" (click)="logOut()">Log Out</a></li>
+                            </ul>
+                            <ul class="navbar-nav ml-auto" *ngIf="!name">
+                                <li class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/authentication/login/with-bg-image']">Sign In</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/authentication/registration/register']">Sign Up</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav> <!-- nav -->
                 </div>
-        
-     
-        
-    </header>
-    
-    <!--====== HEADER PART ENDS ======-->
-   
-    <!--====== SEARCH BOX PART START ======-->
-    
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </div>
 
-    <!--====== SEARCH BOX PART ENDS ======-->
-   
-    <!--====== SLIDER PART START ======-->
 
-   
-   <div class="page-body">
+
+</header>
+
+<!--====== HEADER PART ENDS ======-->
+
+<!--====== SEARCH BOX PART START ======-->
+
+
+<!--====== SEARCH BOX PART ENDS ======-->
+
+<!--====== SLIDER PART START ======-->
+
+
+<div class="page-body">
     <router-outlet>
         <app-spinner></app-spinner>
     </router-outlet>
-   </div>
+</div>
 
-   
-    <!--====== FOOTER PART START ======-->
-    
-    <footer id="footer-part">
-        
-        <div class="footer-copyright pt-10 pb-25">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="copyright text-md-left text-center pt-15">
-                            <p>&copy; Copyrights 2019 Sci-Cafe All rights reserved. </p>
-                        </div>
+
+<!--====== FOOTER PART START ======-->
+
+<footer id="footer-part">
+
+    <div class="footer-copyright pt-10 pb-25">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="copyright text-md-left text-center pt-15">
+                        <p>&copy; Copyrights 2019 Sci-Cafe All rights reserved. </p>
                     </div>
-                    <div class="col-md-4">
-                        <div class="copyright text-md-right text-center pt-15">
-                            <p>Designed by <span>Yi Chen</span> </p>
-                        </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="copyright text-md-right text-center pt-15">
+                        <p>Designed by <span>Yi Chen</span> </p>
                     </div>
-                </div> <!-- row -->
-            </div> <!-- container -->
-        </div> <!-- footer copyright -->
-    </footer>
-    
-    <!--====== FOOTER PART ENDS ======-->
-   
-    <!--====== BACK TO TP PART START ======-->
-    
-    <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
-    
-    <!--====== BACK TO TP PART ENDS ======-->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </div> <!-- footer copyright -->
+</footer>
 
-    <!--====== jquery js ======-->
-    <script src="js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+<!--====== FOOTER PART ENDS ======-->
 
-    <!--====== Bootstrap js ======-->
-    <script src="js/bootstrap.min.js"></script>
-    
-    <!--====== Slick js ======-->
-    <script src="assets/js/slick.min.js"></script>
-    
-    <!--====== Magnific Popup js ======-->
-    <script src="assets/js/jquery.magnific-popup.min.js"></script>
-    
-    <!--====== Counter Up js ======-->
-    <script src="assets/js/waypoints.min.js"></script>
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    
-    <!--====== Nice Select js ======-->
-    <script src="assets/js/jquery.nice-select.min.js"></script>
-    
-    <!--====== Nice Number js ======-->
-    <script src="assets/js/jquery.nice-number.min.js"></script>
-    
-    <!--====== Count Down js ======-->
-    <script src="assets/js/jquery.countdown.min.js"></script>
-    
-    <!--====== Validator js ======-->
-    <script src="js/validator.min.js"></script>
-    
-    <!--====== Ajax Contact js ======-->
-    <script src="js/ajax-contact.js"></script>
-    
-    <!--====== Main js ======-->
-    <script src="js/main.js"></script>
-    
-    <!--====== Map js ======-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC3Ip9iVC0nIxC6V14CKLQ1HZNF_65qEQ"></script>
-    <script src="assets/js/map-script.js"></script>
-   
-    
-    
-    
-    
-    
-    
-  
+<!--====== BACK TO TP PART START ======-->
 
+<a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
 
+<!--====== BACK TO TP PART ENDS ======-->
 
+<!--====== jquery js ======-->
+<script src="js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="js/vendor/jquery-1.12.4.min.js"></script>
+
+<!--====== Bootstrap js ======-->
+<script src="js/bootstrap.min.js"></script>
+
+<!--====== Slick js ======-->
+<script src="assets/js/slick.min.js"></script>
+
+<!--====== Magnific Popup js ======-->
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+
+<!--====== Counter Up js ======-->
+<script src="assets/js/waypoints.min.js"></script>
+<script src="assets/js/jquery.counterup.min.js"></script>
+
+<!--====== Nice Select js ======-->
+<script src="assets/js/jquery.nice-select.min.js"></script>
+
+<!--====== Nice Number js ======-->
+<script src="assets/js/jquery.nice-number.min.js"></script>
+
+<!--====== Count Down js ======-->
+<script src="assets/js/jquery.countdown.min.js"></script>
+
+<!--====== Validator js ======-->
+<script src="js/validator.min.js"></script>
+
+<!--====== Ajax Contact js ======-->
+<script src="js/ajax-contact.js"></script>
+
+<!--====== Main js ======-->
+<script src="js/main.js"></script>
+
+<!--====== Map js ======-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC3Ip9iVC0nIxC6V14CKLQ1HZNF_65qEQ"></script>
+<script src="assets/js/map-script.js"></script>

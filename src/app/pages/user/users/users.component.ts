@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from '@angular/http';
+import { Http } from '@angular/http';
 
-import { AlertService, AuthenticationService,UserService } from '../../../services';
+import { AlertService, AuthenticationService, UserService } from '../../../services';
 import { first } from 'rxjs/operators';
 import { User } from '../../../models';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from 'ng2-validation';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
@@ -22,7 +21,7 @@ export class UsersComponent implements OnInit {
   data: User[] = [];
 
   registerForm: FormGroup;
-  submitted = false; 
+  submitted = false;
   returnUrl: string;
   firstName = new FormControl('', Validators.required);
   lastName = new FormControl('', Validators.required);
@@ -31,7 +30,7 @@ export class UsersComponent implements OnInit {
   unit = new FormControl('', Validators.required);
   position = new FormControl('', Validators.required);
   title = new FormControl('');
-  email = new FormControl('', [Validators.required,Validators.email]);
+  email = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(
     public http: Http,
@@ -40,7 +39,7 @@ export class UsersComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
     private router: Router,
-  ) { 
+  ) {
 
   }
 
@@ -51,16 +50,16 @@ export class UsersComponent implements OnInit {
       password: this.password,
       firstName: this.firstName,
       lastName: this.lastName,
-      email:this.email,
-      unit:this.unit,
-      title:this.title,
-      position:this.position
+      email: this.email,
+      unit: this.unit,
+      title: this.title,
+      position: this.position
     });
   }
 
   private loadAllUsers() {
     this.userService.getAll().subscribe(users => {
-        this.data = users;
+      this.data = users;
     });
   }
 
@@ -77,31 +76,31 @@ export class UsersComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-        // stop here if form is invalid
-        if (this.registerForm.invalid) {
-            return;
-        }
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
 
-        this.userService.register(this.registerForm.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/authentication/login/with-bg-image']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.submitted = false;
-                });
+    this.userService.register(this.registerForm.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.alertService.success('Registration successful', true);
+          this.router.navigate(['/authentication/login/with-bg-image']);
+        },
+        error => {
+          this.alertService.error(error);
+          this.submitted = false;
+        });
   }
 
-  onDelete(id:number) {
-    this.userService.delete(id).pipe(first()).subscribe(data=>{
+  onDelete(id: number) {
+    this.userService.delete(id).pipe(first()).subscribe(data => {
       location.reload();
     });
   }
 
-  onClick(id:number) {
+  onClick(id: number) {
     this.router.navigate(['/'])
   }
 }

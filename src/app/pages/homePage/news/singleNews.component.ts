@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from '@angular/http';
+import { Http } from '@angular/http';
 
 import { NewsService } from '../../../services';
 import { first } from 'rxjs/operators';
@@ -26,15 +26,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SingleNewsComponent implements OnInit {
   news: News;
-  popularNews:News[];
+  popularNews: News[];
 
   constructor(
     public http: Http,
     private newsService: NewsService,
     private route: ActivatedRoute,
     private router: Router,
-    private routerInfo:ActivatedRoute
-  ) { 
+    private routerInfo: ActivatedRoute
+  ) {
 
   }
 
@@ -43,9 +43,9 @@ export class SingleNewsComponent implements OnInit {
     this.getPopularNews();
   }
 
-  private getNewsById(id:number) {
+  private getNewsById(id: number) {
     this.newsService.getNewsById(id).subscribe(news => {
-        this.news = news;
+      this.news = news;
     });
   }
 
@@ -56,7 +56,7 @@ export class SingleNewsComponent implements OnInit {
     });
   }
 
-  private doRefresh(id:number) {
+  private doRefresh(id: number) {
     this.getNewsById(id);
   }
 

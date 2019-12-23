@@ -1,8 +1,8 @@
-import { EmailValidators} from '../../../validators/email.validator';
-import { Component, OnInit} from '@angular/core';
+import { EmailValidators } from '../../../validators/email.validator';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import { AlertService, AuthenticationService,UserService } from '../../../services';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AlertService, AuthenticationService, UserService } from '../../../services';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -12,20 +12,20 @@ import { first } from 'rxjs/operators';
 })
 export class ForgotComponent implements OnInit {
   emailForm: FormGroup;
-  email = new FormControl('', Validators.required,this.uniqueEmailService.emailValidator());
-  submitted = false; 
+  email = new FormControl('', Validators.required, this.uniqueEmailService.emailValidator());
+  submitted = false;
   returnUrl: string;
 
   constructor(
     private router: Router,
     private alertService: AlertService,
-    private userService:UserService,
+    private userService: UserService,
     private uniqueEmailService: EmailValidators
   ) { }
 
   ngOnInit() {
     this.emailForm = new FormGroup({
-      email:this.email,
+      email: this.email,
     });
   }
 
@@ -37,22 +37,22 @@ export class ForgotComponent implements OnInit {
 
     this.submitted = true;
 
-        // // stop here if form is invalid
-        // if (this.emailForm.invalid) {
-        //   console.log("oooo")
-        //     return;
-        // }
+    // // stop here if form is invalid
+    // if (this.emailForm.invalid) {
+    //   console.log("oooo")
+    //     return;
+    // }
 
-        this.userService.resetPassword(this.emailForm.controls.email.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.router.navigate(['/authentication/login/with-bg-image']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.submitted = false;
-                });
+    this.userService.resetPassword(this.emailForm.controls.email.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate(['/authentication/login/with-bg-image']);
+        },
+        error => {
+          this.alertService.error(error);
+          this.submitted = false;
+        });
   }
 
 

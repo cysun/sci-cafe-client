@@ -20,11 +20,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashBoardComponent implements OnInit {
 
-  isAdmin:string;
+  isAdmin: string;
 
   constructor(
 
-  ) { 
+  ) {
 
   }
 

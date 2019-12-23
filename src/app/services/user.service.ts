@@ -13,8 +13,16 @@ export class UserService {
         return this.http.get<User[]>(this.apiUrl+'/users');
     }
 
+    activate(token:string) {
+        return this.http.get<Event>(this.apiUrl+"/activate?token="+token);
+    }
+
     register(user: User) {
         return this.http.post(this.apiUrl+'/register', user);
+    }
+
+    registers(user: User) {
+        return this.http.post(this.apiUrl+'/registers', user);
     }
 
     delete(id: number) {

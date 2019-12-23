@@ -1,183 +1,142 @@
-    
-    <div class="search-box">
-        <div class="serach-form">
-            <div class="closebtn">
-                <span></span>
-                <span></span>
+<div class="search-box">
+    <div class="serach-form">
+        <div class="closebtn">
+            <span></span>
+            <span></span>
+        </div>
+        <form action="#">
+            <input type="text" placeholder="Search by keyword">
+            <button><i class="fa fa-search"></i></button>
+        </form>
+    </div> <!-- serach form -->
+</div>
+
+<!--====== SEARCH BOX PART ENDS ======-->
+
+<!--====== SLIDER PART START ======-->
+
+<!--====== SLIDER PART START ======-->
+<br>
+<br>
+<section id="slider-part" class="slider-active">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="section-title">
+                    <h5>About us</h5>
+                    <!-- <h4>Welcome to Sci-CAFE </h4> -->
+                </div> <!-- section title -->
+                <div class="about-cont">
+                    <p>Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat
+                        ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet . Morbi accumsan
+                        ipsum velit. Nam nec tellus a odio tincidunt mauris. <br> <br> auci elit cons equat ipsutis sem nibh
+                        id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet . Morbi accumsan ipsum velit. Nam
+                        nec tellus a odio tincidunt mauris</p>
+                    <a [routerLink]="['/about']" class="main-btn mt-55">Learn More</a>
+                </div>
+            </div> <!-- about cont -->
+            <div class="col-md-8">
+                <ngb-carousel>
+                    <ng-template ngbSlide *ngFor="let news of topNews" class="class_outer">
+                        <img src={{news?.imageUrl}} width="500" alt={{news?.title}} style="width:100%;">
+                        <div class="carousel-caption class_cover">
+                            <a class="nav-link" [routerLink]="['/home/news/detail']" style="color:white" [queryParams]="{id:news?.id}">
+                                <h5 style="color:white;">{{news?.title}}</h5>
+                            </a>
+                        </div>
+                    </ng-template>
+                </ngb-carousel>
             </div>
-            <form action="#">
-                <input type="text" placeholder="Search by keyword">
-                <button><i class="fa fa-search"></i></button>
-            </form>
-        </div> <!-- serach form -->
-    </div>
-    
-    <!--====== SEARCH BOX PART ENDS ======-->
-   
-    <!--====== SLIDER PART START ======-->
-    
-      <!--====== SLIDER PART START ======-->
-    
-      <section id="slider-part" class="slider-active">
-        <ngb-carousel >
-            <ng-template ngbSlide *ngFor="let news of topNews" class="class_outer">
-              <img src={{news?.imageUrl}} width="1800" alt={{news?.title}} style="width:100%;">
-              <div class="carousel-caption class_cover">
-                <a class="nav-link" [routerLink]="['/home/news/detail']" style="color:white" [queryParams]="{id:news?.id}">
-                    <h3 style="color:white;">{{news?.title}}</h3>
-                </a>    
-              </div>
-            </ng-template>
-          </ngb-carousel>
-      </section>
-    
-    <!--====== SLIDER PART ENDS ======-->
-   
-    <!--====== CATEGORY PART START ======-->
-    
-    <!--====== CATEGORY PART ENDS ======-->
-   
-    <!--====== ABOUT PART START ======-->
-    
-    <section id="about-part" class="pt-65">
-        <div class="container">
+        </div>
+    </div> <!-- container -->
+</section>
+
+<!--====== SLIDER PART ENDS ======-->
+
+<!--====== CATEGORY PART START ======-->
+
+<!--====== CATEGORY PART ENDS ======-->
+
+<!--====== ABOUT PART START ======-->
+<section id="about-part" class="pt-65">
+    <div>
+        <div class="event-title">
             <div class="row">
+                <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    <div class="section-title mt-50">
-                        <h5>About us</h5>
-                        <h2>Welcome to Sci-CAFE </h2>
-                    </div> <!-- section title -->
-                    <div class="about-cont">
-                        <p>Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet . Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt  mauris. <br> <br> auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet . Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt  mauris</p>
-                        <a [routerLink]="['/about']" class="main-btn mt-55">Learn More</a>
+                    <h5 class="text-center">Upcoming Event</h5>
+                    <h5 class="text-center">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h5>
+                </div>
+                <div class="col-md-4">
+                    <div class="btn-group">
+                        <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+                            Previous
+                        </div>
+                        <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+                            Today
+                        </div>
+                        <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+                            Next
+                        </div>
                     </div>
-                </div> <!-- about cont -->
-                <div class="col-md-8">
-                    <div class="event-title">
-                            <div class="row">
-                                <div class="col-md-4"></div>
-                                <div class="col-md-4">
-                                    <h5 class="text-center">Upcoming Event</h5>
-                                    <h5 class="text-center">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h5>
-                                </div>
-                                <div class="col-md-4">
-                                        <div class="btn-group">
-                                            <div
-                                                class="btn btn-primary"
-                                                mwlCalendarPreviousView
-                                                [view]="view"
-                                                [(viewDate)]="viewDate"
-                                                (viewDateChange)="activeDayIsOpen = false">
-                                                Previous
-                                            </div>
-                                            <div
-                                                class="btn btn-outline-secondary"
-                                                mwlCalendarToday
-                                                [(viewDate)]="viewDate">
-                                                Today
-                                            </div>
-                                            <div
-                                                class="btn btn-primary"
-                                                mwlCalendarNextView
-                                                [view]="view"
-                                                [(viewDate)]="viewDate"
-                                                (viewDateChange)="activeDayIsOpen = false">
-                                                Next
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                            <br>
-                            <div>
-                                <mwl-calendar-month-view
-                                    [viewDate]="viewDate"
-                                    [events]="calendarEvents"
-                                    [refresh]="refresh"
-                                    [activeDayIsOpen]="activeDayIsOpen"
-                                    (dayClicked)="dayClicked($event.day)"
-                                    (eventClicked)="eventClicked($event.event)">
-                                </mwl-calendar-month-view>
-                                <!-- <mwl-calendar-week-view
-                                    *ngSwitchCase="'week'"
-                                    [viewDate]="viewDate"
-                                    [events]="calendarEvents"
-                                    [refresh]="refresh"
-                                    (eventClicked)="handleEvent('Clicked', $event.event)"
-                                    (eventTimesChanged)="eventTimesChanged($event)">
-                                </mwl-calendar-week-view>
-                                <mwl-calendar-day-view
-                                    *ngSwitchCase="'day'"
-                                    [viewDate]="viewDate"
-                                    [events]="calendarEvents"
-                                    [refresh]="refresh"
-                                    (eventClicked)="handleEvent('Clicked', $event.event)"
-                                    (eventTimesChanged)="eventTimesChanged($event)">
-                                </mwl-calendar-day-view> -->
-                            </div>
-                        </div> <!-- event title -->
                 </div>
             </div>
-        </div> <!-- container -->
-    </section>
-    
-    <!--====== ABOUT PART ENDS ======-->
+            <div>
+                <mwl-calendar-month-view [viewDate]="viewDate" [events]="calendarEvents" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen"
+                    (dayClicked)="dayClicked($event.day)" (eventClicked)="eventClicked($event.event)">
+                </mwl-calendar-month-view>
+            </div>
+        </div> <!-- event title -->
+    </div>
+</section>
 
-   
-    <!--====== COURSE PART START ======-->
-    
-    <section id="course-part" class="pt-115 pb-120 gray-bg">
-        <div class="container">
+<!--====== ABOUT PART ENDS ======-->
+
+
+<!--====== COURSE PART START ======-->
+
+<section id="course-part" class="pt-115 pb-120 gray-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-title pb-45">
+                    <h5>Our Programs</h5>
+                    <h2>Featured programs </h2>
+                </div> <!-- section title -->
+            </div>
+        </div> <!-- row -->
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="courses-grid" role="tabpanel" aria-labelledby="courses-grid-tab">
+            </div>
+        </div>
+        <div class="row mt-30">
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="section-title pb-45">
-                        <h5>Our Programs</h5>
-                        <h2>Featured programs </h2>
-                    </div> <!-- section title -->
+                <div class="col-md-6 col-lg-4" *ngFor="let program of programs">
+                    <div class="singel-course mt-30">
+                        <div class="thum">
+                            <div class="image">
+                                <img src={{program?.imageUrl}} height="200" alt="Course">
+                            </div>
+                        </div>
+                        <div class="cont">
+                            <a [routerLink]="['/home/programs/detail']" [queryParams]="{id:program?.id}"><h4>{{program?.name}}</h4></a>
+                            <p>{{program?.fullName}}</p>
+                        </div>
+                    </div> <!-- singel course -->
                 </div>
             </div> <!-- row -->
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active"  id="courses-grid" role="tabpanel" aria-labelledby="courses-grid-tab">
-                </div>
-            </div>
-            <div class="row mt-30">
-                    <div class="row">
-                            <div class="col-md-6 col-lg-4" *ngFor="let program of programs">
-                                    <div class="singel-course mt-30">
-                                        <div class="thum">
-                                            <div class="image">
-                                                <img src={{program?.imageUrl}} height="200" alt="Course">
-                                            </div>
-                                        </div>
-                                        <div class="cont">
-                                            <a [routerLink]="['/home/programs/detail']" [queryParams]="{id:program?.id}"><h4>{{program?.name}}</h4></a>
-                                            <p>{{program?.fullName}}</p>
-                                        </div>
-                                    </div> <!-- singel course -->
-                                </div>
-                    </div> <!-- row -->
-            </div> <!-- course slied -->
-        </div> <!-- container -->
-    </section>
-    
-    <!--====== COURSE PART ENDS ======-->
+        </div> <!-- course slied -->
+    </div> <!-- container -->
+</section>
 
-   
-   
-
-   
-    <!--====== BACK TO TP PART START ======-->
-    
-    <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
-    
-    <!--====== BACK TO TP PART ENDS ======-->
-   
-    
-    
-    
-    
-    
-    
-  
+<!--====== COURSE PART ENDS ======-->
 
 
 
+
+
+<!--====== BACK TO TP PART START ======-->
+
+<a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+<!--====== BACK TO TP PART ENDS ======-->

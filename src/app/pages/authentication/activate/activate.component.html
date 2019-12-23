@@ -1,0 +1,53 @@
+<section class="login p-fixed d-flex text-center bg-primary common-img-bg">
+  <!-- starts -->
+  <div class="auth-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <!-- Login card start -->
+        <div class="login-card card-body auth-body">
+          <div class="md-float-material">
+            <div class="auth-box">
+              <div class="row">
+                <div class="col-md-12">
+                  <h3 class="text-center">Activate Your Account</h3>
+                  <div>
+                    <p class="text-inverse b-b-default text-right">Back to <a [routerLink]="['/authentication/login/with-bg-image']">Login.</a></p>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="success">
+                <p class="text-inverse text-left"><b> Your account has been successfully activated.</b></p>
+              </div>
+              <div class="row" *ngIf="wrongToken">
+                <hr>
+                <p class="text-inverse text-left"><b> Wrong activation link.Please login to your email and use correct activat
+                    link to activate your account.</b></p>
+              </div>
+              <div class="row" *ngIf="expired">
+                <hr>
+                <p class="text-inverse text-left"><b> Activation link has expired.A new activation link has been sent to
+                    you email.Please login to your email to activate your account.</b></p>
+              </div>
+              <div class="row" *ngIf="inactive">
+                <p class="text-inverse text-left"><b>You have successfully registered account.Please login to your email
+                    to activate your account!</b></p>
+              </div>
+              <hr/>
+              <div class="row">
+                <div class="col-md-10">
+                  <p class="text-inverse text-left m-b-0">Thank you and enjoy our website.</p>
+                  <p class="text-inverse text-left"><b>Your Autentification Team -- Sci-cafe</b></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end of form -->
+        </div>
+        <!-- Login card end -->
+      </div>
+      <!-- end of col-sm-12 -->
+    </div>
+    <!-- end of row -->
+  </div>
+  <!-- end of -->
+</section>

@@ -1,26 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from '@angular/http';
+import { Http } from '@angular/http';
 
-import { AlertService, AuthenticationService,ProgramService,EventService, NewsService } from '../../../services';
-import { first } from 'rxjs/operators';
-import { Event,Program,News} from '../../../models';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ProgramService, EventService, NewsService } from '../../../services';
+import { Event, Program, News } from '../../../models';
+import { Router } from '@angular/router';
 var moment = require('moment');
 import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
   isSameDay,
   isSameMonth,
-  addHours
 } from 'date-fns';
 import '../js/slick.min.js';
 import {
   CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
 } from 'angular-calendar';
 
 
@@ -65,19 +56,16 @@ export class HomeComponent implements OnInit {
   viewDate: Date = new Date();
   calendarEvents: CalendarEvent[];
 
-  submitted = false; 
+  submitted = false;
   returnUrl: string;
 
   constructor(
     public http: Http,
     private programService: ProgramService,
     private eventService: EventService,
-    private newService:NewsService,
-    private route: ActivatedRoute,
-    private authenticationService: AuthenticationService,
-    private alertService: AlertService,
+    private newService: NewsService,
     private router: Router,
-  ) { 
+  ) {
   }
 
   ngOnInit() {
@@ -90,25 +78,25 @@ export class HomeComponent implements OnInit {
 
   private loadAllApprovedEvents() {
     this.eventService.getAllApprovedEvents().subscribe(events => {
-      this.calendarEvents =  events.map((event:Event)=>{
-        console.log("xxxxx");
-        console.log(event.eventDate.toString().replace(' ', 'T'));
-        return {
-          title: event.name+'  '+event.startTime+'~'+event.endTime,
-          start: moment(event.eventDate).toDate(),
-          color: colors.blue,
-          meta: {
-            event
+      if (events != null) {
+        this.calendarEvents = events.map((event: Event) => {
+          return {
+            title: event.name + '  ' + event.startTime + '~' + event.endTime,
+            start: moment(event.eventDate).toDate(),
+            color: colors.blue,
+            meta: {
+              event
+            }
           }
-        }
-      })
+        })
+      }
     });
 
   }
 
   private loadTopNews() {
     this.newService.getAllTopNews().subscribe(news => {
-        this.topNews = news;
+      this.topNews = news;
     });
   }
 
@@ -131,15 +119,15 @@ export class HomeComponent implements OnInit {
 
   private loadAllPrograms() {
     this.programService.getAllPrograms().subscribe(programs => {
-        if (programs.length > 3)
-          this.programs = programs.slice(0,3);
-        else
-          this.programs = programs;
-        console.log(programs);
+      if (programs.length > 3)
+        this.programs = programs.slice(0, 3);
+      else
+        this.programs = programs;
+      console.log(programs);
     });
   }
 
-  eventClicked(calendarEvent: CalendarEvent<{ event: Event}>): void {
+  eventClicked(calendarEvent: CalendarEvent<{ event: Event }>): void {
     this.router.navigate(['/home/events/detail'], { queryParams: { id: calendarEvent.meta.event.id } });
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Reward,Event} from '../models';
+import { Reward,Event,Tag} from '../models';
 import { User } from '../models';
 import { environment } from '../../environments/environment';
 
@@ -30,12 +30,36 @@ export class RewardService {
         return this.http.get<Reward[]>(this.apiUrl+'/approvedRewards');
     }
 
-    addRewardTag(id: number,tid:number) {
-        return this.http.put(`${this.apiUrl}/addRewardTag/${id}/${tid}`,[]);
+    getAllPendingRewards() {
+        return this.http.get<Reward[]>(this.apiUrl+'/pendingRewards');
+    }
+
+    getAllRejectedRewards() {
+        return this.http.get<Reward[]>(this.apiUrl+'/rejectedRewards');
+    }
+
+    getOwnApprovedRewards() {
+        return this.http.get<Reward[]>(this.apiUrl+'/ownApprovedRewards');
+    }
+
+    getOwnPendingRewards() {
+        return this.http.get<Reward[]>(this.apiUrl+'/ownPendingRewards');
+    }
+
+    getOwnRejectedRewards() {
+        return this.http.get<Reward[]>(this.apiUrl+'/ownRejectedRewards');
+    }
+
+    addRewardTag(id: number,tags:Set<Tag>) {
+        return this.http.put(`${this.apiUrl}/addRewardTag/${id}`,Array.from(tags.values()));
     }
 
     addEventToRewardById(id: number,eid:number) {
         return this.http.put(`${this.apiUrl}/addRewardEvent/${id}/${eid}`,[]);
+    }
+
+    deleteEventFromRewardById(id: number,eid:number) {
+        return this.http.put(`${this.apiUrl}/deleteRewardEvent/${id}/${eid}`,[]);
     }
 
     addReward(reward:Reward) {
@@ -54,6 +78,7 @@ export class RewardService {
         formdata.append('startDate',reward.startDate.toString());
         formdata.append('endDate',reward.endDate.toString());
         formdata.append('criteria',reward.criteria.toString());
+        formdata.append('status',reward.status.toString());
         return this.http.put(`${this.apiUrl}/reward/${id}`,formdata);
     }
 

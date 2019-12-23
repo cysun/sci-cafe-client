@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { DashBoardComponent } from './dashBoard.component';
-import {SharedModule} from '../../../shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
 
 
 export const DashBoardRoutes: Routes = [
@@ -13,10 +13,10 @@ export const DashBoardRoutes: Routes = [
       {
         path: 'default',
         loadChildren: '../../dashboard/dashboard-default/dashboard-default.module#DashboardDefaultModule'
-      },{
+      }, {
         path: 'approve',
         loadChildren: '../../dashboard/dashboard-approve/dashboard-approve.module#DashboardApproveModule'
-      },{
+      }, {
         path: 'profile',
         loadChildren: '../../user/profile/profile.module#ProfileModule'
       }, {
@@ -31,7 +31,7 @@ export const DashBoardRoutes: Routes = [
       }, {
         path: 'programs',
         loadChildren: '../../program/program.module#ProgramModule'
-      },{
+      }, {
         path: 'news',
         loadChildren: '../../news/newslist.module#NewsListModule'
       }, {
@@ -43,16 +43,16 @@ export const DashBoardRoutes: Routes = [
       }, {
         path: 'checkIn',
         loadChildren: '../attendees/attendees.module#AttendeesModule'
-      },{
+      }, {
         path: 'myEvents',
         loadChildren: '../events/myEvents.module#MyEventsModule'
-      },{
+      }, {
         path: 'myRewards',
         loadChildren: '../rewards/myRewards.module#MyRewardsModule'
       }, {
         path: 'qualifiedEvents',
         loadChildren: '../qualified-events/qualifiedEvents.module#QualifiedEventsModule'
-      },{
+      }, {
         path: 'userDetail',
         loadChildren: '../../user/userDetail/userDetail.module#UserDetailModule'
       }, {

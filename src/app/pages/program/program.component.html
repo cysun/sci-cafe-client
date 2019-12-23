@@ -1,46 +1,47 @@
 <div class="card">
-    <div class="card-header">
-      <h5>Program</h5>
-      <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="openMyModal('effect-13')"> <i class="icofont icofont-plus m-r-5"></i> Add Program
-      </button>
-    </div>
-    <div class="card-body">
-      <div class="table-content crm-table">
-        <div class="project-table">
-          <div id="crm-contact" class="dt-responsive">
-            <div class="row">
-              <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
-                <div>
-                  <label class="label-control">Show
-                    <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
-                      <option [ngValue]="10">10</option>
-                      <option [ngValue]="25">25</option>
-                      <option [ngValue]="50">50</option>
-                      <option [ngValue]="100">100</option>
-                    </select>
-                    entries
-                  </label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-6">
-                <div style="text-align: right;">
-                  <label>Search:
-                    <input type="search" [(ngModel)]="filterQuery" class="form-control input-sm full-data-search" placeholder="Search">
-                  </label>
-                </div>
+  <div class="card-header">
+    <h5>Program</h5>
+    <button type="button" (click)="openAddModal($event)" class="btn btn-primary f-right" data-toggle="modal" data-target="#addProgram">
+      Add Program
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="table-content crm-table">
+      <div class="project-table">
+        <div id="crm-contact" class="dt-responsive">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+              <div>
+                <label class="label-control">Show
+                  <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select>
+                  entries
+                </label>
               </div>
             </div>
-            <!-- <div class="panel-heading">User information</div>-->
-            <div class="table-responsive">
-              <table class="table table-striped table-bordered full-data-table" [mfData]="data | Filter :['name']: filterQuery" #mf="mfDataTable"
-                     [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
-                <thead>
+            <div class="col-xs-12 col-sm-12 col-md-6">
+              <div style="text-align: right;">
+                <label>Search:
+                  <input type="search" [(ngModel)]="filterQuery" class="form-control input-sm full-data-search" placeholder="Search">
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="panel-heading">User information</div>-->
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered full-data-table" [mfData]="data | search :['name','description','fullName']: filterQuery"
+              #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+              <thead>
                 <tr>
                   <th>
-                    <mfDefaultSorter  by="name">Name</mfDefaultSorter>
+                    <mfDefaultSorter by="name">Name</mfDefaultSorter>
                   </th>
                   <th>
-                    <mfDefaultSorter  by="fullName">Full Name</mfDefaultSorter>
+                    <mfDefaultSorter by="fullName">Full Name</mfDefaultSorter>
                   </th>
                   <th>
                     <mfDefaultSorter>Action</mfDefaultSorter>
@@ -48,88 +49,124 @@
                 </tr>
                 <tr>
                 </tr>
-                </thead>
-                <tbody>
+              </thead>
+              <tbody>
                 <tr *ngFor="let item of mf.data">
                   <td><a [routerLink]="['/home/programs/detail']" [queryParams]="{id:item?.id}">{{item?.name}}</a> </td>
-                  <td>{{item?.fullName}}   </td>
+                  <td>{{item?.fullName}} </td>
                   <td class="action-icon">
-                      <button class="btn bg-c-blue btn-round btn-comment" (click)="openEditModal('effect-14',item?.id)">Edit</button>
-                      <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(item?.id)">Delete</button>
+                    <button class="btn bg-c-blue btn-round btn-comment" data-toggle="modal" data-target="#editProgram" (click)="openEditModal('effect-14',item?.id)">Edit</button>
+                    <button class="btn bg-c-pink btn-round btn-comment " (click)="onDelete(item?.id)">Delete</button>
                   </td>
                 </tr>
-                </tbody>
-                <tfoot>
+              </tbody>
+              <tfoot>
                 <tr>
                   <td colspan="10">
                     <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
                   </td>
                 </tr>
-                </tfoot>
-              </table>
-            </div>
+              </tfoot>
+            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- Add Contact Start Model -->
-  <app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
-    <h3 class="f-26">Add Program</h3>
-    <div class="text-center">
-      <form class="md-float-material" [formGroup]="addProgramForm" (ngSubmit)="onSubmit()">
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
-        <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-        <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.name?.errors?.required">Name can't be blank</div>         
+</div>
+<div class="modal fade" id="addProgram" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Program</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
-        <input type="text" formControlName="fullName" class="form-control" placeholder="FullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }" />
-        <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.fullName?.errors?.required">FullName can't be blank</div>    
+      <div class="modal-body">
+        <div class="text-center">
+          <form class="md-float-material" [formGroup]="addProgramForm" (ngSubmit)="onSubmit()">
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+              <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+              />
+              <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.name?.errors?.required">Name
+                can't be blank</div>
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+              <input type="text" formControlName="fullName" class="form-control" placeholder="FullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }"
+              />
+              <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.fullName?.errors?.required">FullName
+                can't be blank</div>
+            </div>
+            <div class="input-group">
+              <quill-editor [styles]="{height: '300px'}" (onEditorCreated)="EditorCreated($event)" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)"
+                [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description"
+                placeholder="Description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
+              <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.description?.errors?.required">Description
+                can't be blank</div>
+            </div>
+            <div class="input-group">
+              Upload Image<input type="file" class="form-control" accept="image/*" [ng2FileSize]="{ min: 1 * 1024, max: 5 * 1024 * 1024 }"
+                [fileSizeErrorMsg]="'Image size must be less than 5mb and more than 1kb!'" formControlName="image" (change)="selectFile($event)">
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="input-group">
-          <quill-editor [styles]="{height: '150px'}" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)" [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description" placeholder="Description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
-          <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.description?.errors?.required">Description can't be blank</div>    
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">Save changes</button>
       </div>
-      <div class="input-group">
-        Upload Image<input type="file" class="form-control" accept="image/*" [ng2FileSize]="{ min: 1 * 1024, max: 5 * 1024 * 1024 }"
-        [fileSizeErrorMsg]="'Image size must be less than 5mb and more than 1kb!'"
-        formControlName="image" (change)="selectFile($event)">
-      </div>
-      <button type="submit" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
-      </form>
     </div>
-    <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
-  </app-modal-animation>
-  <app-modal-animation [modalID]="'effect-14'" [modalClass]="'md-effect-13'">
-      <h3 class="f-26">Edit Program</h3>
-      <div class="text-center">
-        <form class="md-float-material" [formGroup]="addProgramForm" (ngSubmit)="onSubmit()">
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
-          <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-          <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.name?.errors?.required">Name can't be blank</div>         
-        </div>
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
-          <input type="text" formControlName="fullName" class="form-control" placeholder="FullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }" />
-          <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.fullName?.errors?.required">FullName can't be blank</div>    
-        </div>
-        <div class="input-group">
-            <quill-editor [styles]="{height: '150px'}" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)" [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description" placeholder="Description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
-            <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.description?.errors?.required">Description can't be blank</div>    
-        </div>
-        <div class="input-group">
-          Upload Image<input type="file" class="form-control" accept="image/*" [ng2FileSize]="{ min: 1 * 1024, max: 5 * 1024 * 1024 }"
-          [fileSizeErrorMsg]="'Image size must be less than 5mb and more than 1kb!'"
-          formControlName="image" (change)="selectFile($event)">
-        </div>
-        <button type="button" (click)="onEdit(editProgram?.id)" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
-        </form>
+  </div>
+</div>
+<div class="modal fade" id="editProgram" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Program</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
-    </app-modal-animation>
-  <!-- Add Contact Ends Model-->
-  <!-- ends -->
-  
+      <div class="modal-body">
+        <div class="text-center">
+          <form class="md-float-material" [formGroup]="addProgramForm" (ngSubmit)="onSubmit()">
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+              <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+              />
+              <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.name?.errors?.required">Name
+                can't be blank</div>
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+              <input type="text" formControlName="fullName" class="form-control" placeholder="FullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }"
+              />
+              <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.fullName?.errors?.required">FullName
+                can't be blank</div>
+            </div>
+            <div class="input-group">
+              <quill-editor [styles]="{height: '300px'}" (onEditorCreated)="EditorCreated($event)" (onFocus)="focus($event)" (onEditorChanged)="changedEditor($event)"
+                [preserveWhitespace]="true" (onBlur)="blur($event)" (onEditorCreated)="created($event)" formControlName="description"
+                placeholder="Description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></quill-editor>
+              <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.description?.errors?.required">Description
+                can't be blank</div>
+            </div>
+            <div class="input-group">
+              Upload Image<input type="file" class="form-control" accept="image/*" [ng2FileSize]="{ min: 1 * 1024, max: 5 * 1024 * 1024 }"
+                [fileSizeErrorMsg]="'Image size must be less than 5mb and more than 1kb!'" formControlName="image" (change)="selectFile($event)">
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onEdit(editProgram?.id)">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Contact Ends Model-->
+<!-- ends -->

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from '@angular/http';
-import {animate, style, transition, trigger} from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import '../../../../assets/charts/echart/echarts-all.js';
-import {User,Program} from '../../../models/index.js';
+import { User, Program } from '../../../models/index.js';
 import { first } from 'rxjs/operators';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from 'ng2-validation';
-import { AlertService, AuthenticationService,UserService,ProgramService} from '../../../services';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CustomValidators } from 'ng2-validation';
+import { AlertService, UserService, ProgramService } from '../../../services';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -16,12 +15,12 @@ import { Router, ActivatedRoute } from '@angular/router';
   animations: [
     trigger('fadeInOutTranslate', [
       transition(':enter', [
-        style({opacity: 0}),
-        animate('400ms ease-in-out', style({opacity: 1}))
+        style({ opacity: 0 }),
+        animate('400ms ease-in-out', style({ opacity: 1 }))
       ]),
       transition(':leave', [
-        style({transform: 'translate(0)'}),
-        animate('400ms ease-in-out', style({opacity: 0}))
+        style({ transform: 'translate(0)' }),
+        animate('400ms ease-in-out', style({ opacity: 0 }))
       ])
     ])
   ]
@@ -31,16 +30,16 @@ export class UserDetailComponent implements OnInit {
   editProfileForm: FormGroup;
   addRoleForm: FormGroup;
   addProgramForm: FormGroup;
-  submitted = false; 
+  submitted = false;
   returnUrl: string;
   firstName = new FormControl('', Validators.required);
   lastName = new FormControl('', Validators.required);
-  password = new FormControl('',[]);
+  password = new FormControl('', []);
   unit = new FormControl('', Validators.required);
   position = new FormControl('', Validators.required);
   title = new FormControl('');
-  email = new FormControl('', [Validators.required,Validators.email]);
-  rpassword = new FormControl('', [ CustomValidators.equalTo(this.password)]);
+  email = new FormControl('', [Validators.required, Validators.email]);
+  rpassword = new FormControl('', [CustomValidators.equalTo(this.password)]);
 
   program = new FormControl('', Validators.required);
   role = new FormControl('', Validators.required);
@@ -50,20 +49,20 @@ export class UserDetailComponent implements OnInit {
 
   editAbout = true;
   editAboutIcon = 'icofont-edit';
-  name:String;
+  name: String;
   programs: Program[] = [];
-  isAdmin="false";
+  isAdmin = "false";
 
 
-  profile:User;
+  profile: User;
   public rowsOnPage = 10;
   public filterQuery = '';
   public sortBy = '';
   public sortOrder = 'desc';
 
   constructor(
-    private userService:UserService,
-    private alertService:AlertService,
+    private userService: UserService,
+    private alertService: AlertService,
     private programService: ProgramService,
     private router: Router,
     private routeInfo: ActivatedRoute,
@@ -81,56 +80,56 @@ export class UserDetailComponent implements OnInit {
       password: this.password,
       firstName: this.firstName,
       lastName: this.lastName,
-      email:this.email,
-      unit:this.unit,
-      title:this.title,
-      position:this.position,
-      rpassword:this.rpassword
+      email: this.email,
+      unit: this.unit,
+      title: this.title,
+      position: this.position,
+      rpassword: this.rpassword
     });
     this.addProgramForm = new FormGroup({
-      program:this.program
+      program: this.program
     })
     this.addRoleForm = new FormGroup({
-      role:this.role
+      role: this.role
     })
     console.log(this.routeInfo.snapshot.queryParams["id"]);
   }
 
   get f() { return this.editProfileForm.controls; }
-  get programForm() {return this.addProgramForm.controls; }
-  get roleForm() {return this.addRoleForm.controls; }
+  get programForm() { return this.addProgramForm.controls; }
+  get roleForm() { return this.addRoleForm.controls; }
 
   onSubmit() {
     this.submitted = true;
 
-        // stop here if form is invalid
-        if (this.editProfileForm.invalid) {
-            return;
-        }
+    // stop here if form is invalid
+    if (this.editProfileForm.invalid) {
+      return;
+    }
 
-        this.userService.editUser(this.profile.id,this.editProfileForm.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertService.success('Edit profile successful', true);
-                    this.submitted = false;
-                    location.reload();
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.submitted = false;
-                });
+    this.userService.editUser(this.profile.id, this.editProfileForm.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.alertService.success('Edit profile successful', true);
+          this.submitted = false;
+          location.reload();
+        },
+        error => {
+          this.alertService.error(error);
+          this.submitted = false;
+        });
   }
 
   private loadAllPrograms() {
     this.programService.getAllPrograms().subscribe(programs => {
-        this.programs = programs;
+      this.programs = programs;
     });
   }
 
   private loadAllRoles() {
     this.programService.getAllPrograms().subscribe(programs => {
-        this.programs = programs;
+      this.programs = programs;
     });
   }
 
@@ -154,19 +153,19 @@ export class UserDetailComponent implements OnInit {
     this.submitted = false;
   }
 
-  onDelete(pid:number) {
-    this.userService.deleteUserProgram(Number(this.profile.id),pid).pipe().subscribe(data=>{
+  onDelete(pid: number) {
+    this.userService.deleteUserProgram(Number(this.profile.id), pid).pipe().subscribe(data => {
       location.reload();
-    },error => {
+    }, error => {
       this.alertService.error(error);
       this.submitted = false;
     });
   }
 
-  onDeleteRole(rid:number) {
-    this.userService.deleteUserRole(Number(this.profile.id),rid).pipe().subscribe(data=>{
+  onDeleteRole(rid: number) {
+    this.userService.deleteUserRole(Number(this.profile.id), rid).pipe().subscribe(data => {
       location.reload();
-    },error => {
+    }, error => {
       this.alertService.error(error);
       this.submitted = false;
     });
@@ -177,9 +176,9 @@ export class UserDetailComponent implements OnInit {
       return;
     }
 
-    this.userService.addUserProgram(Number(this.profile.id),this.program.value).pipe().subscribe(data=>{
+    this.userService.addUserProgram(Number(this.profile.id), this.program.value).pipe().subscribe(data => {
       location.reload();
-    },error => {
+    }, error => {
       this.alertService.error(error);
       this.submitted = false;
     });
@@ -190,9 +189,9 @@ export class UserDetailComponent implements OnInit {
       return;
     }
 
-    this.userService.addUserRole(Number(this.profile.id),this.role.value).pipe().subscribe(data=>{
+    this.userService.addUserRole(Number(this.profile.id), this.role.value).pipe().subscribe(data => {
       location.reload();
-    },error => {
+    }, error => {
       this.alertService.error(error);
       this.submitted = false;
     });

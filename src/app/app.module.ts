@@ -1,25 +1,26 @@
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {RouterModule} from '@angular/router';
-import {AppRoutes} from './app.routing';
+import { RouterModule } from '@angular/router';
+import { AppRoutes } from './app.routing';
 
 import { AppComponent } from './app.component';
-import {ClickOutsideModule} from 'ng-click-outside';
-import {SharedModule} from './shared/shared.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AuthComponent} from './layout/auth/auth.component';
-import {RegularComponent} from './layout/regular/regular.component';
-import {AuthenticationService,AlertService,UserService,ProgramService,EventService,NewsService, RewardService,TagService} from './services'
-import {AuthGuard} from './guards'
+import { ClickOutsideModule } from 'ng-click-outside';
+import { SharedModule } from './shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthComponent } from './layout/auth/auth.component';
+import { RegularComponent } from './layout/regular/regular.component';
+import { AuthenticationService, AlertService, UserService, ProgramService, EventService, NewsService, RewardService, TagService, ImageService } from './services'
+import { AuthGuard } from './guards'
 import { HttpModule } from '@angular/http'
-import {HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { PipesModule } from 'w-ng5';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { CalendarModule} from 'angular-calendar';
+import { CalendarModule } from 'angular-calendar';
 import { QRCodeModule } from 'angularx-qrcode';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { QuillModule } from 'ngx-quill';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -41,13 +42,15 @@ import { QuillModule } from 'ngx-quill';
     NgbModule,
     QRCodeModule,
     QuillModule.forRoot(),
-    FroalaEditorModule.forRoot(), 
-    FroalaViewModule.forRoot()
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot(),
+    CKEditorModule,
   ],
   providers: [
     AuthenticationService,
     AlertService,
     UserService,
+    ImageService,
     AuthGuard,
     ProgramService,
     EventService,

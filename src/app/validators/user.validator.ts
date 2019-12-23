@@ -17,7 +17,6 @@ export class UserValidators {
     return timer(100)
       .pipe(
         switchMap(() => {
-          console.log(text);
           // Check if username is available
           return this.http.get<any>(`${this.Url}/username/${text}`)
         })

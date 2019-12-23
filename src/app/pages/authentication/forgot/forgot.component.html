@@ -13,18 +13,19 @@
               </div>
               <p class="text-inverse b-b-default text-right">Back to <a [routerLink]="['/authentication/login/with-bg-image']">Login.</a></p>
               <form class="md-float-material" [formGroup]="emailForm" (ngSubmit)="onSubmit()">
-                    <div class="input-group">
-                      <input  type="input" class="form-control" formControlName="email" placeholder="Email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Your Email Address">
-                      <div 
-                      style="color: red"
-                      *ngIf="!emailForm.controls.email.errors?.emailExists">Email does not exists.</div>
-                      <div class="messages text-danger error" *ngIf="submitted && emailForm.controls.email.errors?.required">Please enter correct email</div>              
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <button [disabled] = "!emailForm.controls.email.errors?.emailExists" type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Reset and send me a new Password</button>
-                      </div>
-                    </div>
+                <div class="input-group">
+                  <input type="input" class="form-control" formControlName="email" placeholder="Email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                    placeholder="Your Email Address">
+                  <div style="color: red" *ngIf="!emailForm.controls.email.errors?.emailExists">Email does not exists.</div>
+                  <div class="messages text-danger error" *ngIf="submitted && emailForm.controls.email.errors?.required">Please
+                    enter correct email</div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <button [disabled]="!emailForm.controls.email.errors?.emailExists" type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Reset
+                      and send me a new Password</button>
+                  </div>
+                </div>
               </form>
               <hr/>
             </div>

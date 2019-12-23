@@ -20,14 +20,13 @@ export class AuthenticationService {
                     console.log(user)
                     const helper = new JwtHelperService();
 
-                    if (helper.isTokenExpired(user['jwt'])) {
-                        this.logout();
-                        location.reload();
+                    if (user['jwt'] === 'inactive') {
+                        return user;
                     }
-            
+
                     let decodedToken = helper.decodeToken(user['jwt']);
                     localStorage.setItem('name', decodedToken['firstName'] + " " + decodedToken['lastName']);
-                    localStorage.setItem('isAdmin',decodedToken['isAdmin']);
+                    localStorage.setItem('isAdmin', decodedToken['isAdmin']);
                 }
                 return user;
             }));

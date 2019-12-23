@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from '@angular/http';
+import { Http } from '@angular/http';
 
-import { AlertService, AuthenticationService,TagService } from '../../services';
+import { AlertService, AuthenticationService, TagService } from '../../services';
 import { first } from 'rxjs/operators';
 import { Tag } from '../../models';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
@@ -20,34 +20,38 @@ export class TagComponent implements OnInit {
   public sortBy = '';
   public sortOrder = 'desc';
   data: Tag[] = [];
-  editTag : Tag;
-  
+  editTag: Tag;
+
   addTagForm: FormGroup;
   editTagForm: FormGroup;
-  submitted = false; 
+  submitted = false;
   editSubmitted = false;
   returnUrl: string;
   name = new FormControl('', Validators.required);
-  editName  = new FormControl('', Validators.required);
+  description = new FormControl('', Validators.required);
+  editName = new FormControl('', Validators.required);
+  editDescription = new FormControl('', Validators.required);
 
   constructor(
     public http: Http,
-    private tagService:TagService,
+    private tagService: TagService,
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
     private router: Router,
-  ) { 
+  ) {
 
   }
 
   ngOnInit() {
     this.loadAllTags();
     this.addTagForm = new FormGroup({
-      name:this.name,
+      name: this.name,
+      description: this.description,
     });
     this.editTagForm = new FormGroup({
-      name:this.editName,
+      name: this.editName,
+      description: this.editDescription,
     });
   }
 
@@ -59,89 +63,90 @@ export class TagComponent implements OnInit {
 
   private loadAllTags() {
     this.tagService.getAllTags().subscribe(tags => {
-        this.data = tags;
+      this.data = tags;
     });
   }
 
-  openMyModal(event) {
-    document.querySelector('#' + event).classList.add('md-show');
+  openAddModal(event) {
+    this.clearForm();
   }
 
   closeMyModal(event) {
-    ((event.target.parentElement.parentElement).parentElement).classList.remove('md-show');
+    this.clearForm();
   }
 
   get f() { return this.addTagForm.controls; }
 
-  get e() { return this.editTagForm.controls;}
+  get e() { return this.editTagForm.controls; }
 
   onSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
     if (this.addTagForm.invalid) {
-        return;
+      return;
     }
 
     console.log(this.addTagForm.value);
 
     this.tagService.addTag(this.addTagForm.value)
-        .pipe(first())
-        .subscribe(
-            data => {
-                this.alertService.success('Ad a tag successful', true);
-                location.reload();
-            },
-            error => {
-                this.submitted = false;
-                this.alertService.error(error);
-            });
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.alertService.success('Ad a tag successful', true);
+          location.reload();
+        },
+        error => {
+          this.submitted = false;
+          this.alertService.error(error);
+        });
   }
-  
 
-  onDelete(id:number) {
-    this.tagService.delete(id).pipe(first()).subscribe(data=>{
+
+  onDelete(id: number) {
+    this.tagService.delete(id).pipe(first()).subscribe(data => {
       location.reload();
     });
   }
 
-  onClick(id:number) {
-    
+  onClick(id: number) {
+
   }
 
-  openEditModal(event,id:number) {
-    this.tagService.getTagById(id).subscribe(tag=>{
+  openEditModal(event, id: number) {
+    this.tagService.getTagById(id).subscribe(tag => {
       this.editTag = tag;
       this.editName.setValue(tag.name);
+      this.editDescription.setValue(tag.description);
     });
-    
-    document.querySelector('#' + event).classList.add('md-show');
+
   }
 
   clearForm() {
     this.editName.setValue("");
+    this.editDescription.setValue("");
   }
 
-  onEdit(id:number) {
+  onEdit(id: number) {
     this.editSubmitted = true;
-  
+
     // stop here if form is invalid
     if (this.editTagForm.invalid) {
-        return;
+      return;
     }
-  
-    this.tagService.editTag(this.editTagForm.value,id)
-        .pipe(first())
-        .subscribe(
-            data => {
-                this.alertService.success('Edit a tag successful', true);
-                this.clearForm();
-                location.reload();
-            },
-            error => {
-                this.editSubmitted = false;
-                this.alertService.error(error);
-            });
+
+    this.tagService.editTag(this.editTagForm.value, id)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.alertService.success('Edit a tag successful', true);
+          this.clearForm();
+          location.reload();
+        },
+        error => {
+          this.editSubmitted = false;
+          this.alertService.error(error);
+        });
   }
 
 }

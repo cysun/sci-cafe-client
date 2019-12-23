@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersComponent } from './users.component';
-import {RouterModule, Routes} from '@angular/router';
-import {SharedModule} from '../../../shared/shared.module';
-import {HttpModule} from '@angular/http';
-import {DataTableModule} from 'angular2-datatable';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { SharedModule } from '../../../shared/shared.module';
+import { HttpModule } from '@angular/http';
+import { DataTableModule } from 'angular2-datatable';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export const UsersRoutes: Routes = [{
   path: '',

@@ -1,11 +1,11 @@
-import { Component, OnInit,ViewChild} from '@angular/core';
-import {Http} from '@angular/http';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Http } from '@angular/http';
 
-import { RewardService,TagService,AlertService,EventService} from '../../../services';
-import { Reward,Tag,Event,User} from '../../../models';
+import { RewardService, TagService, AlertService, EventService } from '../../../services';
+import { Reward, Tag, Event, User } from '../../../models';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-qualifiedEvents',
@@ -25,38 +25,30 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class QualifiedEventsComponent implements OnInit {
   reward: Reward;
-  addTagForm: FormGroup;
-  submitted = false; 
+  submitted = false;
   returnUrl: string;
-  tag = new FormControl('', Validators.required);
   tags: Tag[] = [];
   events: Event[] = [];
   winners: User[] = [];
-  public rowsOnPage = 10;
   public filterQuery = '';
-  public sortBy = '';
-  public sortOrder = 'desc';
   data: Event[] = [];
-  name : string;
+  name: string;
   isAdmin: string;
+  id: number;
   constructor(
     public http: Http,
     private rewardService: RewardService,
     private router: Router,
-    private routerInfo:ActivatedRoute,
+    private routerInfo: ActivatedRoute,
     private tagService: TagService,
-    private alertService:AlertService,
-    private eventService:EventService,
-  ) { 
+    private alertService: AlertService,
+    private eventService: EventService,
+  ) {
 
   }
 
   ngOnInit() {
     this.getRewardById(this.routerInfo.snapshot.queryParams["id"]);
-    this.addTagForm = new FormGroup({
-      tag:this.tag
-    })
-    this.loadAllTags();
     this.getQualifiedEvents(this.routerInfo.snapshot.queryParams["id"]);
     this.getWinners(this.routerInfo.snapshot.queryParams["id"]);
     this.loadAllEvents();
@@ -64,69 +56,64 @@ export class QualifiedEventsComponent implements OnInit {
     this.isAdmin = localStorage.getItem("isAdmin");
   }
 
-  private getQualifiedEvents(id:number) {
-    this.rewardService.getQualifiedEvents(id).subscribe(events=> {
-        this.events = events;
-        console.log(events);
+  private getQualifiedEvents(id: number) {
+    this.rewardService.getQualifiedEvents(id).subscribe(events => {
+      this.events = events;
     });
   }
 
-  private getWinners(id:number) {
-    this.rewardService.getWinner(id).subscribe(users=> {
-        this.winners = users;
+  saveId(id: number) {
+    this.id = id;
+  }
+
+  private getWinners(id: number) {
+    this.rewardService.getWinner(id).subscribe(users => {
+      this.winners = users;
     });
   }
 
-  private getRewardById(id:number) {
+  private getRewardById(id: number) {
     this.rewardService.getRewardById(id).subscribe(reward => {
-        this.reward = reward;
-    });
-  }
-
-  private loadAllTags() {
-    this.tagService.getAllTags().subscribe(tags => {
-        this.tags = tags;
+      this.reward = reward;
+      for (let tag of Array.from(reward.tags.values())) {
+        if (tag.id % 2 == 0 && tag.id % 3 == 0 && tag.id % 5 == 0) {
+          tag.type = "label label-success"
+        } else if ((tag.id % 2 == 0 && tag.id % 3 == 0) || (tag.id % 3 == 0 && tag.id % 5 == 0) || (tag.id % 2 == 0 && tag.id % 5 == 0)) {
+          tag.type = "label label-info"
+        } else if (tag.id % 2 == 0) {
+          tag.type = "label label-primary"
+        } else if (tag.id % 3 == 0) {
+          tag.type = "label label-warning"
+        } else {
+          tag.type = "label label-danger"
+        }
+      }
     });
   }
 
   private loadAllEvents() {
     this.eventService.getAllApprovedEvents().subscribe(events => {
-        this.data = events;
+      this.data = events;
     });
   }
 
-  get tagForm() {return this.addTagForm.controls; }
-
-  onAdd() {
-    if (this.addTagForm.invalid) {
-      return;
-    }
-
-    this.rewardService.addRewardTag(Number(this.reward.id),this.tag.value).pipe().subscribe(data=>{
+  addEventToRewardById(eid: number) {
+    this.rewardService.addEventToRewardById(this.routerInfo.snapshot.queryParams["id"], eid).subscribe(success => {
       location.reload();
-    },error => {
-      this.alertService.error(error);
-      this.submitted = false;
     });
+
   }
 
-  addEventToRewardById(eid:number) {
-    console.log("xxxxx");
-    this.rewardService.addEventToRewardById(this.routerInfo.snapshot.queryParams["id"],eid).subscribe();
-    location.reload();
+  deleteEventFromRewardById(eid: number) {
+    this.rewardService.deleteEventFromRewardById(this.routerInfo.snapshot.queryParams["id"], eid).subscribe(success => {
+      location.reload();
+    });
+
   }
 
   scan() {
-    this.router.navigate(['/home/reward/scan'],{ queryParams: {rewardId: this.reward.id}})
+    this.router.navigate(['/home/reward/scan'], { queryParams: { rewardId: this.reward.id } })
   }
 
-  private deleteTag (rewardId:number,tagId:number) {
-    this.rewardService.deleteTag(rewardId,tagId).pipe().subscribe(data=>{
-      location.reload();
-    },error => {
-      this.alertService.error(error);
-      this.submitted = false;
-    });
-  }
 }
 

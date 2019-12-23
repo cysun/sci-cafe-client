@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventComponent } from './event.component';
-import {RouterModule, Routes} from '@angular/router';
-import {SharedModule} from '../../shared/shared.module';
-import {HttpModule} from '@angular/http';
-import {DataTableModule} from 'angular2-datatable';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { SharedModule } from '../../shared/shared.module';
+import { HttpModule } from '@angular/http';
+import { DataTableModule } from 'angular2-datatable';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2FileSizeModule } from 'ng2-file-size';
 import { QuillModule } from 'ngx-quill';
 

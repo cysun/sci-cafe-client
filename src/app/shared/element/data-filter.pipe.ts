@@ -8,7 +8,6 @@ import {Pipe, PipeTransform} from "@angular/core";
 export class DataFilterPipe implements PipeTransform {
     transform(items: any[], field : any, value : string): any[] {
         if (value == null||value =="") {
-            value = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
         }
         if (!items) return [];   
         if(typeof field == 'string'){ 

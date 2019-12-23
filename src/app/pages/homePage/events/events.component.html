@@ -1,4 +1,4 @@
-<section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" style="background-image: url(images/page-banner-2.jpg)">
+<section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -10,52 +10,58 @@
                             <li class="breadcrumb-item"><a [routerLink]="['/home/events']">Events</a></li>
                         </ol>
                     </nav>
-                </div>  <!-- page banner cont -->
+                </div> <!-- page banner cont -->
             </div>
         </div> <!-- row -->
     </div> <!-- container -->
 </section>
 
 <section id="courses-part" class="pt-120 pb-120 gray-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="courses-top-search">                      
-                        <div class="courses-search float-right">
-                            <input type="text" [(ngModel)]="search" placeholder="Search">
-                        </div> <!-- programs search -->
-                    </div> <!-- programs top search -->
-                </div>
-            </div> <!-- row -->
-            <div class="tab-content" id="myTabContent">
-              <div class="tab-pane fade show active"  id="courses-grid" role="tabpanel" aria-labelledby="courses-grid-tab">
-                    <div class="row">
-                            <div class="col-md-6 col-lg-4" *ngFor="let event of events | filter:[{field:'name', value: search}] | paginate: { itemsPerPage: 6, currentPage: p }">
-                                    <div class="singel-course mt-30">
-                                        <div class="thum">
-                                            <div class="image">
-                                                <img src={{event?.imageUrl}} height="251" width="369" alt= {{event?.name}}>
-                                            </div>
-                                        </div>
-                                        <div class="cont">
-                                            <a [routerLink]="['/home/events/detail']" [queryParams]="{id:event.id}"><h4>{{event?.name}}</h4></a>
-                                            <div class="course-teacher">
-                                                <div class="name">
-                                                    <h6>{{event?.organizer.firstName}} {{event?.organizer.lastName}}</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> <!-- singel course -->
-                                </div>
-                    </div> <!-- row -->
-                    <br/>
-                    <br/>
-                    <div class="text-center">
-                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="courses-top-search">
+                    <div class="courses-search float-left">
+                        <label *ngFor="let tag of allTags" data-toggle="tooltip" data-placement="top" title={{tag.description}} (click)="onClick(tag)"
+                            class={{tag?.type}}>{{tag?.name}}</label>
                     </div>
-              </div>
-            </div> <!-- tab content -->
+                    <div class="courses-search float-right">
+                        <input type="text" [(ngModel)]="search" placeholder="Search">
+                    </div> <!-- programs search -->
+                </div> <!-- programs top search -->
+            </div>
+        </div> <!-- row -->
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="courses-grid" role="tabpanel" aria-labelledby="courses-grid-tab">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4" *ngFor="let event of events | search :['name','description']: search | paginate: { itemsPerPage: 6, currentPage: p }">
+                        <div class="singel-course mt-30">
+                            <div class="thum">
+                                <div class="image">
+                                    <img src={{event?.imageUrl}} height="251" width="369" alt={ {event?.name}}>
+                                </div>
+                            </div>
+                            <div class="cont">
+                                <div><a [routerLink]="['/home/events/detail']" [queryParams]="{id:event.id}"><h4>{{event?.name}}</h4></a></div>
+                                <div>
+                                    <label *ngFor="let tag of event?.tags" data-toggle="tooltip" data-placement="top" title={{tag.description}} class={{tag?.type}}>{{tag?.name}}</label>
+                                </div>
+                                <div class="course-teacher">
+                                    <div class="name">
+                                        <h6>{{event?.organizer.firstName}} {{event?.organizer.lastName}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- singel course -->
+                    </div>
+                </div> <!-- row -->
+                <br/>
+                <br/>
+                <div class="text-center">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div> <!-- tab content -->
 
-        </div> <!-- container -->
-    </section>
-    
+    </div> <!-- container -->
+</section>

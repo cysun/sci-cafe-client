@@ -19,6 +19,7 @@ import {ModalBasicComponent} from './modal-basic/modal-basic.component';
 import {DataFilterPipe} from "./element/data-filter.pipe";
 import {UserDataFilterPipe} from "./element/user-data-filter.pipe";
 import {FilterPipe} from "./element/filter.pipe";
+import {SearchPipe} from "./element/search.pipe";
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import {FilterPipe} from "./element/filter.pipe";
     ModalBasicComponent,
     DataFilterPipe,
     UserDataFilterPipe,
-    FilterPipe
+    FilterPipe,
+    SearchPipe
   ],
   exports: [
     AccordionAnchorDirective,
@@ -56,7 +58,8 @@ import {FilterPipe} from "./element/filter.pipe";
     ModalBasicComponent,
     DataFilterPipe,
     UserDataFilterPipe,
-    FilterPipe
+    FilterPipe,
+    SearchPipe
   ],
   providers: [
     MenuItems

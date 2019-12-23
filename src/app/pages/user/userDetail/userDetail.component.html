@@ -1,132 +1,137 @@
 <!--profile cover start-->
-  <!--profile cover end-->
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="md-tabs">
-        <ngb-tabset justify="fill">
-          <ngb-tab title="Personal Info">
-            <ng-template ngbTabContent>
-              <div [@fadeInOutTranslate] class="m-t-15">
-                <!-- personal card start -->
-                <div class="card">
-                  <div class="card-header">
-                    <h5 class="card-header-text">{{profile?.firstName}}  {{profile?.lastName}}</h5>
-                    <button id="edit-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right" (click)="toggleEditProfile()">
-                      Edit
-                    </button>
-                  </div>
-                  <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
-                      <div class="card-body">
-                          <div class="view-info" *ngIf="editProfile">
+<!--profile cover end-->
+<div class="row">
+  <div class="col-lg-12">
+    <div class="md-tabs">
+      <ngb-tabset justify="fill">
+        <ngb-tab title="Personal Info">
+          <ng-template ngbTabContent>
+            <div [@fadeInOutTranslate] class="m-t-15">
+              <!-- personal card start -->
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="card-header-text">{{profile?.firstName}} {{profile?.lastName}}</h5>
+                  <button id="edit-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right" (click)="toggleEditProfile()">
+                    Edit
+                  </button>
+                </div>
+                <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
+                  <div class="card-body">
+                    <div class="view-info" *ngIf="editProfile">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="general-info">
                             <div class="row">
-                              <div class="col-lg-12">
-                                <div class="general-info">
-                                  <div class="row">
-                                    <div class="col-lg-12 col-xl-6">
-                                      <div class="table-responsive">
-                                        <table class="table m-0">
-                                          <tbody>
-                                          <tr>
-                                            <th scope="row">First Name</th>
-                                            <td>{{profile?.firstName}} </td>
-                                          </tr>
-                                          <tr>
-                                            <th scope="row">Last Name</th>
-                                            <td>{{profile?.lastName}}</td>
-                                          </tr>
-                                          <tr>
-                                            <th scope="row">Username</th>
-                                            <td>{{profile?.username}}</td>
-                                          </tr>
-                                          <tr>
-                                            <th scope="row">Email</th>
-                                            <td>{{profile?.email}}</td>
-                                          </tr>
-                                          </tbody>
-                                        </table>
-                                      </div>
-                                    </div>
-                                    <!-- end of table col-lg-6 -->
-                                    <div class="col-lg-12 col-xl-6">
-                                      <div class="table-responsive">
-                                        <table class="table">
-                                          <tbody>
-                                          <tr>
-                                            <th scope="row">Unit</th>
-                                              <td>{{profile?.unit}}</td>
-                                          </tr>
-                                          <tr>
-                                            <th scope="row">Title</th>
-                                            <td>{{profile?.title}}</td>
-                                          </tr>
-                                          <tr>
-                                            <th scope="row">Position</th>
-                                            <td>{{profile?.position}}</td>
-                                          </tr>
-                                          </tbody>
-                                        </table>
-                                      </div>
-                                    </div>
-                                    <!-- end of table col-lg-6 -->
-                                  </div>
-                                  <!-- end of row -->
+                              <div class="col-lg-12 col-xl-6">
+                                <div class="table-responsive">
+                                  <table class="table m-0">
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">First Name</th>
+                                        <td>{{profile?.firstName}} </td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Last Name</th>
+                                        <td>{{profile?.lastName}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Username</th>
+                                        <td>{{profile?.username}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Email</th>
+                                        <td>{{profile?.email}}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
                                 </div>
-                                <!-- end of general info -->
                               </div>
-                              <!-- end of col-lg-12 -->
+                              <!-- end of table col-lg-6 -->
+                              <div class="col-lg-12 col-xl-6">
+                                <div class="table-responsive">
+                                  <table class="table">
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">Unit</th>
+                                        <td>{{profile?.unit}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Title</th>
+                                        <td>{{profile?.title}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Position</th>
+                                        <td>{{profile?.position}}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                              <!-- end of table col-lg-6 -->
                             </div>
                             <!-- end of row -->
                           </div>
-                          <!-- end of view-info -->
-                          <div class="edit-info" *ngIf="!editProfile">
+                          <!-- end of general info -->
+                        </div>
+                        <!-- end of col-lg-12 -->
+                      </div>
+                      <!-- end of row -->
+                    </div>
+                    <!-- end of view-info -->
+                    <div class="edit-info" *ngIf="!editProfile">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="general-info">
                             <div class="row">
-                              <div class="col-lg-12">
-                                <div class="general-info">
-                                  <div class="row">
-                                    <div class="col-lg-6">
-                                      <div class="table-responsive">
-                                            <table class="table">
-                                                <tbody>
-                                                  <tr>
-                                                    <td>
-                                                      <div class="input-group">
-                                                      <span class="input-group-addon"><i class="icofont icofont-id-card"></i></span>
-                                                      <input type="input" disabled="disabled" class="form-control" formControlName="firstName" value = {{profile?.username}} >
-                                                      </div>  
-                                                    </td>
-                                                  </tr>
-                                                <tr>
-                                                  <td>
-                                                    <div class="input-group">
-                                                      <span class="input-group-addon"><i class="icofont icofont-user"></i></span>
-                                                      <input type="input" class="form-control" formControlName="firstName" placeholder="First Name" value = {{profile?.firstName}} [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
-                                                      <div class="messages text-danger error" *ngIf="submitted && editProfileForm.controls.firstName.errors?.required">First Name can't be blank</div>              
-                                                    </div>  
-                                                  </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                      <div class="input-group">
-                                                        <span class="input-group-addon"><i class="icofont icofont-user"></i></span>
-                                                        <input type="input" class="form-control" formControlName="lastName" placeholder="Last Name" value = "{{profile?.lastName}}" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
-                                                        <div class="messages text-danger error" *ngIf="submitted && editProfileForm.controls.lastName.errors?.required">Last Name can't be blank</div>              
-                                                      </div>  
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                      <div class="input-group">
-                                                          <span class="input-group-addon"><i class="icofont icofont-email"></i></span>
-                                                        <input type="input" class="form-control" formControlName="email" placeholder="Email" value = "{{profile?.email}}" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-                                                        <div class="messages text-danger error" *ngIf="submitted && editProfileForm.controls.email.errors?.required">Email can't be blank</div>              
-                                                      </div>  
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                  <td>
-                                                    <select id="Unit" class="form-control" value={{profile.unit}} formControlName="unit" [ngClass]="{ 'is-invalid': submitted && f.unit.errors }">
-                                                      <option value="">---- Unit ----</option>
-                                                      <!-- <div *ngIf="profile?.unit == 'Computer Science Department'">
+                              <div class="col-lg-6">
+                                <div class="table-responsive">
+                                  <table class="table">
+                                    <tbody>
+                                      <tr>
+                                        <td>
+                                          <div class="input-group">
+                                            <span class="input-group-addon"><i class="icofont icofont-id-card"></i></span>
+                                            <input type="input" disabled="disabled" class="form-control" formControlName="firstName" value={ {profile?.username}}>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <div class="input-group">
+                                            <span class="input-group-addon"><i class="icofont icofont-user"></i></span>
+                                            <input type="input" class="form-control" formControlName="firstName" placeholder="First Name" value={ {profile?.firstName}}
+                                              [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+                                            <div class="messages text-danger error" *ngIf="submitted && editProfileForm.controls.firstName.errors?.required">First
+                                              Name can't be blank</div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <div class="input-group">
+                                            <span class="input-group-addon"><i class="icofont icofont-user"></i></span>
+                                            <input type="input" class="form-control" formControlName="lastName" placeholder="Last Name" value="{{profile?.lastName}}"
+                                              [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+                                            <div class="messages text-danger error" *ngIf="submitted && editProfileForm.controls.lastName.errors?.required">Last
+                                              Name can't be blank</div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <div class="input-group">
+                                            <span class="input-group-addon"><i class="icofont icofont-email"></i></span>
+                                            <input type="input" class="form-control" formControlName="email" placeholder="Email" value="{{profile?.email}}" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                                            <div class="messages text-danger error" *ngIf="submitted && editProfileForm.controls.email.errors?.required">Email
+                                              can't be blank</div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <select id="Unit" class="form-control" value={{profile.unit}} formControlName="unit" [ngClass]="{ 'is-invalid': submitted && f.unit.errors }">
+                                            <option value="">---- Unit ----</option>
+                                            <!-- <div *ngIf="profile?.unit == 'Computer Science Department'">
                                                           <option value="Computer Science Department" selected>Computer Science Department</option>
                                                           <option value="College of Education">College of Education</option>
                                                           <option value="College of Art">College of Art</option>
@@ -141,85 +146,156 @@
                                                           <option value="College of Education" selected>College of Education</option>
                                                           <option value="College of Art" selected>College of Art</option>
                                                       </div> -->
-                                                      <option value="Computer Science Department">Computer Science Department</option>
-                                                      <option value="College of Education">College of Education</option>
-                                                      <option value="College of Art">College of Art</option>
-                                                    </select>
-                                                  </td>
-                                                </tr>
-                                                </tbody>
-                                              </table>
-                                      </div>
-                                    </div>
-                                    <!-- end of table col-lg-6 -->
-                                    <div class="col-lg-6">
-                                      <div class="table-responsive">
-                                        <table class="table" >
-                                          <tbody>
-                                            <tr>
-                                                <td>
-                                                  <div class="input-group">
-                                                    <span class="input-group-addon"><i class="icofont icofont-company"></i></span>
-                                                    <input type="input" class="form-control" formControlName="title" placeholder="Title" value = "{{profile?.title}}" [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
-                                                  </div>  
-                                                </td>
-                                            </tr>
-                                          <tr>
-                                                <td>
-                                                  <select id="position" class="form-control" value={{profile?.position}} formControlName="position" [ngClass]="{ 'is-invalid': submitted && f.position.errors }">
-                                                      <option value="">---- Position ----</option>
-                                                      <option value="Student">Student</option>
-                                                      <option value="Faculty">Faculty</option>
-                                                      <option value="Staff">Staff</option>
-                                                  </select>
-                                                  <div class="messages text-danger error" *ngIf="submitted && editProfileForm.controls.position.errors?.required">Position can't be blank</div>              
-                                                  </td>
-                                                </tr>
-                                          <tr>
-                                            <td>
-                                              <div class="input-group">
-                                                <span class="input-group-addon"><i class="icofont icofont-ui-password"></i></span>
-                                                <input type="password" class="form-control" placeholder="Password" formControlName="password" >           
-                                              </div>
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="icofont icofont-ui-password"></i></span>
-                                                    <input type="password" class="form-control" formControlName="rpassword" placeholder="Repeat Password" formControlName="rpassword" [ngClass]="{ 'is-invalid': submitted && f.rpassword.errors?.equalTo }">
-                                                    <div class="messages text-danger" *ngIf="submitted && editProfileForm.controls.rpassword.errors?.equalTo">The passwords does not match</div>
-                                                </div>
-                                            </td>
-                                          </tr>
-                                          </tbody>
-                                        </table>
-                                      </div>
-                                    </div>
-                                    <!-- end of table col-lg-6 -->
-                                  </div>
-                                  <!-- end of row -->
-                                  <div class="text-center">
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light m-r-20">Save</button>
-                                    <a href="javascript:;" id="edit-cancel" class="btn btn-default waves-effect" (click)="toggleEditProfile()">Cancel</a>
-                                  </div>
+                                            <option value="Computer Science Department">Computer Science Department</option>
+                                            <option value="College of Education">College of Education</option>
+                                            <option value="College of Art">College of Art</option>
+                                          </select>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
                                 </div>
-                                <!-- end of edit info -->
                               </div>
-                              <!-- end of col-lg-12 -->
+                              <!-- end of table col-lg-6 -->
+                              <div class="col-lg-6">
+                                <div class="table-responsive">
+                                  <table class="table">
+                                    <tbody>
+                                      <tr>
+                                        <td>
+                                          <div class="input-group">
+                                            <span class="input-group-addon"><i class="icofont icofont-company"></i></span>
+                                            <input type="input" class="form-control" formControlName="title" placeholder="Title" value="{{profile?.title}}" [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <select id="position" class="form-control" value={{profile?.position}} formControlName="position" [ngClass]="{ 'is-invalid': submitted && f.position.errors }">
+                                            <option value="">---- Position ----</option>
+                                            <option value="Student">Student</option>
+                                            <option value="Faculty">Faculty</option>
+                                            <option value="Staff">Staff</option>
+                                          </select>
+                                          <div class="messages text-danger error" *ngIf="submitted && editProfileForm.controls.position.errors?.required">Position
+                                            can't be blank</div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <div class="input-group">
+                                            <span class="input-group-addon"><i class="icofont icofont-ui-password"></i></span>
+                                            <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <div class="input-group">
+                                            <span class="input-group-addon"><i class="icofont icofont-ui-password"></i></span>
+                                            <input type="password" class="form-control" formControlName="rpassword" placeholder="Repeat Password" formControlName="rpassword"
+                                              [ngClass]="{ 'is-invalid': submitted && f.rpassword.errors?.equalTo }">
+                                            <div class="messages text-danger" *ngIf="submitted && editProfileForm.controls.rpassword.errors?.equalTo">The
+                                              passwords does not match</div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                              <!-- end of table col-lg-6 -->
                             </div>
                             <!-- end of row -->
+                            <div class="text-center">
+                              <button type="submit" class="btn btn-primary waves-effect waves-light m-r-20">Save</button>
+                              <a href="javascript:;" id="edit-cancel" class="btn btn-default waves-effect" (click)="toggleEditProfile()">Cancel</a>
+                            </div>
                           </div>
-                          <!-- end of edit-info -->
+                          <!-- end of edit info -->
                         </div>
-                  </form>
-                  <!-- end of card-body -->
-                </div>
-                <!-- personal card end-->
+                        <!-- end of col-lg-12 -->
+                      </div>
+                      <!-- end of row -->
+                    </div>
+                    <!-- end of edit-info -->
+                  </div>
+                </form>
+                <!-- end of card-body -->
               </div>
-            </ng-template>
-          </ngb-tab>
-          <ngb-tab title="Programs">
+              <!-- personal card end-->
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Programs">
+          <ng-template ngbTabContent>
+            <div [@fadeInOutTranslate] class="m-t-15">
+              <!-- info card start -->
+              <div class="">
+
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="card-header-text">Programs</h5>
+                </div>
+                <div class="m-3" style="float:right">
+                  <form class="form-inline f-right" [formGroup]="addProgramForm" (ngSubmit)="onAdd()">
+                    <div>
+                      <select name="program" formControlName="program" class="form-control form-control-default" class="form-control" [ngClass]="{ 'is-invalid': submitted && programForm.program.errors }">
+                        <option *ngFor="let program of programs" value={{program.id}}>{{program.name}}</option>
+                      </select>
+                      <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.program.errors?.required">Program
+                        can't be blank</div>
+                    </div>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
+                  </form>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6" *ngFor="let program of profile.programs">
+                      <div class="card b-l-danger business-info services">
+                        <div ngbDropdown class="card-header">
+                          <div class="service-header">
+                            <h3 class="card-header-text">{{program.name}}</h3>
+                          </div>
+                          <span ngbDropdownToggle class="dropdown-toggle addon-btn text-muted f-right service-btn" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="true" role="tooltip">
+                          </span>
+                          <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right b-none services-list">
+                            <a class="dropdown-item" role="button" (click)="onDelete(program.id)"><i class="icofont icofont-ui-delete"></i>
+                              Delete</a>
+                          </div>
+                        </div>
+                        <div class="card-header">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <p class="task-detail">{{program.fullName}}</p>
+                            </div>
+                            <!-- end of col-sm-8 -->
+                          </div>
+                          <!-- end of row -->
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <p class="task-detail">{{program.description}}</p>
+                            </div>
+                            <!-- end of col-sm-8 -->
+                          </div>
+                          <!-- end of row -->
+                        </div>
+                        <!-- end of card-body -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- info card end -->
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <div *ngIf="isAdmin==='true'">
+          <ngb-tab title="Roles">
             <ng-template ngbTabContent>
               <div [@fadeInOutTranslate] class="m-t-15">
                 <!-- info card start -->
@@ -228,46 +304,52 @@
                 </div>
                 <div class="card">
                   <div class="card-header">
-                    <h5 class="card-header-text">Programs</h5>
+                    <h5 class="card-header-text">Roles</h5>
                   </div>
                   <div class="m-3" style="float:right">
-                      <form class="form-inline f-right" [formGroup]="addProgramForm" (ngSubmit)="onAdd()">
-                          <div>
-                              <select name="program" formControlName="program" class="form-control form-control-default" class="form-control" [ngClass]="{ 'is-invalid': submitted && programForm.program.errors }">
-                                  <option *ngFor="let program of programs" value={{program.id}}>{{program.name}}</option>
-                              </select>
-                              <div class="messages text-danger error" *ngIf="submitted && addProgramForm.controls.program.errors?.required">Program can't be blank</div>                    
-                          </div>
-                          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
-                      </form>
+                    <form class="form-inline f-right" [formGroup]="addRoleForm" (ngSubmit)="onAddRole()">
+                      <div>
+                        <select name="role" formControlName="role" class="form-control form-control-default" class="form-control" [ngClass]="{ 'is-invalid': submitted && roleForm.program.errors }">
+                          <option value=0>Regular</option>
+                          <option value=1>Administrator</option>
+                          <option value=2>Event Organizer</option>
+                          <option value=3>Rewar Provider</option>
+                        </select>
+                        <div class="messages text-danger error" *ngIf="submitted && addRoleForm.controls.role.errors?.required">Role
+                          can't be blank</div>
+                      </div>
+                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
+                    </form>
                   </div>
-                  <div class="card-body" >
+                  <div class="card-body">
                     <div class="row">
-                      <div class="col-md-6" *ngFor="let program of profile.programs">
+                      <div class="col-md-6" *ngFor="let role of profile.roles">
                         <div class="card b-l-danger business-info services">
                           <div ngbDropdown class="card-header">
                             <div class="service-header">
-                              <h3 class="card-header-text">{{program.name}}</h3>
+                              <h3 class="card-header-text">{{role.name}}</h3>
                             </div>
-                            <span ngbDropdownToggle class="dropdown-toggle addon-btn text-muted f-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
-                                           </span>
+                            <span ngbDropdownToggle class="dropdown-toggle addon-btn text-muted f-right service-btn" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="true" role="tooltip">
+                            </span>
                             <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right b-none services-list">
-                              <a class="dropdown-item" role="button" (click)="onDelete(program.id)" ><i class="icofont icofont-ui-delete"></i> Delete</a>
+                              <a class="dropdown-item" role="button" (click)="onDeleteRole(role.id)"><i class="icofont icofont-ui-delete"></i>
+                                Delete</a>
                             </div>
                           </div>
                           <div class="card-header">
-                              <div class="row">
-                                <div class="col-sm-12">
-                                  <p class="task-detail">{{program.fullName}}</p>
-                                </div>
-                                <!-- end of col-sm-8 -->
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <p class="task-detail">{{role.name}}</p>
                               </div>
-                              <!-- end of row -->
+                              <!-- end of col-sm-8 -->
+                            </div>
+                            <!-- end of row -->
                           </div>
                           <div class="card-body">
                             <div class="row">
                               <div class="col-sm-12">
-                                <p class="task-detail">{{program.description}}</p>
+
                               </div>
                               <!-- end of col-sm-8 -->
                             </div>
@@ -283,78 +365,9 @@
               </div>
             </ng-template>
           </ngb-tab>
-          <div *ngIf="isAdmin==='true'">
-              <ngb-tab title="Roles">
-                  <ng-template ngbTabContent>
-                    <div [@fadeInOutTranslate] class="m-t-15">
-                      <!-- info card start -->
-                      <div class="">
-      
-                      </div>
-                      <div class="card">
-                        <div class="card-header">
-                          <h5 class="card-header-text">Roles</h5>
-                        </div>
-                        <div class="m-3" style="float:right">
-                            <form class="form-inline f-right" [formGroup]="addRoleForm" (ngSubmit)="onAddRole()">
-                                <div>
-                                    <select name="role" formControlName="role" class="form-control form-control-default" class="form-control" [ngClass]="{ 'is-invalid': submitted && roleForm.program.errors }">
-                                        <option value=0>Regular</option>
-                                        <option value=1>Administrator</option>
-                                        <option value=2>Event Organizer</option>
-                                        <option value=3>Rewar Provider</option>
-                                    </select>
-                                    <div class="messages text-danger error" *ngIf="submitted && addRoleForm.controls.role.errors?.required">Role can't be blank</div>                    
-                                </div>
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
-                            </form>
-                        </div>
-                        <div class="card-body" >
-                          <div class="row">
-                            <div class="col-md-6" *ngFor="let role of profile.roles">
-                              <div class="card b-l-danger business-info services">
-                                <div ngbDropdown class="card-header">
-                                  <div class="service-header">
-                                    <h3 class="card-header-text">{{role.name}}</h3>
-                                  </div>
-                                  <span ngbDropdownToggle class="dropdown-toggle addon-btn text-muted f-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
-                                                 </span>
-                                  <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right b-none services-list">
-                                    <a class="dropdown-item" role="button" (click)="onDeleteRole(role.id)" ><i class="icofont icofont-ui-delete"></i> Delete</a>
-                                  </div>
-                                </div>
-                                <div class="card-header">
-                                    <div class="row">
-                                      <div class="col-sm-12">
-                                        <p class="task-detail">{{role.name}}</p>
-                                      </div>
-                                      <!-- end of col-sm-8 -->
-                                    </div>
-                                    <!-- end of row -->
-                                </div>
-                                <div class="card-body">
-                                  <div class="row">
-                                    <div class="col-sm-12">
-    
-                                    </div>
-                                    <!-- end of col-sm-8 -->
-                                  </div>
-                                  <!-- end of row -->
-                                </div>
-                                <!-- end of card-body -->
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- info card end -->
-                    </div>
-                  </ng-template>
-                </ngb-tab>
-          </div>
-          
-        </ngb-tabset>
-      </div>
+        </div>
+
+      </ngb-tabset>
     </div>
   </div>
-  
+</div>

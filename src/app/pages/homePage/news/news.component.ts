@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from '@angular/http';
+import { Http } from '@angular/http';
 
 import { NewsService } from '../../../services';
 import { first } from 'rxjs/operators';
-import { User,News } from '../../../models';
+import { User, News } from '../../../models';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
@@ -32,7 +32,7 @@ export class NewsComponent implements OnInit {
     private newsService: NewsService,
     private route: ActivatedRoute,
     private router: Router,
-  ) { 
+  ) {
 
   }
 
@@ -42,12 +42,12 @@ export class NewsComponent implements OnInit {
 
   private loadAllPrograms() {
     this.newsService.getAllNews().subscribe(news => {
-        this.news = news;
+      this.news = news;
     });
   }
 
-  onClick(id:number) {
-    
+  onClick(id: number) {
+
   }
 }
 

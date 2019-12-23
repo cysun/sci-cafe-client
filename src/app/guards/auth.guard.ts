@@ -7,7 +7,7 @@ import { AuthenticationService } from '../services';
 export class AuthGuard implements CanActivate {
     constructor(
         private router: Router,
-    ) {}
+    ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         if (localStorage.getItem('access_token')) {
@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
         }
 
         // not logged in so redirect to login page with the return url
-        this.router.navigate(['/authentication/login/with-bg-image'], { queryParams: { returnUrl: state.url }});
+        this.router.navigate(['/authentication/login/with-bg-image'], { queryParams: { returnUrl: state.url } });
         return false;
     }
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '../../../shared/shared.module';
 import { WithBgImageComponent } from './with-bg-image/with-bg-image.component';
+import { RegisterComponent} from './register/register.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 export const RegistrationRoutes: Routes = [
@@ -15,6 +16,12 @@ export const RegistrationRoutes: Routes = [
       {
         path: 'with-bg-image',
         component: WithBgImageComponent,
+        data: {
+          breadcrumb: 'Registration'
+        }
+      },{
+        path: 'register',
+        component: RegisterComponent,
         data: {
           breadcrumb: 'Registration'
         }
@@ -31,6 +38,6 @@ export const RegistrationRoutes: Routes = [
     ReactiveFormsModule,
     FormsModule
   ],
-  declarations: [WithBgImageComponent]
+  declarations: [WithBgImageComponent,RegisterComponent]
 })
 export class RegistrationModule { }

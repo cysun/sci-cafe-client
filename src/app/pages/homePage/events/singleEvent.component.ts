@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from '@angular/http';
+import { Http } from '@angular/http';
 
 import { EventService } from '../../../services';
 import { first } from 'rxjs/operators';
@@ -26,15 +26,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SingleEventComponent implements OnInit {
   event: Event;
-  isAdmin:String;
+  isAdmin: String;
 
   constructor(
     public http: Http,
     private eventService: EventService,
     private route: ActivatedRoute,
     private router: Router,
-    private routerInfo:ActivatedRoute
-  ) { 
+    private routerInfo: ActivatedRoute
+  ) {
 
   }
 
@@ -43,21 +43,38 @@ export class SingleEventComponent implements OnInit {
     this.isAdmin = localStorage.getItem("isAdmin");
   }
 
-  private getEventById(id:number) {
+  private getEventById(id: number) {
     this.eventService.getEventById(id).subscribe(event => {
-        this.event = event;
+      this.event = event;
+      for (let tag of Array.from(event.tags.values())) {
+        if (tag.id % 2 == 0 && tag.id % 3 == 0 && tag.id % 5 == 0) {
+          tag.type = "label label-success"
+        } else if ((tag.id % 2 == 0 && tag.id % 3 == 0) || (tag.id % 3 == 0 && tag.id % 5 == 0) || (tag.id % 2 == 0 && tag.id % 5 == 0)) {
+          tag.type = "label label-info"
+        } else if (tag.id % 2 == 0) {
+          tag.type = "label label-primary"
+        } else if (tag.id % 3 == 0) {
+          tag.type = "label label-warning"
+        } else {
+          tag.type = "label label-danger"
+        }
+      }
     });
   }
 
-  private approveById(id:Number) {
-    this.eventService.approveEventById(id).subscribe();
-    window.location.reload();
+  private approveById(id: Number) {
+    this.eventService.approveEventById(id).subscribe(
+      success => {
+        window.location.reload();
+      }
+    );
   }
 
-  private rejectById(id:Number) {
-    this.eventService.rejectEventById(id).subscribe();
-    window.location.reload();
+  private rejectById(id: Number) {
+    this.eventService.rejectEventById(id).subscribe(success => {
+      window.location.reload();
+    });
   }
-  
+
 }
 

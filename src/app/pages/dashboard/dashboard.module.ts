@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
-import {SharedModule} from '../../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 
 export const dashboardRoutes: Routes = [
   {
@@ -13,7 +13,7 @@ export const dashboardRoutes: Routes = [
       {
         path: 'default',
         loadChildren: './dashboard-default/dashboard-default.module#DashboardDefaultModule'
-      },{
+      }, {
         path: 'approve',
         loadChildren: './dashboard-approve/dashboard-approve.module#DashboardApproveModule'
       }

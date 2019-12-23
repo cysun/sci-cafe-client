@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from '@angular/http';
+import { Http } from '@angular/http';
 
-import { AlertService, AuthenticationService,RewardService } from '../../services';
+import { AlertService, RewardService, TagService, ImageService } from '../../services';
 import { first } from 'rxjs/operators';
-import { Reward } from '../../models';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Reward, Tag } from '../../models';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 
@@ -20,39 +19,47 @@ export class RewardComponent implements OnInit {
   public sortBy = '';
   public sortOrder = 'desc';
   data: Reward[] = [];
-  editReward : Reward;
-  
+  editReward: Reward;
+  allTags: Tag[] = [];
+  tags: Set<Tag> = new Set<Tag>();
+  tag = new FormControl('', Validators.required);
+
+
   addRewardForm: FormGroup;
-  submitted = false; 
+  addTagForm: FormGroup;
+  submitted = false;
   returnUrl: string;
   name = new FormControl('', Validators.required);
   description = new FormControl('', Validators.required);
-  criteria = new FormControl('', Validators.required);
-  status = new FormControl (0, []);
-  endDate = new FormControl ('', Validators.required);
-  startDate = new FormControl ('', Validators.required);
-  imageUrl = new FormControl ('../../../assets/images/news/default.jpg', []);
+  criteria = new FormControl('', [Validators.required, Validators.min(1)]);
+  status = new FormControl(0, []);
+  endDate = new FormControl('', Validators.required);
+  startDate = new FormControl('', Validators.required);
+  imageUrl = new FormControl('../../../assets/images/news/default.jpg', []);
 
   constructor(
     public http: Http,
-    private rewardService:RewardService,
-    private route: ActivatedRoute,
-    private authenticationService: AuthenticationService,
+    private rewardService: RewardService,
     private alertService: AlertService,
-    private router: Router,
-  ) { 
+    private tagService: TagService,
+    private imageService: ImageService,
+  ) {
 
   }
 
   ngOnInit() {
     this.loadAllRewards();
+    this.loadAllTags();
+    this.addTagForm = new FormGroup({
+      tag: this.tag
+    })
     this.addRewardForm = new FormGroup({
-      name:this.name,
-      description:this.description,
-      criteria:this.criteria,
-      status:this.status,
-      startDate:this.startDate,
-      endDate:this.endDate,
+      name: this.name,
+      description: this.description,
+      criteria: this.criteria,
+      status: this.status,
+      startDate: this.startDate,
+      endDate: this.endDate,
     });
   }
 
@@ -62,54 +69,104 @@ export class RewardComponent implements OnInit {
     heightMax: 200
   }
 
-  private loadAllRewards() {
-    this.rewardService.getAllRewards().subscribe(rewards => {
-        this.data = rewards;
+  private loadAllTags() {
+    this.tagService.getAllTags().subscribe(tags => {
+      this.allTags = tags;
     });
   }
 
-  openMyModal(event) {
-    document.querySelector('#' + event).classList.add('md-show');
+  private loadAllRewards() {
+    this.rewardService.getAllRewards().subscribe(rewards => {
+      this.data = rewards;
+    });
+  }
+
+  openAddModal(event) {
+    this.clearForm();
   }
 
   closeMyModal(event) {
-    ((event.target.parentElement.parentElement).parentElement).classList.remove('md-show');
+    this.clearForm();
   }
 
   get f() { return this.addRewardForm.controls; }
+
+  deleteTag(id: number) {
+    for (let tag of Array.from(this.tags.values())) {
+      if (tag.id == id) {
+        this.tags.delete(tag);
+      }
+    }
+  }
+
+  onAdd() {
+    if (this.addTagForm.invalid) {
+      return;
+    }
+    let id = this.tag.value
+    let tag: Tag
+    for (let t of this.allTags) {
+      if (t.id == id) {
+        tag = t;
+      }
+    }
+    if (tag.id % 2 == 0 && tag.id % 3 == 0 && tag.id % 5 == 0) {
+      tag.type = "label label-success"
+    } else if ((tag.id % 2 == 0 && tag.id % 3 == 0) || (tag.id % 3 == 0 && tag.id % 5 == 0) || (tag.id % 2 == 0 && tag.id % 5 == 0)) {
+      tag.type = "label label-info"
+    } else if (tag.id % 2 == 0) {
+      tag.type = "label label-primary"
+    } else if (tag.id % 3 == 0) {
+      tag.type = "label label-warning"
+    } else {
+      tag.type = "label label-danger"
+    }
+    let flag: boolean = true;
+    for (let t of Array.from(this.tags)) {
+      if (t.id == tag.id) {
+        flag = false;
+        break;
+      }
+    }
+    if (flag) {
+      this.tags.add(tag);
+    }
+  }
 
   onSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
     if (this.addRewardForm.invalid) {
-        return;
+      return;
     }
 
     console.log(this.addRewardForm.value);
 
     this.rewardService.addReward(this.addRewardForm.value)
-        .pipe(first())
-        .subscribe(
-            data => {
-                this.alertService.success('Ad a reward successful', true);
-                location.reload();
-            },
-            error => {
-                this.submitted = false;
-                this.alertService.error(error);
-            });
-}
-  
+      .pipe(first())
+      .subscribe(
+        data => {
+          let r: any = data;
+          this.rewardService.addRewardTag(r.id, this.tags).pipe(first()).subscribe(data => {
+            location.reload();
+            this.clearForm();
+          });
+        },
+        error => {
+          this.submitted = false;
+          this.alertService.error(error);
+        });
+  }
 
-  onDelete(id:number) {
-    this.rewardService.delete(id).pipe(first()).subscribe(data=>{
+  onDelete(id: number) {
+    this.rewardService.delete(id).pipe(first()).subscribe(data => {
       location.reload();
     });
   }
 
-  onClick(id:number) {
-    
+  onClick(id: number) {
+
   }
 
   blured = false
@@ -139,47 +196,98 @@ export class RewardComponent implements OnInit {
     this.blured = true
   }
 
-  openEditModal(event,id:number) {
-    this.rewardService.getRewardById(id).subscribe(reward=>{
+
+  openEditModal(event, id: number) {
+    this.submitted = false;
+    this.rewardService.getRewardById(id).subscribe(reward => {
       this.editReward = reward;
       this.name.setValue(reward.name);
       this.description.setValue(reward.description);
       this.criteria.setValue(reward.criteria);
       this.startDate.setValue("Start Date");
       this.endDate.setValue("End Date");
+      this.status.setValue(reward.status);
+      this.tags.clear();
+      for (let tag of Array.from(reward.tags.values())) {
+        if (tag.id % 2 == 0 && tag.id % 3 == 0 && tag.id % 5 == 0) {
+          tag.type = "label label-success"
+        } else if ((tag.id % 2 == 0 && tag.id % 3 == 0) || (tag.id % 3 == 0 && tag.id % 5 == 0) || (tag.id % 2 == 0 && tag.id % 5 == 0)) {
+          tag.type = "label label-info"
+        } else if (tag.id % 2 == 0) {
+          tag.type = "label label-primary"
+        } else if (tag.id % 3 == 0) {
+          tag.type = "label label-warning"
+        } else {
+          tag.type = "label label-danger"
+        }
+        this.tags.add(tag);
+      }
     });
-    
-    document.querySelector('#' + event).classList.add('md-show');
   }
 
   clearForm() {
+    this.submitted = false;
     this.name.setValue("");
     this.criteria.setValue("");
     this.description.setValue("");
     this.startDate.setValue("");
     this.endDate.setValue("");
+    this.status.setValue("");
+    this.tags.clear();
   }
 
-  onEdit(id:number) {
+  onEdit(id: number) {
     this.submitted = true;
-  
+
     // stop here if form is invalid
     if (this.addRewardForm.invalid) {
-        return;
+      return;
     }
-  
-    this.rewardService.editReward(this.addRewardForm.value,id)
-        .pipe(first())
-        .subscribe(
-            data => {
-                this.alertService.success('Edit a reward successful', true);
-                this.clearForm();
-                location.reload();
-            },
-            error => {
-                this.submitted = false;
-                this.alertService.error(error);
-            });
+
+
+
+    this.rewardService.editReward(this.addRewardForm.value, id)
+      .pipe(first())
+      .subscribe(
+        data => {
+          let r: any = data;
+          this.rewardService.addRewardTag(r.id, this.tags).pipe(first()).subscribe(data => {
+            location.reload();
+            this.clearForm();
+          });
+        },
+        error => {
+          this.submitted = false;
+          this.alertService.error(error);
+        });
+  }
+
+  EditorCreated(quill) {
+    const toolbar = quill.getModule('toolbar');
+    toolbar.addHandler('image', this.imageHandler.bind(this));
+    this.editor = quill;
+  }
+
+  public editor;
+  imageHandler() {
+    const Imageinput = document.createElement('input');
+    Imageinput.setAttribute('type', 'file');
+    Imageinput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
+    Imageinput.classList.add('ql-image');
+    Imageinput.addEventListener('change', () => {
+      const file = Imageinput.files[0];
+      if (Imageinput.files != null && Imageinput.files[0] != null) {
+        this.imageService.uploadImage(file).subscribe(res => {
+          const range = this.editor.getSelection(true);
+          const index = range.index + range.length;
+          this.editor.insertEmbed(index, 'image', res['url']);
+          console.log(this.editor.getContents());
+          this.description.setValue(this.editor.container.firstChild.innerHTML);
+        });
+      }
+      'editor-change'
+    });
+    Imageinput.click();
   }
 
 }

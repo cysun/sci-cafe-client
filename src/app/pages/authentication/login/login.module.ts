@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { WithBgImageComponent } from './with-bg-image/with-bg-image.component';
-import {SharedModule} from '../../../shared/shared.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { SharedModule } from '../../../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export const LoginRoutes: Routes = [
   {

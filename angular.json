@@ -101,7 +101,8 @@
               "assets/charts/knob/jquery.knob.js",
               "assets/charts/waterball/createWaterBall-jquery.js",
               "../node_modules/jquery-sparkline/jquery.sparkline.min.js",
-              "assets/js/jquery.countdown.min.js"
+              "assets/js/jquery.countdown.min.js",
+              "node_modules/materialize-css/dist/js/materialize.min.js"
             ],
             "assets": [
               "src/favicon.ico",

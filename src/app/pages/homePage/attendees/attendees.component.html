@@ -1,4 +1,4 @@
-<section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" >
+<section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -29,9 +29,9 @@
                     <div class="events-left">
                         <h3>{{event?.name}}</h3>
                         <div class="label-main" *ngIf="name">
-                            Tag: <label *ngFor="let tag of event?.tags" class="label label-default"><a [routerLink]="['/home/event/checkIn']" (click)="deleteTag(event?.id,tag?.id)" [queryParams]="{id:event?.id}">{{tag?.name}} x</a></label>
+                            Tag: <label *ngFor="let tag of event?.tags" class={{tag?.type}}>{{tag?.name}}</label>
                         </div>
-                        <div class="m-3" style="float:right" *ngIf="isAdmin=='true' && event?.status==1">
+                        <!-- <div class="m-3" style="float:right" *ngIf="isAdmin=='true' && event?.status==1">
                             <form class="form-inline f-right" [formGroup]="addTagForm" (ngSubmit)="onAdd()">
                                 <div>
                                     <select name="tag" formControlName="tag" class="form-control form-control-default" class="form-control" [ngClass]="{ 'is-invalid': submitted && tagForm.tag.errors }">
@@ -41,7 +41,7 @@
                                 </div>
                                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add Tag</button>
                             </form>
-                        </div>
+                        </div> -->
                         <img src={{event?.imageUrl}} height="404" width="722" alt={{event?.name}}>
                         <br>
                         <h3>Description:</h3>
@@ -49,31 +49,32 @@
                         <quill-view [preserveWhitespace]="true" [content]="event?.description"></quill-view>
                         <br>
                         <br>
-                        <button *ngIf="event?.status == 1" type="button" class="btn btn-primary waves-effect waves-light d-inline-block md-trigger" (click)="scan()"> <i class="icofont icofont-plus m-r-5"></i> Scan
+                        <button *ngIf="event?.status == 1" type="button" class="btn btn-primary waves-effect waves-light d-inline-block md-trigger"
+                            (click)="scan()"> <i class="icofont icofont-plus m-r-5"></i> Scan
                         </button>
                         <br>
                         <br>
                         <table class="table">
                             <thead>
-                              <tr>
-                                <th scope="col">Attendee</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Username</th>
-                              </tr>
+                                <tr>
+                                    <th scope="col">Attendee</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Username</th>
+                                </tr>
                             </thead>
                             <tbody *ngFor="let attendee of event?.attendees;index as i">
-                              <tr>
-                                <th scope="row">{{i+1}}</th>
-                                <td>{{attendee?.firstName}} {{attendee?.lastName}}</td>
-                                <td>{{attendee?.username}}</td>
-                              </tr>
+                                <tr>
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>{{attendee?.firstName}} {{attendee?.lastName}}</td>
+                                    <td>{{attendee?.username}}</td>
+                                </tr>
                             </tbody>
-                          </table>
+                        </table>
                     </div> <!-- events left -->
                 </div>
                 <div class="col-lg-4">
                     <div class="events-right">
-                        <div class="events-coundwon bg_cover" data-overlay="8" >
+                        <div class="events-coundwon bg_cover" data-overlay="8">
                             <h5>Event Infomation</h5>
                         </div> <!-- events coundwon -->
                         <div class="events-address mt-30">
@@ -85,7 +86,7 @@
                                         </div>
                                         <div class="cont">
                                             <h6>Start Time</h6>
-                                            <span>{{event?.eventDate | date:'yyyy-MM-dd':'UTC'}}  {{event?.startTime}}</span>
+                                            <span>{{event?.eventDate | date:'yyyy-MM-dd':'UTC'}} {{event?.startTime}}</span>
                                         </div>
                                     </div> <!-- singel address -->
                                 </li>
@@ -96,7 +97,7 @@
                                         </div>
                                         <div class="cont">
                                             <h6>Finish Time</h6>
-                                            <span>{{event?.eventDate | date:'yyyy-MM-dd':'UTC'}}  {{event?.endTime}}</span>
+                                            <span>{{event?.eventDate | date:'yyyy-MM-dd':'UTC'}} {{event?.endTime}}</span>
                                         </div>
                                     </div> <!-- singel address -->
                                 </li>

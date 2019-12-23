@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardApproveComponent } from './dashboard-approve.component';
-import {RouterModule, Routes} from '@angular/router';
-import {SharedModule} from '../../../shared/shared.module';
-import {ChartModule} from 'angular2-chartjs';
+import { RouterModule, Routes } from '@angular/router';
+import { SharedModule } from '../../../shared/shared.module';
+import { ChartModule } from 'angular2-chartjs';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule } from '@angular/forms';
 
 export const DashboardApproveRoutes: Routes = [
   {
@@ -24,8 +26,10 @@ export const DashboardApproveRoutes: Routes = [
     RouterModule.forChild(DashboardApproveRoutes),
     SharedModule,
     ChartModule,
-    FroalaEditorModule.forRoot(), 
-    FroalaViewModule.forRoot()
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot(),
+    FormsModule,
+    NgxPaginationModule
   ],
   declarations: [DashboardApproveComponent]
 })

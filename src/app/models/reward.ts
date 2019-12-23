@@ -10,6 +10,7 @@ export class Reward implements Deserializable{
     startDate: Date;
     endDate: Date;
     tags : Set<Tag>;
+    tagIds :Set<number>;
     criteria:number;
     submitter:User;
     status:number;

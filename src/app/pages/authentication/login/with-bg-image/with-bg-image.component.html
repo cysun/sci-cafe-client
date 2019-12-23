@@ -1,5 +1,5 @@
 <section class="login p-fixed d-flex text-center bg-primary common-img-bg">
-  <div class="auth-fluid">
+  <div class="auth-fluid ">
     <div class="row">
       <div class="col-sm-12">
         <div class="login-card card-body auth-body">
@@ -14,13 +14,19 @@
               <div class="form-group row">
                 <input type="input" class="form-control" formControlName="username" placeholder="Username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
                 <span class="md-line"></span>
-                <div class="messages text-danger error" *ngIf="submitted && loginForm.controls.username.errors?.required">Username can't be blank</div>              
-              </div>  
+                <div class="messages text-danger error" *ngIf="submitted && loginForm.controls.username.errors?.required">Username
+                  can't be blank</div>
+              </div>
               <div class="form-group row">
                 <input type="password" class="form-control" formControlName="password" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
                 <span class="md-line"></span>
-                <div class="messages text-danger error" *ngIf="submitted && loginForm.controls.password.errors?.required">Password can't be blank</div>
-                <div style="color:red" *ngIf="loginFail">The combination of username and password is wrong.</div>
+                <div class="messages text-danger error" *ngIf="submitted && loginForm.controls.password.errors?.required">Password
+                  can't be blank</div>
+                <div style="color:red" *ngIf="loginFail && !inactive">The combination of username and password is wrong.</div>
+              </div>
+              <div>
+                <div style="color:red" *ngIf="inactive">Your account is inactive please login to your email to use activation
+                  link to activate your account.</div>
               </div>
               <div class="row m-t-25 text-left formGroup row">
                 <div class="col-sm-7 col-xs-12">
@@ -34,7 +40,8 @@
               <div class="row m-t-30 formGroup">
                 <div class="col-md-12">
                   <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign in</button>
-                  <a [routerLink]="['/authentication/registration/with-bg-image']" class="text-right f-w-600 text-inverse">Sign up</a>
+                  <a [routerLink]="['/authentication/registration/register']" class="text-right f-w-600 text-inverse">Sign
+                    up</a>
                 </div>
               </div>
               <hr/>

@@ -2,7 +2,7 @@ import { Component, VERSION, OnInit, ViewChild } from '@angular/core';
 
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { Router, ActivatedRoute } from '@angular/router';
-import { EventService,UserService } from '../../../services';
+import { EventService, UserService } from '../../../services';
 
 import { Result } from '@zxing/library';
 import { User } from '../../../models';
@@ -15,7 +15,7 @@ export class ScannerComponent implements OnInit {
 
   ngVersion = VERSION.full;
 
-  user : User;
+  user: User;
   @ViewChild('scanner')
   scanner: ZXingScannerComponent;
 
@@ -27,29 +27,40 @@ export class ScannerComponent implements OnInit {
   availableDevices: MediaDeviceInfo[];
   currentDevice: MediaDeviceInfo;
 
-  eventId:number;
+  eventId: number;
 
   constructor(
     private router: Router,
-    private routerInfo:ActivatedRoute,
+    private routerInfo: ActivatedRoute,
     private eventService: EventService,
-    private userService:UserService,
-  ) { 
+    private userService: UserService,
+  ) {
 
   }
 
   camerasFoundHandler(event) {
-    this.scanner.scan(event[0].deviceId);     
+    this.currentDevice = event[0].deviceId;
   };
+
+  switchCamera() {
+    console.log("switch camera");
+    for (let device of this.availableDevices) {
+      console.log(this.availableDevices.length);
+      if (this.currentDevice.deviceId != device.deviceId) {
+        this.currentDevice = device;
+        break;
+      }
+    }
+  }
 
   ngOnInit(): void {
 
-    this.eventId =  this.routerInfo.snapshot.queryParams["eventId"];
+    this.eventId = this.routerInfo.snapshot.queryParams["eventId"];
 
     this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
       this.hasDevices = true;
       this.availableDevices = devices;
-      // this.currentDevice = devices[0];
+      this.currentDevice = devices[0];
     });
 
     this.scanner.scanComplete.subscribe((result: Result) => this.qrResult = result);
@@ -58,14 +69,14 @@ export class ScannerComponent implements OnInit {
 
   handleQrCodeResult(resultString: string) {
     console.debug('Result: ', resultString);
-    let userId = Number(resultString.split(' ',1));
-    this.eventService.addAttendeeById(this.eventId,userId).subscribe();
+    let userId = Number(resultString.split(' ', 1));
+    this.eventService.addAttendeeById(this.eventId, userId).subscribe();
     this.userService.getUserById(userId).subscribe(user => {
-        this.user = user;
+      this.user = user;
     });
     this.qrResultString = "Successfully add " + this.user.firstName + " " + this.user.lastName;
 
   }
 
-  
+
 }

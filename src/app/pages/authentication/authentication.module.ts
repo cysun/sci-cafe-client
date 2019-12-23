@@ -26,6 +26,9 @@ export const AuthenticationRoutes: Routes = [
       }, {
         path: 'lock-screen',
         loadChildren: './lock-screen/lock-screen.module#LockScreenModule'
+      },{
+        path: 'activate',
+        loadChildren: './activate/activate.module#ActivateModule'
       }
     ]
   }

@@ -18223,7 +18223,7 @@ body {
    ========================================= */
   .common-img-bg {
     background-size: cover;
-    background: url(assets/images/bg.jpg) no-repeat center center fixed;
+    background: url(assets/images/bg.jpg) center center fixed;
     height: 100%;
   }
   .header .login-card {
